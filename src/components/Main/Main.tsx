@@ -7,7 +7,7 @@ import styles from './Main.module.scss';
 export const Main: FC = () => {
   return (
     <main className={styles.main}>
-      <div className={styles.container}>
+      <div className="container">
         <Outlet />
       </div>
     </main>

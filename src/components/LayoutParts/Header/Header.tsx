@@ -1,25 +1,25 @@
 import type { FC } from 'react';
 import styles from './Header.module.scss';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const Header: FC = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
+      <div className="container">
         Header
         <nav>
           <ul className={styles.navList}>
             <li>
-              <Link to="/">Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <Link to="/phones">Phones</Link>
+              <NavLink to="/phones">Phones</NavLink>
             </li>
             <li>
-              <Link to="/tablets">Tablets</Link>
+              <NavLink to="/tablets">Tablets</NavLink>
             </li>
             <li>
-              <Link to="/accessories">Accessories</Link>
+              <NavLink to="/accessories">Accessories</NavLink>
             </li>
           </ul>
         </nav>

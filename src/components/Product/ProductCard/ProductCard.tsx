@@ -5,5 +5,5 @@ import { Card } from '../../Common/Card';
 import styles from './ProductCard.module.scss';
 
 export const ProductCard: FC = () => {
-  return <Card className={styles.product}>ProductCard</Card>;
+  return <Card className={styles.product}>Product Card</Card>;
 };
