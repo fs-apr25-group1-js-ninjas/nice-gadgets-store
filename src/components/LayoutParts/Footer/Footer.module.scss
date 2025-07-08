@@ -1,68 +1,64 @@
-@media (min-width: 320px) and (max-width: 639px) {
-  .footer {
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 32px 16px;
+  width: 100%;
+  gap: 32px;
+
+  .footerLogo {
+    width: 100%;
+
+    .logoImage {
+      height: 32px;
+      width: 89px;
+    }
+  }
+
+  .footerNavigation {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 32px 16px;
+    gap: 16px;
     width: 100%;
-    gap: 32px;
 
-    .footerLogo {
-      width: 100%;
+    .navLink {
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+  }
 
-      .logoImage {
-        height: 32px;
-        width: 89px;
-      }
+  .backToTopGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+
+    .backToTopText {
+      color: var(--secondary);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 100%;
+      transition: color 0.5s ease;
     }
 
-    .footerNavigation {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: flex-start;
-      width: 100%;
-
-      .navLink {
-        font-weight: 800;
-        font-size: 12px;
-        line-height: 11px;
-        letter-spacing: 4%;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-    }
-
-    .backToTopGroup {
+    .backToTopButton {
+      width: 32px;
+      height: 32px;
+      background-color: var(--selected);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      width: 100%;
-
-      .backToTopText {
-        color: var(--secondary);
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 100%;
-        transition: color 0.5s ease;
-      }
-
-      .backToTopButton {
-        width: 32px;
-        height: 32px;
-        background-color: var(--selected);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
     }
   }
 }
 
-@media (min-width: 640px) and (max-width: 1199px) {
-  .footer {
-    display: flex;
+@media (min-width: 640px) {
+  .footerContent {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -82,26 +78,17 @@
       align-items: center;
 
       .logoImage {
-        height: 32px;
-        width: 89px;
         object-fit: contain;
       }
     }
 
     .footerNavigation {
-      display: flex;
       flex-direction: row;
       justify-content: center;
-      gap: 32px;
       align-items: center;
+      gap: 32px;
 
       .navLink {
-        font-weight: 800;
-        font-size: 12px;
-        line-height: 11px;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        text-decoration: none;
         transition: color 0.5s ease;
         &:hover {
           color: var(--primary);
@@ -110,10 +97,7 @@
     }
 
     .backToTopGroup {
-      display: flex;
-      align-items: center;
       justify-content: flex-end;
-      gap: 16px;
       cursor: pointer;
       &:hover {
         .backToTopText {
@@ -124,21 +108,7 @@
         }
       }
 
-      .backToTopText {
-        color: var(--secondary);
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 100%;
-        transition: color 0.5s ease;
-      }
-
       .backToTopButton {
-        width: 32px;
-        height: 32px;
-        background-color: var(--selected);
-        display: flex;
-        align-items: center;
-        justify-content: center;
         transition: background-color 0.5s ease;
         cursor: pointer;
       }
@@ -147,87 +117,17 @@
 }
 
 @media (min-width: 1200px) {
-  .footer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 32px 152px;
+  .footerContent {
+    padding: 32px;
 
-    .footerLogo,
-    .footerNavigation,
-    .backToTopGroup {
-      flex-grow: 1;
-      flex-basis: 0;
-      max-width: none;
-    }
-
-    .footerLogo {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-
-      .logoImage {
-        height: 32px;
-        width: 89px;
-        object-fit: contain;
-      }
+    .logoImage {
+      height: 32px;
+      width: 89px;
+      object-fit: contain;
     }
 
     .footerNavigation {
-      display: flex;
-      flex-direction: row;
       justify-content: space-between;
-      gap: 32px;
-      align-items: center;
-
-      .navLink {
-        font-weight: 800;
-        font-size: 12px;
-        line-height: 11px;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        text-decoration: none;
-        transition: color 0.5s ease;
-        &:hover {
-          color: var(--primary);
-        }
-      }
-    }
-
-    .backToTopGroup {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 16px;
-      cursor: pointer;
-      &:hover {
-        .backToTopText {
-          color: var(--primary);
-        }
-        .backToTopButton {
-          background-color: var(--primary);
-        }
-      }
-
-      .backToTopText {
-        color: var(--secondary);
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 100%;
-        transition: color 0.5s ease;
-      }
-
-      .backToTopButton {
-        width: 32px;
-        height: 32px;
-        background-color: var(--selected);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.5s ease;
-        cursor: pointer;
-      }
     }
   }
 }
