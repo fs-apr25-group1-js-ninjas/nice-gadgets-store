@@ -1,14 +1,15 @@
+ 
 import type { FC } from 'react';
 import { useState, useEffect } from 'react';
 import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
-import FavouritesIcon from '../../../assets/icons/favourites.svg';
-import CartIcon from '../../../assets/icons/cart.svg';
-import MenuIcon from '../../../assets/icons/burger_menu.svg';
-import CloseIcon from '../../../assets/icons/close.svg';
-import NiceGadgetsLogo from '../../../assets/icons/nice_gadgets_logo.svg';
+import FavouritesIcon from '/icons/favourites.svg';
+import CartIcon from '/icons/cart.svg';
+import MenuIcon from '/icons/burger_menu.svg';
+import CloseIcon from '/icons/close.svg';
+import NiceGadgetsLogo from '/icons/nice_gadgets_logo.svg';
 
-const MOBILE_BREAKPOINT = 768;
+const MOBILE_BREAKPOINT = 639;
 
 export const Header: FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -106,16 +107,34 @@ export const Header: FC = () => {
         )}
         {!isMobileView && (
           <div className={styles.headerActions}>
-            <img
-              src={FavouritesIcon}
-              alt="Favourites"
-              className={styles.icon}
-            />
-            <img
-              src={CartIcon}
-              alt="Cart"
-              className={styles.icon}
-            />
+            <NavLink
+              to="/favourites"
+              className={({ isActive }) =>
+                isActive ?
+                  `${styles.actionBlock} ${styles.favouriteBlock} ${styles.activeActionBlock}`
+                : `${styles.actionBlock} ${styles.favouriteBlock}`
+              }
+            >
+              <img
+                src={FavouritesIcon}
+                alt="Favourites"
+                className={styles.icon}
+              />
+            </NavLink>
+            <NavLink
+              to="/cart"
+              className={({ isActive }) =>
+                isActive ?
+                  `${styles.actionBlock} ${styles.cartBlock} ${styles.activeActionBlock}`
+                : `${styles.actionBlock} ${styles.cartBlock}`
+              }
+            >
+              <img
+                src={CartIcon}
+                alt="Cart"
+                className={styles.icon}
+              />
+            </NavLink>
           </div>
         )}
 

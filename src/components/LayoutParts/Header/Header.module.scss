@@ -1,5 +1,6 @@
-$tablet-breakpoint: 1024px;
-$mobile-breakpoint: 768px;
+$tablet-breakpoint: 640px;
+$large-desktop-breakpoint: 1200px;
+$mobile-breakpoint: 639px;
 
 @font-face {
   font-family: 'Montserrat';
@@ -12,44 +13,58 @@ $mobile-breakpoint: 768px;
   position: sticky;
   top: 0;
   width: 100%;
+  height: 64px;
   z-index: 1000;
   border-bottom: 1px solid var(--selected);
 }
 
 .headerContainer {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 10px 20px;
+  height: 100%;
   display: flex;
   align-items: center;
 }
 
 .logoLink {
   display: flex;
+  justify-content: center;
   align-items: center;
+  height: 100%;
   text-decoration: none;
+  padding: 0 16px;
 }
 
 .logo {
-  width: 150px;
+  width: 100px;
   height: auto;
 }
 
 .navbarNav {
+  margin-left: 24px;
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  flex-grow: 1;
+
   .navList {
     list-style: none;
-    margin-left: 40px;
     padding: 0;
+    margin: 0;
     display: flex;
+    height: 100%;
+    gap: 32px;
   }
 
   .navLink {
     text-decoration: none;
     color: var(--secondary);
     font-weight: 500;
-    padding-bottom: 5px;
     transition: color 0.3s ease;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
 
     &:hover {
       color: var(--primary);
@@ -57,17 +72,15 @@ $mobile-breakpoint: 768px;
 
     &.activeNavLink {
       color: var(--white);
-      .navLinkText {
-        position: relative;
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 2px;
-          background-color: var(--white);
-        }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: var(--white);
       }
     }
   }
@@ -75,14 +88,26 @@ $mobile-breakpoint: 768px;
 
 .headerActions {
   display: flex;
-  gap: 20px;
   align-items: center;
+  height: 100%;
+}
+
+.actionBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 64px;
+  border: 1px solid var(--elements);
+
+  &.activeActionBlock {
+    border-bottom: 3px solid var(--white);
+  }
 }
 
 .icon {
   width: 24px;
   height: 24px;
-  cursor: pointer;
   transition: opacity 0.3s ease;
 
   &:hover {
@@ -91,12 +116,15 @@ $mobile-breakpoint: 768px;
 }
 
 .mobileMenuToggle {
-  display: none;
   background: none;
-  border: none;
-  cursor: pointer;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--elements);
+  margin: 0;
   padding: 0;
-  z-index: 1001;
 }
 
 .menuIcon {
@@ -104,9 +132,23 @@ $mobile-breakpoint: 768px;
   height: 30px;
 }
 
+@media (min-width: $large-desktop-breakpoint) {
+  .logoLink {
+    padding: 0 24px;
+  }
+
+  .headerActions {
+    .actionBlock {
+      height: 64px;
+      width: 64px;
+    }
+  }
+}
+
 @media (max-width: $tablet-breakpoint) {
   .headerContainer {
-    padding: 10px 15px;
+    padding-left: 16px;
+    justify-content: space-between;
   }
 
   .navbarNav {
@@ -132,7 +174,7 @@ $mobile-breakpoint: 768px;
   }
 
   .mobileMenuToggle {
-    display: block;
+    display: flex;
   }
 
   .logo {
@@ -148,37 +190,43 @@ $mobile-breakpoint: 768px;
     width: 100%;
     height: 100vh;
     background-color: var(--black);
-    box-shadow: 0 4px 8px var(--selected);
-    border-top: 1px solid var(--selected);
     animation: slideInFromLeft 0.3s forwards;
 
     .mobileMenuHeader {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 20px;
+      padding: 10px 0 0 16px;
       border-bottom: 1px solid var(--selected);
       margin-bottom: 30px;
     }
 
     .mobileLogoLink {
       display: flex;
+      justify-content: center;
       align-items: center;
+      width: 96px;
+      height: 48px;
     }
 
     .mobileLogo {
       width: 100px;
       height: auto;
+      padding-bottom: 10px;
     }
 
     .mobileMenuClose {
-      background: none;
-      border: none;
+      border-left: 1px solid var(--elements);
       cursor: pointer;
-      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 100%;
       .mobileMenuCloseIcon {
         width: 30px;
         height: 30px;
+        // padding-bottom: 10px;
       }
     }
 
