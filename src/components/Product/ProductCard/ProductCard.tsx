@@ -1,29 +1,34 @@
 // import { Card } from '../../Common/Card';
-
-import type { FC } from 'react';
-import iphone7Black00 from '../../../assets/images/phones/apple-iphone-7/black/00.webp';
-
 import styles from './ProductCard.module.scss';
 
-// import type { Product } from '../../../types/product';
-import { Link } from 'react-router-dom';
 import type { Product } from '../../../types/product';
+import { Link } from 'react-router-dom';
+import { useState, type FC } from 'react';
+import { AddToCartButton } from '../AddToCartButton';
+import { FavoritesButton } from '../FavoritesButton/FavoritesButton';
 
 interface Props {
-  product?: Product;
+  product: Product;
 }
 
-export const ProductCard: FC<Props> = () => {
-  const product = {
-    category: 'phones',
-    itemId: 'apple-iphone-7-32gb-black',
-    name: 'Apple iPhone 7 32GB Black',
-    price: 375,
-    screen: "4.7' IPS",
-    capacity: '32GB',
-    ram: '2GB',
-    image: iphone7Black00,
+export const ProductCard: FC<Props> = ({ product }) => {
+  const [cartIds, setCartIds] = useState<number[]>([]);
+
+  const addToCart = () => {
+    setCartIds([...cartIds, product.id]);
   };
+
+  const [favIds, setFavIds] = useState<number[]>([]);
+
+  const addToFavorites = () => {
+    setFavIds((prev) =>
+      prev.includes(product.id) ?
+        prev.filter((id) => id !== product.id)
+      : [...prev, product.id],
+    );
+    console.log(favIds);
+  };
+
   return (
     <div className={styles.card}>
       <Link
@@ -59,6 +64,12 @@ export const ProductCard: FC<Props> = () => {
           </div>
         </div>
       </Link>
+
+      <div className={styles.actions}>
+        <AddToCartButton onClick={addToCart} />
+
+        <FavoritesButton onClick={addToFavorites} />
+      </div>
     </div>
   );
 

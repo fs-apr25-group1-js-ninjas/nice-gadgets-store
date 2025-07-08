@@ -1,17 +1,17 @@
 @font-face {
-  font-family: Mont, sans-serif;
-  src: url(./fonts/Mont-Regular.otf);
   font-weight: 600;
+  src: url('/fonts/Mont-Regular.otf') format('opentype');
+  font-family: Mont;
 }
 
 @font-face {
-  font-family: Mont, sans-serif;
-  src: url(./fonts/Mont-SemiBold.otf);
+  src: url('/fonts/Mont-SemiBold.otf');
   font-weight: 700;
+  font-family: Mont;
 }
 
 @font-face {
-  font-family: Mont, sans-serif;
-  src: url(./fonts/Mont-Bold.otf);
+  src: url('../assets/fonts/Mont-Bold.otf');
   font-weight: 800;
+  font-family: Mont;
 }

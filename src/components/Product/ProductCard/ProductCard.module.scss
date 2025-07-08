@@ -1,13 +1,16 @@
 .card {
   display: flex;
-  border: 1px solid #fff;
   flex-direction: column;
-  width: 212px;
   height: 439px;
   padding: 32px;
   background-color: #161827;
   border-radius: 8px;
   box-sizing: border-box;
+
+  @media (min-width: 320px) and (max-width: 639px) {
+  }
+  @media (min-width: 640px) and (max-width: 1199px) {
+  }
 }
 
 .cardLink {
@@ -72,4 +75,11 @@
     color: #f1f2f9;
     text-align: right;
   }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
 }
