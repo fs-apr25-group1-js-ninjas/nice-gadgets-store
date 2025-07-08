@@ -1,1 +1,75 @@
-//style
+.card {
+  display: flex;
+  border: 1px solid #fff;
+  flex-direction: column;
+  width: 212px;
+  height: 439px;
+  padding: 32px;
+  background-color: #161827;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.cardLink {
+  display: block;
+  text-decoration: none;
+  color: #f1f2f9;
+}
+
+.image {
+  width: 148px;
+  height: 129px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  height: 58px;
+  color: #f1f2f9;
+}
+
+.prices {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #3b3e4a;
+  margin-bottom: 8px;
+}
+
+.specs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-family: 'Mont';
+    line-height: 1;
+  }
+
+  .key {
+    font-family: 'Mont';
+    font-weight: 700;
+    color: #75767f;
+    text-align: left;
+    font-size: 12px;
+  }
+
+  .value {
+    font-weight: 700;
+    color: #f1f2f9;
+    text-align: right;
+  }
+}
