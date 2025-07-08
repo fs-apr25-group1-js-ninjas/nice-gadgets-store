@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import logo from '../../../assets/icons/nice_gadgets_logo.svg';
-import arrowUpIcon from '../../../assets/icons/arrow_up.svg';
+import logo from '/icons/nice_gadgets_logo.svg';
+import arrowUpIcon from '/icons/arrow_up.svg';
 import styles from './Footer.module.scss';
 
 const scrollToTop = () => {

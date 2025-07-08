@@ -4,8 +4,8 @@ import { HeroSlider } from '../../Sliders/HeroSlider';
 
 export const WelcomeSection: FC = () => {
   return (
-    <section className={styles.welcomeSection}>
-      <h1>Welcome to Nice Gadgets store!</h1>
+    <section className={styles.box}>
+      <h1 className={styles.title}>Welcome to Nice Gadgets store!</h1>
       <HeroSlider />
     </section>
   );
