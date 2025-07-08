@@ -1,19 +1,19 @@
 $tablet-breakpoint: 1024px;
 $mobile-breakpoint: 768px;
 
-$header-bg-color: #0f1121;
-$text-color-light: #f1f2f9;
-$text-color-dark: #75767f;
-$accent-color: #905bff;
-$border-color: #323542;
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../../assets/fonts/Mont-Bold.otf');
+}
 
 .header {
-  background-color: $header-bg-color;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--black);
   position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid var(--selected);
 }
 
 .headerContainer {
@@ -45,18 +45,18 @@ $border-color: #323542;
 
   .navLink {
     text-decoration: none;
-    color: $text-color-dark;
+    color: var(--secondary);
     font-weight: 500;
     padding-bottom: 5px;
     transition: color 0.3s ease;
     display: inline-block;
 
     &:hover {
-      color: $accent-color;
+      color: var(--primary);
     }
 
     &.activeNavLink {
-      color: $text-color-light;
+      color: var(--white);
       .navLinkText {
         position: relative;
         &::after {
@@ -66,7 +66,7 @@ $border-color: #323542;
           left: 0;
           width: 100%;
           height: 2px;
-          background-color: $text-color-light;
+          background-color: var(--white);
         }
       }
     }
@@ -147,9 +147,9 @@ $border-color: #323542;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: $header-bg-color;
-    box-shadow: 0 4px 8px $border-color;
-    border-top: 1px solid $border-color;
+    background-color: var(--black);
+    box-shadow: 0 4px 8px var(--selected);
+    border-top: 1px solid var(--selected);
     animation: slideInFromLeft 0.3s forwards;
 
     .mobileMenuHeader {
@@ -157,7 +157,7 @@ $border-color: #323542;
       justify-content: space-between;
       align-items: center;
       padding-bottom: 20px;
-      border-bottom: 1px solid $border-color;
+      border-bottom: 1px solid var(--selected);
       margin-bottom: 30px;
     }
 
@@ -210,7 +210,7 @@ $border-color: #323542;
 
     .mobileNavLink {
       text-decoration: none;
-      color: $text-color-dark;
+      color: var(--secondary);
       font-weight: 500;
       font-size: 1.1em;
       display: inline-block;
@@ -218,11 +218,11 @@ $border-color: #323542;
       transition: color 0.3s ease;
 
       &:hover {
-        color: $accent-color;
+        color: var(--primary);
       }
 
       &.activeMobileNavLink {
-        color: $text-color-light;
+        color: var(--white);
 
         .navLinkText {
           position: relative;
@@ -233,7 +233,7 @@ $border-color: #323542;
             left: 0;
             width: 100%;
             height: 2px;
-            background-color: $text-color-light;
+            background-color: var(--white);
           }
         }
       }
@@ -243,7 +243,7 @@ $border-color: #323542;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid $border-color;
+      border-top: 1px solid var(--selected);
       margin-top: auto;
       width: 100%;
     }
@@ -258,7 +258,7 @@ $border-color: #323542;
       flex-grow: 1;
       flex-basis: 0;
       height: 64px;
-      border: 1px solid $border-color;
+      border: 1px solid var(--selected);
       transition:
         background-color 0.3s ease,
         border-color 0.3s ease;
@@ -267,7 +267,7 @@ $border-color: #323542;
     .mobileActionIcon {
       width: 24px;
       height: 24px;
-      color: $text-color-light;
+      color: var(--white);
       transition: opacity 0.3s ease;
 
       &:hover {
@@ -276,7 +276,7 @@ $border-color: #323542;
     }
     .activeMobileActionIconLink {
       .mobileActionIcon {
-        color: $accent-color;
+        color: var(--primary);
       }
       &::after {
         content: '';
@@ -286,7 +286,7 @@ $border-color: #323542;
         transform: translateX(0);
         width: 100%;
         height: 2px;
-        background-color: $text-color-light;
+        background-color: var(--white);
       }
     }
   }
