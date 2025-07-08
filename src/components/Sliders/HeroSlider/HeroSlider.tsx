@@ -5,8 +5,8 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 //@ts-expect-error: Swiper CSS has no TS types
 import 'swiper/scss';
 
-import ArrowLeft from '../../../assets/icons/arrow_left_active.svg';
-import ArrowRight from '../../../assets/icons/arrow_right_active.svg';
+import ArrowLeft from '/icons/arrow_left_active.svg';
+import ArrowRight from '/icons/arrow_right_active.svg';
 import phonesBanner from '/img/banner-phones.png';
 import tabletsBanner from '/img/banner-tablets.png';
 import accessoriesBanner from '/img/banner-accessories.png';
