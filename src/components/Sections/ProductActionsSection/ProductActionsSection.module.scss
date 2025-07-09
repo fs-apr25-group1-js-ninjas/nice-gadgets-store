@@ -1,0 +1,81 @@
+.productActions {
+  .text {
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .secondaryText {
+    color: var(--secondary);
+    font-size: 12px;
+  }
+
+  .line {
+    border: 1px solid var(--icons);
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .availableColors {
+    display: flex;
+    justify-content: space-between;
+    height: 55px;
+    margin-bottom: 24px;
+  }
+
+  .selectCapacity {
+    display: flex;
+    height: 55px;
+    margin-bottom: 24px;
+  }
+
+  .prices {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .priceDiscount {
+      font-weight: 800;
+      font-size: 32px;
+      line-height: 128%;
+    }
+
+    .priceRegular {
+      font-weight: 600;
+      font-size: 22px;
+      text-decoration: line-through;
+      color: var(--secondary);
+    }
+  }
+
+  .buttons {
+    display: flex;
+    margin-bottom: 32px;
+    gap: 8px;
+
+    .buttonAdd {
+      width: 231px;
+      height: 48px;
+      background-color: var(--primary);
+
+      @media (min-width: 640px) {
+        width: 263px;
+      }
+    }
+    .buttonFav {
+      width: 48px;
+      height: 48px;
+      background-color: var(--icons);
+    }
+  }
+
+  .shortInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .textContainer {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
