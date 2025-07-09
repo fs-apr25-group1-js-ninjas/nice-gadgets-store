@@ -1,4 +1,3 @@
- 
 import type { FC } from 'react';
 import { useState, useEffect } from 'react';
 import styles from './Header.module.scss';
