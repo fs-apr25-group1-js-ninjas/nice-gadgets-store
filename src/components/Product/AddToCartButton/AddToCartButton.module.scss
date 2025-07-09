@@ -1,1 +1,11 @@
-//style
+.button {
+  flex: 1;
+  background-color: var(--primary);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 40px;
+  width: 81px;
+  height: 40px;
+  padding: 0 9.5px;
+}
