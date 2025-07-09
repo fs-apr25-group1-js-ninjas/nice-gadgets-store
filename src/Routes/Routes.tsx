@@ -1,14 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { App } from '../App';
-import { AccessoriesPage } from '../pages/AccessoriesPage/AccessoriesPage';
 import { CartPage } from '../pages/CartPage/CartPage';
 import { FavouritesPage } from '../pages/FavouritesPage/FavouritesPage';
 import { HomePage } from '../pages/HomePage/HomePage';
 import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
-import { PhonesPage } from '../pages/PhonesPage/PhonesPage';
 import { ProductPage } from '../pages/ProductPage/ProductPage';
-import { TabletsPage } from '../pages/TabletsPage/TabletsPage';
+import { ProductsPage } from '../pages/ProductsPage/ProductsPage';
 
 export const router = createBrowserRouter([
   {
@@ -21,19 +19,11 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'phones',
-        element: <PhonesPage />,
+        path: ':category',
+        element: <ProductsPage />,
       },
       {
-        path: 'tablets',
-        element: <TabletsPage />,
-      },
-      {
-        path: 'accessories',
-        element: <AccessoriesPage />,
-      },
-      {
-        path: 'products/:productId',
+        path: ':category/:itemId',
         element: <ProductPage />,
       },
       {

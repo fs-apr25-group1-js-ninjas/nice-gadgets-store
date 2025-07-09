@@ -2,9 +2,9 @@ import type { FC } from 'react';
 
 import { ProductsListSection } from '../../components/Sections/ProductsListSection';
 
-import styles from './PhonesPage.module.scss';
+import styles from './ProductsPage.module.scss';
 
-export const PhonesPage: FC = () => {
+export const ProductsPage: FC = () => {
   return (
     <div className={styles.phones}>
       <h1>Phones</h1>
