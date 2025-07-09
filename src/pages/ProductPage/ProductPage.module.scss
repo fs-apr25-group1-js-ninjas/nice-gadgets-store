@@ -1,7 +1,9 @@
 .productPage {
+  padding-block: 24px 56px;
   padding-inline: 16px;
 
   @media (min-width: 640px) {
+    padding-bottom: 64px;
     padding-inline: 32px;
     gap: 80px;
   }
@@ -17,6 +19,9 @@
   }
 
   .back {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     font-weight: 700;
     font-size: 12px;
     margin-bottom: 16px;

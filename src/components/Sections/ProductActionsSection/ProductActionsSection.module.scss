@@ -15,16 +15,72 @@
   }
 
   .availableColors {
-    display: flex;
-    justify-content: space-between;
-    height: 55px;
-    margin-bottom: 24px;
+    .subtitleBox {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .colorOptions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+
+      .colorSwatch {
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--icons);
+        border-radius: 50%;
+        cursor: pointer;
+        padding: 3px;
+        background-clip: content-box;
+
+        &.activeColor {
+          border-color: var(--white);
+        }
+
+        &:disabled {
+          cursor: default;
+        }
+      }
+    }
   }
 
   .selectCapacity {
     display: flex;
-    height: 55px;
-    margin-bottom: 24px;
+    flex-direction: column;
+    .capacityOptions {
+      display: flex;
+      gap: 8px;
+      margin-block: 8px 24px;
+
+      .capacityButton {
+        padding: 8px 16px;
+        border: 1px solid var(--icons);
+        background-color: var(--black);
+        color: var(--white);
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 14px;
+        transition: all 0.3s ease;
+
+        &:hover:not(:disabled) {
+          border-color: var(--white);
+        }
+
+        &.activeCapacity {
+          background-color: var(--white);
+          color: var(--black);
+          border-color: var(--white);
+        }
+
+        &:disabled {
+          cursor: default;
+          opacity: 0.8;
+        }
+      }
+    }
   }
 
   .prices {
@@ -45,6 +101,12 @@
       text-decoration: line-through;
       color: var(--secondary);
     }
+    .priceCurrent {
+      font-weight: 800;
+      font-size: 32px;
+      line-height: 128%;
+      color: var(--primary-color);
+    }
   }
 
   .buttons {
@@ -56,6 +118,17 @@
       width: 231px;
       height: 48px;
       background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: var(--hover);
+      }
 
       @media (min-width: 640px) {
         width: 263px;
@@ -64,7 +137,22 @@
     .buttonFav {
       width: 48px;
       height: 48px;
-      background-color: var(--icons);
+      background-color: var(--elements);
+      border: 1px solid var(--elements);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+
+      &:hover {
+        background-color: var(--icons);
+        border-color: var(--icons);
+      }
     }
   }
 
