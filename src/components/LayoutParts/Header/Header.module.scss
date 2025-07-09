@@ -1,1 +1,356 @@
-//style
+$tablet-breakpoint: 640px;
+$large-desktop-breakpoint: 1200px;
+$mobile-breakpoint: 639px;
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../../assets/fonts/Mont-Bold.otf');
+}
+
+.header {
+  font-family: 'Montserrat', sans-serif;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 64px;
+  z-index: 1000;
+  border-bottom: 1px solid var(--selected);
+}
+
+.headerContainer {
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.logoLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  padding: 0 16px;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+.navbarNav {
+  margin-left: 24px;
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  flex-grow: 1;
+
+  .navList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    height: 100%;
+    gap: 32px;
+  }
+
+  .navLink {
+    text-decoration: none;
+    color: var(--secondary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+
+    &:hover {
+      color: var(--primary);
+    }
+
+    &.activeNavLink {
+      color: var(--white);
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: var(--white);
+      }
+    }
+  }
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.actionBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 64px;
+  border: 1px solid var(--elements);
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+
+  &.activeActionBlock {
+    border-bottom: 2px solid var(--white);
+  }
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.mobileMenuToggle {
+  background: none;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--elements);
+  border-top: 0;
+  border-right: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.menuIcon {
+  width: 30px;
+  height: 30px;
+}
+
+@media (min-width: $large-desktop-breakpoint) {
+  .logoLink {
+    padding: 0 24px;
+  }
+
+  .headerActions {
+    .actionBlock {
+      height: 64px;
+      width: 64px;
+    }
+  }
+}
+
+@media (max-width: $tablet-breakpoint) {
+  .headerContainer {
+    padding-left: 16px;
+    justify-content: space-between;
+  }
+
+  .navbarNav {
+    .navList {
+      gap: 20px;
+    }
+  }
+
+  .logo {
+    width: 120px;
+  }
+}
+
+@media (max-width: $mobile-breakpoint) {
+  .headerContainer {
+    justify-content: space-between;
+  }
+
+  .navbarNav,
+  .headerActions {
+    display: none;
+  }
+
+  .mobileMenuToggle {
+    display: flex;
+  }
+
+  .logo {
+    width: 100px;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--black);
+    animation: slideInFromLeft 0.3s forwards;
+
+    .mobileMenuHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0 0 16px;
+      border-bottom: 1px solid var(--selected);
+      border-right: 0;
+      margin-bottom: 30px;
+    }
+
+    .mobileLogoLink {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 96px;
+      height: 48px;
+      border-right: 0;
+    }
+
+    .mobileLogo {
+      width: 100px;
+      height: auto;
+      padding-bottom: 10px;
+    }
+
+    .mobileMenuClose {
+      border-left: 1px solid var(--elements);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 100%;
+      .mobileMenuCloseIcon {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    .mobileNav {
+      flex-grow: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      .mobileNavList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+      }
+
+      .mobileNavList > li {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .mobileNavLink {
+      text-decoration: none;
+      color: var(--secondary);
+      font-weight: 500;
+      font-size: 1.1em;
+      display: inline-block;
+      padding: 10px 0;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: var(--primary);
+      }
+
+      &.activeMobileNavLink {
+        color: var(--white);
+
+        .navLinkText {
+          position: relative;
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--white);
+          }
+        }
+      }
+    }
+
+    .mobileActions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--selected);
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .mobileActionIconLink {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      position: relative;
+      flex-grow: 1;
+      flex-basis: 0;
+      height: 64px;
+      border: 1px solid var(--selected);
+      transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    .mobileActionIcon {
+      width: 24px;
+      height: 24px;
+      color: var(--white);
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+    .activeMobileActionIconLink {
+      .mobileActionIcon {
+        color: var(--primary);
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translateX(0);
+        width: 100%;
+        height: 2px;
+        background-color: var(--white);
+      }
+    }
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
