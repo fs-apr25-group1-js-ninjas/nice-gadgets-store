@@ -5,11 +5,7 @@ import { ProductCard } from '../../Product/ProductCard';
 import type { Product } from '../../../types/product';
 import { getProducts } from '../../../utils/getProducts';
 
-type Props = {
-  products: Product[];
-};
-
-export const BrandNewModelsSection: FC<Props> = () => {
+export const BrandNewModelsSection: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
