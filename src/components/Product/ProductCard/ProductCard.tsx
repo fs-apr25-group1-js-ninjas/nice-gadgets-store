@@ -66,7 +66,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
       </Link>
 
       <div className={styles.actions}>
-        <AddToCartButton onClick={addToCart}> Add to card</AddToCartButton>
+        <AddToCartButton onClick={addToCart} />
 
         <FavoritesButton onClick={addToFavorites} />
       </div>

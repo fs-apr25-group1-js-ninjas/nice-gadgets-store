@@ -1,18 +1,17 @@
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import styles from './AddToCartButton.module.scss';
 
 type Props = {
   onClick: () => void;
-  children: ReactNode;
 };
 
-export const AddToCartButton: FC<Props> = ({ onClick, children }) => {
+export const AddToCartButton: FC<Props> = ({ onClick }) => {
   return (
     <button
       className={styles.button}
       onClick={onClick}
     >
-      {children}
+      Add to cart
     </button>
   );
 };
