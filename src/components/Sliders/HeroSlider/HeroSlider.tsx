@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 //@ts-expect-error: Swiper CSS has no TS types
@@ -43,8 +43,15 @@ const categoryBanners: categoryItem[] = [
 
 export const HeroSlider: FC = () => {
   const paginationRef = useRef<HTMLDivElement>(null);
+  const [swiperReady, setSwiperReady] = useState(false);
 
   const isLargeScreen = useMediaQuery({ minWidth: 640 });
+
+  useEffect(() => {
+    if (paginationRef.current) {
+      setSwiperReady(true);
+    }
+  }, [paginationRef.current]);
 
   return (
     <div className={styles.heroSlider}>
@@ -58,45 +65,47 @@ export const HeroSlider: FC = () => {
           </button>
         )}
 
-        <Swiper
-          slidesPerView={1}
-          spaceBetween={0}
-          loop={true}
-          autoplay={{ delay: 5000 }}
-          navigation={{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          }}
-          pagination={{
-            clickable: true,
-            el: paginationRef.current!,
-          }}
-          modules={[Pagination, Navigation, Autoplay]}
-          onBeforeInit={(swiper) => {
-            // @ts-expect-error — for TypeScript
-            swiper.params.pagination.el = paginationRef.current;
-          }}
-          className={styles.swiper}
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          {categoryBanners.map(({ category, label, image }) => (
-            <SwiperSlide key={label}>
-              <Link
-                to={category}
-                style={{ textDecoration: 'none' }}
-              >
-                <img
-                  src={image}
-                  alt="Slide"
-                  className="swiper-img"
-                />
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {swiperReady && (
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={0}
+            loop={true}
+            autoplay={{ delay: 5000 }}
+            navigation={{
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }}
+            pagination={{
+              clickable: true,
+              el: paginationRef.current!,
+            }}
+            modules={[Pagination, Navigation, Autoplay]}
+            onBeforeInit={(swiper) => {
+              // @ts-expect-error — for TypeScript
+              swiper.params.pagination.el = paginationRef.current;
+            }}
+            className={styles.swiper}
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            {categoryBanners.map(({ category, label, image }) => (
+              <SwiperSlide key={label}>
+                <Link
+                  to={category}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <img
+                    src={image}
+                    alt="Slide"
+                    className="swiper-img"
+                  />
+                </Link>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
 
         {isLargeScreen && (
           <button className="swiper-button-next">
