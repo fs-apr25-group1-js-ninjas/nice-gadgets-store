@@ -15,6 +15,7 @@ $mobile-breakpoint: 639px;
   height: 64px;
   z-index: 1000;
   border-bottom: 1px solid var(--selected);
+  background-color: var(--black);
 }
 
 .headerContainer {
