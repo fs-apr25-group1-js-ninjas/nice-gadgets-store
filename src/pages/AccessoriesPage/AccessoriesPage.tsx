@@ -8,6 +8,7 @@ export const AccessoriesPage: FC = () => {
   return (
     <div className={styles.accessories}>
       <h1>Accessories</h1>
+
       <ProductsListSection />
     </div>
   );
