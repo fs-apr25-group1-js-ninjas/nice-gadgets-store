@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import heartIcon from '../../../assets/icons/favourites.svg';
+import heartIcon from '/icons/favourites.svg';
 import styles from './FavoritesButton.module.scss';
 
 type Props = {
