@@ -9,7 +9,6 @@ $mobile-breakpoint: 639px;
 
 .header {
   font-family: 'Montserrat', sans-serif;
-  background-color: var(--black);
   position: sticky;
   top: 0;
   width: 100%;
@@ -99,9 +98,12 @@ $mobile-breakpoint: 639px;
   height: 100%;
   width: 64px;
   border: 1px solid var(--elements);
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
 
   &.activeActionBlock {
-    border-bottom: 3px solid var(--white);
+    border-bottom: 2px solid var(--white);
   }
 }
 
@@ -123,6 +125,8 @@ $mobile-breakpoint: 639px;
   justify-content: center;
   align-items: center;
   border: 1px solid var(--elements);
+  border-top: 0;
+  border-right: 0;
   margin: 0;
   padding: 0;
 }
@@ -164,7 +168,6 @@ $mobile-breakpoint: 639px;
 
 @media (max-width: $mobile-breakpoint) {
   .headerContainer {
-    padding: 10px;
     justify-content: space-between;
   }
 
@@ -198,6 +201,7 @@ $mobile-breakpoint: 639px;
       align-items: center;
       padding: 10px 0 0 16px;
       border-bottom: 1px solid var(--selected);
+      border-right: 0;
       margin-bottom: 30px;
     }
 
@@ -207,6 +211,7 @@ $mobile-breakpoint: 639px;
       align-items: center;
       width: 96px;
       height: 48px;
+      border-right: 0;
     }
 
     .mobileLogo {
@@ -226,7 +231,6 @@ $mobile-breakpoint: 639px;
       .mobileMenuCloseIcon {
         width: 30px;
         height: 30px;
-        // padding-bottom: 10px;
       }
     }
 
