@@ -51,7 +51,7 @@ export const HeroSlider: FC = () => {
     if (paginationRef.current) {
       setSwiperReady(true);
     }
-  }, [paginationRef.current]);
+  }, []);
 
   return (
     <div className={styles.heroSlider}>
