@@ -6,7 +6,10 @@ export const RecommendedProductsSection: FC = () => {
   return (
     <section className={styles.recommendedProductsSection}>
       <h2 className={styles.sectionTitle}>You may also like</h2>
-      <ProductsSlider />
+      <ProductsSlider
+        title="Recommended Products"
+        products={[]}
+      />
     </section>
   );
 };
