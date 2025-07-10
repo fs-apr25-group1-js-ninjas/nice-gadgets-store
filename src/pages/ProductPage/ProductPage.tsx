@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 
 import backIcon from '/icons/arrow_left_active.svg';
@@ -30,6 +30,46 @@ export const ProductPage: FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const parsedUrlInfo = useMemo(() => {
+    let effectiveNamespaceId = itemId;
+    let parsedCapacity: string | null = null;
+    let parsedColor: string | null = null;
+
+    if (itemId) {
+      const regex =
+        /^(.*?)(?:-(\d+(?:gb|mb|tb)))-([a-z]+(?:-[a-z]+)*)$|^(.+?)-([a-z]+(?:-[a-z]+)*)$|^(.+)$/i;
+      const match = itemId.match(regex);
+
+      if (match) {
+        if (match[1] && match[2] && match[3]) {
+          effectiveNamespaceId = match[1];
+          parsedCapacity = match[2].toUpperCase();
+          parsedColor = match[3].toLowerCase();
+        } else if (match[4] && match[5]) {
+          effectiveNamespaceId = match[4];
+          parsedColor = match[5].toLowerCase();
+        } else if (match[6]) {
+          effectiveNamespaceId = match[6];
+        }
+      }
+    }
+
+    const searchParamCapacity = searchParams.get('capacity');
+    const searchParamColor = searchParams.get('color');
+
+    return {
+      effectiveNamespaceId: effectiveNamespaceId,
+      initialSelectedCapacity: searchParamCapacity || parsedCapacity,
+      initialSelectedColor: searchParamColor || parsedColor,
+    };
+  }, [itemId, searchParams]);
+
+  const {
+    effectiveNamespaceId,
+    initialSelectedCapacity,
+    initialSelectedColor,
+  } = parsedUrlInfo;
+
   const findProductVariant = useCallback(
     (
       variants: DetailedProduct[],
@@ -52,31 +92,14 @@ export const ProductPage: FC = () => {
       setProduct(null);
       setAllProductVariants([]);
 
-      if (!category || !itemId) {
-        // Тут ми вже перевіряємо, що itemId існує
+      if (!category || !effectiveNamespaceId) {
         setError('Category or Product ID is missing in the URL.');
         setLoading(false);
         return;
       }
 
-      // Після цієї перевірки, TypeScript знає, що category та itemId є string
-      let effectiveNamespaceId = itemId; // itemId вже точно string тут
-      const regex =
-        /^(.*?)(?:-(\d+(?:gb|mb|tb)))-([a-z]+(?:-[a-z]+)*)$|^(.+?)-([a-z]+(?:-[a-z]+)*)$|^(.+)$/i;
-      const match = itemId.match(regex); // itemId вже точно string тут
-
-      if (match) {
-        if (match[1] && match[2] && match[3]) {
-          effectiveNamespaceId = match[1];
-        } else if (match[4] && match[5]) {
-          effectiveNamespaceId = match[4];
-        } else if (match[6]) {
-          effectiveNamespaceId = match[6];
-        }
-      }
-
       try {
-        const categoryFileName = `${category!.toLowerCase()}.json`; // category тепер точно string
+        const categoryFileName = `${category.toLowerCase()}.json`;
         const response = await fetch(`/api/${categoryFileName}`);
 
         if (!response.ok) {
@@ -111,7 +134,7 @@ export const ProductPage: FC = () => {
     };
 
     fetchAllProductVariants();
-  }, [category, itemId]);
+  }, [category, effectiveNamespaceId]);
 
   useEffect(() => {
     if (allProductVariants.length === 0 && !loading && !error) {
@@ -121,26 +144,6 @@ export const ProductPage: FC = () => {
 
     if (allProductVariants.length === 0) {
       return;
-    }
-
-    let initialSelectedCapacity: string | null = searchParams.get('capacity');
-    let initialSelectedColor: string | null = searchParams.get('color');
-
-    // Тут також itemId вже точно string завдяки перевірці у першому useEffect
-    if (!initialSelectedCapacity || !initialSelectedColor) {
-      const regex =
-        /^(.*?)(?:-(\d+(?:gb|mb|tb)))-([a-z]+(?:-[a-z]+)*)$|^(.+?)-([a-z]+(?:-[a-z]+)*)$|^(.+)$/i;
-      const match = itemId!.match(regex); // Використовуємо itemId!
-
-      if (match) {
-        if (match[1] && match[2] && match[3]) {
-          initialSelectedCapacity =
-            initialSelectedCapacity || match[2].toUpperCase();
-          initialSelectedColor = initialSelectedColor || match[3].toLowerCase();
-        } else if (match[4] && match[5]) {
-          initialSelectedColor = initialSelectedColor || match[5].toLowerCase();
-        }
-      }
     }
 
     let selectedVariant = findProductVariant(
@@ -170,7 +173,8 @@ export const ProductPage: FC = () => {
     searchParams,
     findProductVariant,
     navigate,
-    itemId,
+    initialSelectedCapacity,
+    initialSelectedColor,
     loading,
     error,
   ]);
