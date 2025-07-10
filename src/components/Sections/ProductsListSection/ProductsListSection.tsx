@@ -1,19 +1,25 @@
 import type { FC } from 'react';
-// import styles from './ProductsListSection.module.scss';
-// import { ProductCard } from '../../Product/ProductCard';
-// import type { Product } from '../../../types/product';
+import type { Product } from '../../../types/product';
+import { ProductCard } from '../../Product/ProductCard';
+import styles from './ProductsListSection.module.scss';
 
-// interface Props {
-//   products: Product[];
-// }
+interface ProductsListSectionProps {
+  filteredProducts: Product[];
+}
 
-export const ProductsListSection: FC = () => {
+export const ProductsListSection: FC<ProductsListSectionProps> = ({
+  filteredProducts,
+}) => {
   return (
-    <></>
-    // <div className={styles.productsList}>
-    //   {products.map((product) => (
-    //     <ProductCard key={product.id} product={product} />
-    //   ))}
-    // </div>
+    <div className={styles.productsList}>
+      {filteredProducts.map((product) => (
+        <div
+          key={product.id}
+          className={styles.card}
+        >
+          <ProductCard product={product} />
+        </div>
+      ))}
+    </div>
   );
 };

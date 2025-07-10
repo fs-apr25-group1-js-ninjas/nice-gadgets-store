@@ -1,1 +1,10 @@
-//style
+.productsList {
+  padding-bottom: 24px;
+}
+
+.card {
+  @media (min-width: 1200px) {
+    width: 272px;
+    height: 508px;
+  }
+}
