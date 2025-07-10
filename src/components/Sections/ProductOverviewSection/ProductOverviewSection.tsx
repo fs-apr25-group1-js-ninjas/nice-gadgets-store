@@ -1,10 +1,25 @@
 import type { FC } from 'react';
-import styles from './ProductOverviewSection.module.scss';
 
-export const ProductOverviewSection: FC = () => {
+import { ProductGallerySection } from '../ProductGallerySection';
+import { ProductActionsSection } from '../ProductActionsSection';
+
+import styles from './ProductOverviewSection.module.scss';
+import type { DetailedProduct } from '../../../types/detailedProduct';
+
+interface ProductOverviewSectionProps {
+  product: DetailedProduct;
+}
+
+export const ProductOverviewSection: FC<ProductOverviewSectionProps> = ({
+  product,
+}) => {
   return (
     <section className={styles.productOverviewSection}>
-      Product Overview
+      <ProductGallerySection
+        images={product.images}
+        productName={product.name}
+      />
+      <ProductActionsSection product={product} />{' '}
     </section>
   );
 };
