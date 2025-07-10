@@ -1,10 +1,31 @@
 .productsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 288px);
+
   padding-bottom: 24px;
+  gap: 40px 16px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, 230px);
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(auto-fit, 272px);
+  }
 }
 
 .card {
+  height: 440px;
+
+  @media (min-width: 640px) {
+    height: 506px;
+  }
+
+  @media (min-width: 768px) {
+    // width: 230px;
+  }
+
   @media (min-width: 1200px) {
     width: 272px;
-    height: 508px;
   }
 }
