@@ -2,4 +2,16 @@
   display: flex;
   flex-direction: column;
   gap: 80px;
+  padding-left: 16px;
+
+  @media (min-width: 640px) {
+    padding-left: 32px;
+  }
+}
+
+.home > *:nth-child(4) {
+  margin-bottom: 64px; /* відступ перед футером */
+  @media (min-width: 640px) {
+    margin-bottom: 80px; /* відступ перед футером */
+  }
 }

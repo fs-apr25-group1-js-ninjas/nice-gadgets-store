@@ -5,8 +5,11 @@ import styles from './RecommendedProductsSection.module.scss';
 export const RecommendedProductsSection: FC = () => {
   return (
     <section className={styles.recommendedProductsSection}>
-      <h2>You may also like</h2>
-      <ProductsSlider />
+      <h2 className={styles.sectionTitle}>You may also like</h2>
+      <ProductsSlider
+        title="Recommended Products"
+        products={[]}
+      />
     </section>
   );
 };

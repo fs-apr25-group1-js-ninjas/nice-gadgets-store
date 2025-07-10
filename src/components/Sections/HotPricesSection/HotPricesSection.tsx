@@ -1,12 +1,32 @@
-import type { FC } from 'react';
-import styles from './HotPricesSection.module.scss';
+import { useEffect, useState, type FC } from 'react';
 import { ProductsSlider } from '../../Sliders/ProductsSlider';
+import type { Product } from '../../../types/product';
+import { getProducts } from '../../../utils/getProducts';
 
 export const HotPricesSection: FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchAllProducts = async () => {
+      try {
+        const data = await getProducts<Product[]>(`./api/products.json`);
+        setProducts(data);
+      } catch (error) {
+        console.error('Cannot load products', error);
+      }
+    };
+
+    fetchAllProducts();
+  }, []);
+
+  if (!products.length) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <section className={styles.hotPricesSection}>
-      <h2>Hot prices</h2>
-      <ProductsSlider />
-    </section>
+    <ProductsSlider
+      title={'Hot prices'}
+      products={products}
+    />
   );
 };

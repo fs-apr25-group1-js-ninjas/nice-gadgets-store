@@ -1,10 +1,32 @@
 import type { FC } from 'react';
+
+import type { DetailedProduct } from '../../../types/detailedProduct';
+
+import { TechSpecsSection } from '../TechSpecsSection';
+import { AboutSection } from '../AboutSection';
+
 import styles from './ProductDescriptionSection.module.scss';
 
-export const ProductDescriptionSection: FC = () => {
+interface ProductDescriptionSectionProps {
+  product: DetailedProduct;
+}
+
+export const ProductDescriptionSection: FC<ProductDescriptionSectionProps> = ({
+  product,
+}) => {
   return (
     <section className={styles.productDescriptionSection}>
-      Product Description
+      <AboutSection description={product.description} />
+      <TechSpecsSection
+        screen={product.screen}
+        resolution={product.resolution}
+        processor={product.processor}
+        ram={product.ram}
+        capacity={product.capacity}
+        camera={product.camera}
+        zoom={product.zoom}
+        cell={product.cell}
+      />
     </section>
   );
 };

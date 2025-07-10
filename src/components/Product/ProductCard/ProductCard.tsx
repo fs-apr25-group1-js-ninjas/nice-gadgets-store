@@ -41,7 +41,9 @@ export const ProductCard: FC<Props> = ({ product }) => {
           className={styles.image}
         />
 
-        <p className={styles.name}>{product.name}</p>
+        <div className={styles.name}>
+          <p>{product.name}</p>
+        </div>
 
         <div className={styles.prices}>
           <p className={styles.price}>${product.price}</p>

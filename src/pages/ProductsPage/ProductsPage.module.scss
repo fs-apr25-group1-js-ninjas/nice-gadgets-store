@@ -1,1 +1,65 @@
-//style
+.page {
+  padding: 24px 16px 60px;
+
+  .breadcrumbs {
+    @media (min-width: 1200px) {
+      margin-top: 24px;
+    }
+  }
+
+  .title {
+    padding: 24px 0 8px;
+
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 41px;
+    letter-spacing: -0.01em;
+
+    @media (min-width: 640px) {
+      font-size: 48px;
+      line-height: 56px;
+    }
+
+    @media (min-width: 1200px) {
+      // margin-top: 40px;
+    }
+  }
+
+  .count {
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0;
+
+    color: var(--secondary);
+  }
+
+  .sortBoxes {
+    margin: 32px 0 24px;
+
+    display: flex;
+    gap: 16px;
+
+    .sortBy {
+      width: 136px;
+      height: 59px;
+
+      background-color: var(--surface_2);
+    }
+
+    .itemsOnPage {
+      width: 136px;
+      height: 59px;
+
+      background-color: var(--surface_2);
+    }
+  }
+
+  .pagination {
+    width: 248px;
+    height: 32px;
+
+    margin: 0 auto;
+
+    background-color: var(--surface_2);
+  }
+}
