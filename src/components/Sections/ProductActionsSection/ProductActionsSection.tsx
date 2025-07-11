@@ -1,38 +1,55 @@
-import { useState, type FC } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState, type FC, useCallback, useMemo } from 'react';
 
 import type { DetailedProduct } from '../../../types/detailedProduct';
 
-import { generateDisplayId } from '../../../utils/generateDisplayId';
-
 import fav from '/icons/favourites.svg';
 import favActive from '/icons/favourites_active.svg';
+
+import { generateDisplayId } from '../../../utils/generateDisplayId';
+import { COLOR_MAP } from '../../../constants/colorMap';
 
 import styles from './ProductActionsSection.module.scss';
 
 interface ProductActionsSectionProps {
   product: DetailedProduct;
+  selectedColor: string | null;
+  selectedCapacity: string | null;
+  onOptionChange: (newColor: string, newCapacity: string) => void;
 }
 
 export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
   product,
+  selectedColor,
+  selectedCapacity,
+  onOptionChange,
 }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const selectedColor = searchParams.get('color') || product.color;
-  const selectedCapacity = searchParams.get('capacity') || product.capacity;
+  const displayId = useMemo(() => {
+    return generateDisplayId(product);
+  }, [product]);
 
-  const displayId = generateDisplayId();
+  const handleOptionChange = useCallback(
+    (optionType: 'color' | 'capacity', value: string) => {
+      const newColor = optionType === 'color' ? value : selectedColor || '';
+      const newCapacity =
+        optionType === 'capacity' ? value : selectedCapacity || '';
 
-  const handleOptionChange = (
-    optionType: 'color' | 'capacity',
-    value: string,
-  ) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set(optionType, value);
-    setSearchParams(newParams);
-  };
+      const finalNewCapacity =
+        (
+          newCapacity.toLowerCase() === '0gb' ||
+          newCapacity.toLowerCase().trim() === ''
+        ) ?
+          ''
+        : newCapacity;
+
+      const finalNewColor =
+        newColor.toLowerCase().trim() === '' ? '' : newColor;
+
+      onOptionChange(finalNewColor, finalNewCapacity);
+    },
+    [onOptionChange, selectedColor, selectedCapacity],
+  );
 
   const handleAddToCart = () => {
     console.log(`Adding ${product.id} to Cart`);
@@ -65,11 +82,16 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
         </div>
         <div className={styles.colorOptions}>
           {colorsAvailable.map((availableColor) => {
-            const isActive = availableColor === selectedColor;
+            const colorValue =
+              COLOR_MAP[availableColor.toLowerCase()] || availableColor;
+
+            const isActive =
+              availableColor.toLowerCase() ===
+              (selectedColor || '').toLowerCase();
             return (
               <button
                 key={availableColor}
-                style={{ backgroundColor: availableColor }}
+                style={{ backgroundColor: colorValue }}
                 className={`${styles.colorSwatch} ${isActive ? styles.activeColor : ''}`}
                 onClick={() => handleOptionChange('color', availableColor)}
                 title={availableColor}
@@ -87,7 +109,9 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
         <p className={styles.secondaryText}>Select capacity</p>
         <div className={styles.capacityOptions}>
           {capacityAvailable.map((availableCapacity) => {
-            const isActive = availableCapacity === selectedCapacity;
+            const isActive =
+              availableCapacity.toLowerCase() ===
+              (selectedCapacity || '').toLowerCase();
             return (
               <button
                 key={availableCapacity}

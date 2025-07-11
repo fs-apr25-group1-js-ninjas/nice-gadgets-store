@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import styles from './WelcomeSection.module.scss';
-import { HeroSlider } from '../../Sliders/HeroSlider';
+import { HeroSlider } from '../../Sliders/HeroSlider/HeroSlider';
 
 export const WelcomeSection: FC = () => {
   return (

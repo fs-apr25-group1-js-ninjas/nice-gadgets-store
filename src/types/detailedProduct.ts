@@ -26,3 +26,6 @@ export interface DetailedProduct {
 }
 
 export type DetailedProductsApiResponse = DetailedProduct[];
+
+export type CapacityOptions = string[];
+export type ColorOptions = string[];

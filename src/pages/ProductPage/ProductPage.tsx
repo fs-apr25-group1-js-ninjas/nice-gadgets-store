@@ -1,17 +1,24 @@
 import type { FC } from 'react';
 import { useEffect, useState, useCallback, useMemo } from 'react';
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  useParams,
+  useNavigate,
+  useSearchParams,
+  useLocation,
+} from 'react-router-dom';
 
 import backIcon from '/icons/arrow_left_active.svg';
 
+import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { ProductOverviewSection } from '../../components/Sections/ProductOverviewSection';
 import { ProductDescriptionSection } from '../../components/Sections/ProductDescriptionSection';
 import { RecommendedProductsSection } from '../../components/Sections/RecommendedProductsSection';
 
-import type {
-  DetailedProduct,
-  DetailedProductsApiResponse,
-} from '../../types/detailedProduct';
+import type { DetailedProduct } from '../../types/detailedProduct';
+
+import { parseProductUrl } from '../../utils/productUrlParser';
+import { fetchDetailedProductVariants } from '../../api/productApi';
+import { findProductVariant } from '../../utils/productHelpers';
 
 import styles from './ProductPage.module.scss';
 
@@ -22,162 +29,152 @@ export const ProductPage: FC = () => {
   }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const location = useLocation();
 
   const [product, setProduct] = useState<DetailedProduct | null>(null);
   const [allProductVariants, setAllProductVariants] = useState<
     DetailedProduct[]
   >([]);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const parsedUrlInfo = useMemo(() => {
-    let effectiveNamespaceId = itemId;
-    let parsedCapacity: string | null = null;
-    let parsedColor: string | null = null;
-
-    if (itemId) {
-      const regex =
-        /^(.*?)(?:-(\d+(?:gb|mb|tb)))-([a-z]+(?:-[a-z]+)*)$|^(.+?)-([a-z]+(?:-[a-z]+)*)$|^(.+)$/i;
-      const match = itemId.match(regex);
-
-      if (match) {
-        if (match[1] && match[2] && match[3]) {
-          effectiveNamespaceId = match[1];
-          parsedCapacity = match[2].toUpperCase();
-          parsedColor = match[3].toLowerCase();
-        } else if (match[4] && match[5]) {
-          effectiveNamespaceId = match[4];
-          parsedColor = match[5].toLowerCase();
-        } else if (match[6]) {
-          effectiveNamespaceId = match[6];
-        }
-      }
-    }
-
-    const searchParamCapacity = searchParams.get('capacity');
-    const searchParamColor = searchParams.get('color');
-
-    return {
-      effectiveNamespaceId: effectiveNamespaceId,
-      initialSelectedCapacity: searchParamCapacity || parsedCapacity,
-      initialSelectedColor: searchParamColor || parsedColor,
-    };
-  }, [itemId, searchParams]);
-
   const {
-    effectiveNamespaceId,
-    initialSelectedCapacity,
-    initialSelectedColor,
-  } = parsedUrlInfo;
+    effectiveNamespaceId: currentEffectiveNamespaceId,
+    initialSelectedCapacity: currentSelectedCapacityFromUrl,
+    initialSelectedColor: currentSelectedColorFromUrl,
+  } = useMemo(
+    () => parseProductUrl(itemId, searchParams),
+    [itemId, searchParams],
+  );
 
-  const findProductVariant = useCallback(
-    (
-      variants: DetailedProduct[],
-      color: string | null,
-      capacity: string | null,
-    ): DetailedProduct | undefined => {
-      return variants.find(
-        (p) =>
-          p.color.toLowerCase() === (color || '').toLowerCase() &&
-          p.capacity.toLowerCase() === (capacity || '').toLowerCase(),
-      );
+  const updateProductUrl = useCallback(
+    (newColor: string, newCapacity: string) => {
+      const namespace = product?.namespaceId || currentEffectiveNamespaceId;
+      let newId = namespace;
+
+      if (
+        newCapacity &&
+        newCapacity.toLowerCase() !== '0gb' &&
+        newCapacity.toLowerCase().trim() !== ''
+      ) {
+        newId += `-${newCapacity.toLowerCase()}`;
+      }
+
+      if (newColor && newColor.toLowerCase().trim() !== '') {
+        newId += `-${newColor.toLowerCase()}`;
+      }
+
+      const newPath = `/${category}/${newId}`;
+
+      if (location.pathname !== newPath) {
+        navigate(newPath, { replace: true, state: location.state });
+      }
     },
-    [],
+    [
+      navigate,
+      category,
+      product,
+      currentEffectiveNamespaceId,
+      location.pathname,
+      location.state,
+    ],
   );
 
   useEffect(() => {
-    const fetchAllProductVariants = async () => {
+    let active = true;
+
+    const loadData = async () => {
       setLoading(true);
       setError(null);
       setProduct(null);
       setAllProductVariants([]);
 
-      if (!category || !effectiveNamespaceId) {
-        setError('Category or Product ID is missing in the URL.');
+      if (!category || !currentEffectiveNamespaceId) {
+        setError('Category or Product Namespace ID is missing in the URL.');
         setLoading(false);
         return;
       }
 
       try {
-        const categoryFileName = `${category.toLowerCase()}.json`;
-        const response = await fetch(`/api/${categoryFileName}`);
-
-        if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error(`Category data for "${category}" not found.`);
-          }
-          throw new Error(
-            `Failed to fetch category data: ${response.statusText}`,
-          );
-        }
-
-        const allProductsInCategory: DetailedProductsApiResponse =
-          await response.json();
-        const variantsForNamespace = allProductsInCategory.filter(
-          (p) => p.namespaceId === effectiveNamespaceId,
+        const variants = await fetchDetailedProductVariants(
+          category,
+          currentEffectiveNamespaceId,
         );
-
-        if (variantsForNamespace.length === 0) {
-          throw new Error(
-            `Product with namespace ID "${effectiveNamespaceId}" not found in category "${category}". Please ensure this namespaceId exists in your "${categoryFileName}" file.`,
-          );
+        if (active) {
+          setAllProductVariants(variants);
+          setLoading(false);
         }
-
-        setAllProductVariants(variantsForNamespace);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching all product variants:', err);
-        setError('Failed to load product data. Please try again later.');
-        setLoading(false);
-        setAllProductVariants([]);
+      } catch (err: unknown) {
+        if (active) {
+          console.error('Error fetching product data:', err);
+          setError(
+            err instanceof Error && err.message ?
+              err.message
+            : 'Failed to load product data. Please try again later.',
+          );
+          setLoading(false);
+          setAllProductVariants([]);
+        }
       }
     };
 
-    fetchAllProductVariants();
-  }, [category, effectiveNamespaceId]);
+    loadData();
+
+    return () => {
+      active = false;
+    };
+  }, [category, currentEffectiveNamespaceId]);
 
   useEffect(() => {
-    if (allProductVariants.length === 0 && !loading && !error) {
-      setProduct(null);
+    if (loading || error) {
       return;
     }
 
     if (allProductVariants.length === 0) {
+      setProduct(null);
+
       return;
     }
 
-    let selectedVariant = findProductVariant(
+    let selectedVariant: DetailedProduct | undefined = findProductVariant(
       allProductVariants,
-      initialSelectedColor,
-      initialSelectedCapacity,
+      currentSelectedColorFromUrl,
+      currentSelectedCapacityFromUrl,
     );
 
     if (!selectedVariant) {
-      selectedVariant = allProductVariants[0];
-      const newParams = new URLSearchParams(searchParams);
-      if (
-        selectedVariant.color.toLowerCase() !==
-          (initialSelectedColor || '').toLowerCase() ||
-        selectedVariant.capacity.toLowerCase() !==
-          (initialSelectedCapacity || '').toLowerCase()
-      ) {
-        newParams.set('color', selectedVariant.color.toLowerCase());
-        newParams.set('capacity', selectedVariant.capacity.toLowerCase());
-        navigate(`?${newParams.toString()}`, { replace: true });
+      selectedVariant = allProductVariants.find(
+        (p) =>
+          (p.color?.toLowerCase() ===
+            (currentSelectedColorFromUrl || '').toLowerCase() ||
+            !currentSelectedColorFromUrl) &&
+          (p.capacity?.toLowerCase() === '0gb' ||
+            p.capacity?.toLowerCase() === ''),
+      );
+
+      if (!selectedVariant) {
+        selectedVariant = allProductVariants[0];
       }
     }
 
-    setProduct(selectedVariant);
+    setProduct(selectedVariant || null);
   }, [
     allProductVariants,
-    searchParams,
-    findProductVariant,
-    navigate,
-    initialSelectedCapacity,
-    initialSelectedColor,
+    currentSelectedCapacityFromUrl,
+    currentSelectedColorFromUrl,
     loading,
     error,
   ]);
+
+  const handleGoBack = useCallback(() => {
+    const fromPath = (location.state as { from?: string })?.from;
+    if (fromPath) {
+      navigate(fromPath);
+    } else {
+      navigate(-1);
+    }
+  }, [navigate, location.state]);
 
   return (
     <div className={styles.productPage}>
@@ -189,8 +186,10 @@ export const ProductPage: FC = () => {
 
       {!loading && !error && product && (
         <>
+          <Breadcrumbs lastItemNameOverride={product.name} />
+
           <button
-            onClick={() => navigate(-1)}
+            onClick={handleGoBack}
             className={styles.back}
           >
             <img
@@ -202,13 +201,14 @@ export const ProductPage: FC = () => {
 
           <h1 className={styles.productPageTitle}>{product.name}</h1>
           <div className={styles.productPageContent}>
-            <ProductOverviewSection product={product} />
-            <ProductDescriptionSection product={product} />
-            <RecommendedProductsSection
-            // currentProductId={product.id}
-            // currentProductCategory={product.category}
-            // currentProductNamespaceId={product.namespaceId}
+            <ProductOverviewSection
+              product={product}
+              selectedColor={currentSelectedColorFromUrl}
+              selectedCapacity={currentSelectedCapacityFromUrl}
+              onOptionChange={updateProductUrl}
             />
+            <ProductDescriptionSection product={product} />
+            <RecommendedProductsSection />
           </div>
         </>
       )}
