@@ -5,8 +5,8 @@ import { CartPage } from '../pages/CartPage/CartPage';
 import { FavouritesPage } from '../pages/FavouritesPage/FavouritesPage';
 import { HomePage } from '../pages/HomePage/HomePage';
 import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
-import { ProductPage } from '../pages/ProductPage/ProductPage';
 import { ProductsPage } from '../pages/ProductsPage/ProductsPage';
+import { ProductPageWrapper } from '../components/ProductPageWrapper/ProductPageWrapper';
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ':category/:itemId',
-        element: <ProductPage />,
+        element: <ProductPageWrapper />,
       },
       {
         path: 'cart',

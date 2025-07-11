@@ -5,8 +5,9 @@
   justify-content: center;
   gap: 40px;
 
-  @media (min-width: 730px) {
+  @media (min-width: 640px) {
     flex-direction: row;
+    align-items: flex-start;
     gap: 17px;
   }
 

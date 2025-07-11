@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+import cn from 'classnames';
 
 import styles from './ProductGallerySection.module.scss';
 
@@ -13,22 +14,17 @@ export const ProductGallerySection: FC<ProductGallerySectionProps> = ({
   productName,
 }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  if (!images || images.length === 0) {
-    return (
-      <div className={styles.productGallery}>Зображення продукту відсутні.</div>
-    );
-  }
-
   const currentImageSrc = `/${images[activeImageIndex]}`;
 
   return (
     <section className={styles.productGallery}>
-      <ul className={styles.list}>
+      <ul className={styles.productImglist}>
         {images.map((imgSrc, index) => (
           <li
             key={index}
-            className={`${styles.item} ${index === activeImageIndex ? styles.active : ''}`}
+            className={cn(styles.productImg, {
+              [styles.active]: index === activeImageIndex,
+            })}
             onClick={() => setActiveImageIndex(index)}
           >
             <img
@@ -43,7 +39,7 @@ export const ProductGallerySection: FC<ProductGallerySectionProps> = ({
         <img
           src={currentImageSrc}
           alt={productName}
-          className={styles.productImg}
+          className={styles.mainProductImg}
         />
       </div>
     </section>
