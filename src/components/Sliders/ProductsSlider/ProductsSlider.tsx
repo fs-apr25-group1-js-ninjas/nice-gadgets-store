@@ -6,33 +6,72 @@ import type { Product } from '../../../types/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 //@ts-expect-error: Swiper CSS has no TS types
 import 'swiper/scss';
+//@ts-expect-error: Swiper SCSS has no TS types
+import 'swiper/scss/navigation';
+import { Navigation } from 'swiper/modules';
 
 interface Props {
   title: string;
   products: Product[];
+  showFullPrice?: boolean;
+  navigationNext?: string;
+  navigationPrev?: string;
 }
 
-export const ProductsSlider: FC<Props> = ({ products, title }) => {
-  return (
-    <section className={styles.brandNewModelsSection}>
-      <h2 className={styles.sectionTitle}>{title}</h2>
+export const ProductsSlider: FC<Props> = ({
+  products,
+  title,
+  navigationNext,
+  navigationPrev,
+  showFullPrice,
+}) => {
+  // Provide default class names if navigationNext or navigationPrev are not passed
+  const nextClass = navigationNext || 'products-slider-next';
+  const prevClass = navigationPrev || 'products-slider-prev';
 
-      <div className={styles.cardsWrapper}>
-        <Swiper
-          spaceBetween={17}
-          slidesPerView={4}
-        >
-          {products?.length &&
-            products.map((product) => (
-              <SwiperSlide key={product.id}>
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                />
-              </SwiperSlide>
-            ))}
-        </Swiper>
+  return (
+    <section className={styles.slider}>
+      <div className={styles.header}>
+        <h2 className={styles.sectionTitle}>{title}</h2>
+        <div className={styles.controls}>
+          <button className={`${styles.arrow} ${prevClass}`}>
+            <img
+              src={`/icons/arrow_left.svg`}
+              alt="Previous"
+            />
+          </button>
+          <button className={`${styles.arrow} ${nextClass}`}>
+            <img
+              src={`/icons/arrow_right.svg`}
+              alt="Next"
+            />
+          </button>
+        </div>
       </div>
+
+      <Swiper
+        modules={[Navigation]}
+        navigation={{
+          nextEl: `.${nextClass}`,
+          prevEl: `.${prevClass}`,
+        }}
+        spaceBetween={16}
+        slidesPerView={4}
+      >
+        {products?.length ?
+          products.map((product) => (
+            <SwiperSlide
+              key={product.id}
+              className={styles.slide}
+            >
+              <ProductCard
+                showFullPrice={showFullPrice}
+                product={product}
+              />
+            </SwiperSlide>
+          ))
+        : null}
+      </Swiper>
     </section>
   );
 };
