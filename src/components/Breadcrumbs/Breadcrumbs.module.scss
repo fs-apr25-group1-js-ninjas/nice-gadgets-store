@@ -1,5 +1,5 @@
 .breadcrumbs {
-  padding: 20px 24px;
+  padding: 20px 0;
   background-color: var(--black);
   color: var(--secondary);
   font-size: 14px;
@@ -8,8 +8,6 @@
 
   .breadcrumbList {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
@@ -37,7 +35,6 @@
   .homeIcon {
     width: 16px;
     height: 16px;
-    margin-right: 4px;
     vertical-align: middle;
   }
 
@@ -54,7 +51,7 @@
   }
 
   @media (max-width: 639px) {
-    padding: 15px 13px;
+    padding: 15px 0;
 
     .breadcrumbLink {
       display: block;
