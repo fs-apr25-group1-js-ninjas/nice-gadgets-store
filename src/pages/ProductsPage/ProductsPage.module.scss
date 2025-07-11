@@ -8,7 +8,7 @@
   }
 
   .title {
-    padding: 24px 0 8px;
+    margin: 24px 0 8px;
 
     font-size: 32px;
     font-weight: 800;
@@ -16,12 +16,10 @@
     letter-spacing: -0.01em;
 
     @media (min-width: 640px) {
+      margin-top: 40px;
+
       font-size: 48px;
       line-height: 56px;
-    }
-
-    @media (min-width: 1200px) {
-      // margin-top: 40px;
     }
   }
 
@@ -33,24 +31,62 @@
     color: var(--secondary);
   }
 
-  .sortBoxes {
+  .selects {
     margin: 32px 0 24px;
 
     display: flex;
     gap: 16px;
 
-    .sortBy {
-      width: 136px;
-      height: 59px;
+    .selectWrapper {
+      display: flex;
+      flex-direction: column;
 
-      background-color: var(--surface_2);
-    }
+      .SelectLabel {
+        margin-bottom: 4px;
 
-    .itemsOnPage {
-      width: 136px;
-      height: 59px;
+        font-size: 12px;
+        line-height: 15px;
+        letter-spacing: 0;
+        font-weight: 700;
+        color: var(--secondary);
+      }
 
-      background-color: var(--surface_2);
+      .Select {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        padding: 0 12px;
+        border: 1px solid var(--surface_2);
+        font-size: 14px;
+        line-height: 21px;
+        letter-spacing: 0;
+        color: var(--white);
+        min-width: 139px;
+        background-color: var(--surface_2);
+        user-select: none;
+
+        @media (hover: hover) {
+          &:hover {
+            border: 1px solid var(--icons);
+          }
+        }
+
+        &[data-popup-open] {
+          border: 1px solid var(--primary);
+        }
+
+        &:focus-visible {
+          outline: 2px solid var(--color-blue);
+          outline-offset: -1px;
+        }
+
+        .SelectIcon {
+          display: flex;
+          width: 18px;
+          height: 18px;
+        }
+      }
     }
   }
 
@@ -61,5 +97,30 @@
     margin: 0 auto;
 
     background-color: var(--surface_2);
+  }
+}
+
+.Popup {
+  background-color: var(--black);
+  color: var(--secondary);
+  border: 1px solid var(--elements);
+
+  .Item {
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0;
+    color: var(--secondary);
+    padding-block: 8px;
+    padding-left: 12px;
+    min-width: var(--anchor-width);
+    align-items: center;
+    user-select: none;
+    scroll-margin-block: 1rem;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--surface_2);
+      }
+    }
   }
 }
