@@ -8,6 +8,8 @@ import { sortProducts } from '../../utils/sortProducts';
 import { ProductsListSection } from '../../components/Sections/ProductsListSection';
 import IconArrowDown from '/icons/arrow_down.svg';
 import styles from './ProductsPage.module.scss';
+import { Breadcrumbs } from '../../components/Breadcrumbs';
+import Pagination from '../../components/Pagination/Pagination';
 
 const API = './api/products.json';
 
@@ -68,7 +70,7 @@ export const ProductsPage: FC = () => {
 
   return (
     <div className={styles.page}>
-      <div className={styles.breadcrumbs}>Breadcrumbs</div>
+      <Breadcrumbs />
       <h1 className={styles.title}>{pageTitle}</h1>
       <div className={styles.count}>{filteredProducts.length} models</div>
       <div className={styles.selects}>
@@ -151,7 +153,8 @@ export const ProductsPage: FC = () => {
         </div>
       </div>
       <ProductsListSection filteredProducts={sortProductsBy} />
-      <div className={styles.pagination}></div>
+      {/* <div className={styles.pagination}></div> */}
+      <Pagination />
     </div>
   );
 };
