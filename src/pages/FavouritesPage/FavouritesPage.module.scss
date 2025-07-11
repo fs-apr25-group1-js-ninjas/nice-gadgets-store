@@ -1,1 +1,46 @@
-//style
+.favorites {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 16px;
+
+  .title {
+    font-size: 32px;
+    height: 41px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 41px;
+  }
+
+  .count {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 288px);
+
+    @media (max-width: 639px) {
+      gap: 40px;
+    }
+  }
+
+  .cardWrapper {
+    width: 288px;
+    box-sizing: border-box;
+  }
+}
+
+@media (min-width: 640px) {
+  .favorites {
+    padding-inline: 24px;
+  }
+  .title {
+    font-size: 48px;
+    height: 56px;
+    line-height: 56px;
+    margin-top: 26px;
+    margin-bottom: 8px;
+  }
+}
