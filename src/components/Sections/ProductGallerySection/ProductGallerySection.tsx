@@ -24,8 +24,13 @@ export const ProductGallerySection: FC<ProductGallerySectionProps> = ({
             key={index}
             className={cn(styles.productImg, {
               [styles.active]: index === activeImageIndex,
+              [styles.disabled]: index === activeImageIndex,
             })}
-            onClick={() => setActiveImageIndex(index)}
+            onClick={() => {
+              if (index !== activeImageIndex) {
+                setActiveImageIndex(index);
+              }
+            }}
           >
             <img
               src={`/${imgSrc}`}

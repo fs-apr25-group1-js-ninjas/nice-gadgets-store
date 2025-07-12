@@ -1,6 +1,5 @@
 .productPage {
-  padding-block: 24px 56px;
-  padding-inline: 16px;
+  padding: 24px 16px 56px;
 
   @media (min-width: 640px) {
     padding-bottom: 64px;
@@ -19,20 +18,15 @@
   }
 
   .breadcrumbs {
-    height: 16px;
-    width: 50%;
-    background-color: var(--icons);
-    margin-bottom: 40px;
+    margin-bottom: 24px;
+
+    @media (min-width: 640px) {
+      margin-bottom: 40px;
+    }
   }
 
   .back {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-weight: 700;
-    font-size: 12px;
     margin-bottom: 16px;
-    cursor: pointer;
   }
 
   .productPageTitle {

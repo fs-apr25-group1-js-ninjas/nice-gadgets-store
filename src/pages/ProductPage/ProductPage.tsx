@@ -7,9 +7,8 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import backIcon from '/icons/arrow_left_active.svg';
-
 import { Breadcrumbs } from '../../components/Breadcrumbs';
+import { GoBackButton } from '../../components/GoBackButton';
 import { ProductOverviewSection } from '../../components/Sections/ProductOverviewSection';
 import { ProductDescriptionSection } from '../../components/Sections/ProductDescriptionSection';
 import { RecommendedProductsSection } from '../../components/Sections/RecommendedProductsSection';
@@ -167,15 +166,6 @@ export const ProductPage: FC = () => {
     error,
   ]);
 
-  const handleGoBack = useCallback(() => {
-    const fromPath = (location.state as { from?: string })?.from;
-    if (fromPath) {
-      navigate(fromPath);
-    } else {
-      navigate(-1);
-    }
-  }, [navigate, location.state]);
-
   return (
     <div className={styles.productPage}>
       {loading && <div>Loading...</div>}
@@ -186,20 +176,16 @@ export const ProductPage: FC = () => {
 
       {!loading && !error && product && (
         <>
-          <Breadcrumbs lastItemNameOverride={product.name} />
+          <div className={styles.breadcrumbs}>
+            <Breadcrumbs lastItemNameOverride={product.name} />
+          </div>
 
-          <button
-            onClick={handleGoBack}
-            className={styles.back}
-          >
-            <img
-              src={backIcon}
-              alt="back button"
-            />
-            Back
-          </button>
+          <div className={styles.back}>
+            <GoBackButton />
+          </div>
 
           <h1 className={styles.productPageTitle}>{product.name}</h1>
+
           <div className={styles.productPageContent}>
             <ProductOverviewSection
               product={product}
