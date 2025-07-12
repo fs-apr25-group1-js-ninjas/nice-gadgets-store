@@ -11,9 +11,12 @@ export const HomePage: FC = () => {
   return (
     <div className={styles.home}>
       <WelcomeSection />
-      <BrandNewModelsSection />
-      <ShopByCategorySection />
-      <HotPricesSection />
+
+      <div className={styles.homeContent}>
+        <BrandNewModelsSection />
+        <ShopByCategorySection />
+        <HotPricesSection />
+      </div>
     </div>
   );
 };
