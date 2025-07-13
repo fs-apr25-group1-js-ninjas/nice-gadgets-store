@@ -71,16 +71,17 @@ export const FavouritesPage: FC = () => {
       </div>
       <h1 className={styles.title}>Favourites</h1>
       <p className={styles.count}>{favourites.length} items</p>
-
-      <div className={styles.grid}>
-        {favourites.map((product) => (
-          <div
-            key={product.id}
-            className={styles.cardWrapper}
-          >
-            <ProductCard product={product} />
-          </div>
-        ))}
+      <div className={styles.flexToCenter}>
+        <div className={styles.grid}>
+          {favourites.map((product) => (
+            <div
+              key={product.id}
+              className={styles.cardWrapper}
+            >
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
