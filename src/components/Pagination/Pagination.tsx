@@ -29,8 +29,6 @@ export const Pagination: FC<PaginationProps> = ({
     siblingCount: siblingCount,
   });
 
-  console.log('Pagination items:', items);
-
   return (
     <nav
       className={styles.pagination}
