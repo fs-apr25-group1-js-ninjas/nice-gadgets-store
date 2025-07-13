@@ -60,11 +60,13 @@ export const ProductsPage: FC = () => {
     }
   }, [sortBy, currentPage, itemsOnPage, updateParams, isValidCategory]);
 
-  if (!isValidCategory) {
-    if (searchParams.size > 0) {
+  useEffect(() => {
+    if (!isValidCategory && searchParams.size > 0) {
       setSearchParams({});
-      return null;
     }
+  }, [isValidCategory, searchParams, setSearchParams]);
+
+  if (!isValidCategory) {
     return <NotFoundPage />;
   }
 
