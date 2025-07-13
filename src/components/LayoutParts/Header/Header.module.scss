@@ -137,6 +137,10 @@ $mobile-breakpoint: 639px;
   height: 30px;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 @media (min-width: $large-desktop-breakpoint) {
   .logoLink {
     padding: 0 24px;

@@ -20,7 +20,7 @@ export const Header: FC = () => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
 
-      if (window.innerWidth > MOBILE_BREAKPOINT) {
+      if (window.innerWidth > MOBILE_BREAKPOINT && isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -29,6 +29,18 @@ export const Header: FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add(styles['no-scroll']);
+    } else {
+      document.body.classList.remove(styles['no-scroll']);
+    }
+
+    return () => {
+      document.body.classList.remove(styles['no-scroll']);
     };
   }, [isMobileMenuOpen]);
 
