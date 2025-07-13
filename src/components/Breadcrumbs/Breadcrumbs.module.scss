@@ -1,31 +1,24 @@
 .breadcrumbs {
-  padding: 20px 24px;
   background-color: var(--black);
   color: var(--secondary);
   font-size: 14px;
   line-height: 1.2;
-  margin-top: 1px;
 
   .breadcrumbList {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-    overflow-x: auto;
   }
 
   .breadcrumbItem {
     display: flex;
     align-items: center;
-    min-width: 0;
   }
 
   .breadcrumbLink {
     text-decoration: none;
     color: var(--white);
-    transition: color 0.3s ease;
   }
 
   .currentBreadcrumb {
@@ -37,8 +30,6 @@
   .homeIcon {
     width: 16px;
     height: 16px;
-    margin-right: 4px;
-    vertical-align: middle;
   }
 
   .breadcrumbSeparator {
@@ -54,8 +45,6 @@
   }
 
   @media (max-width: 639px) {
-    padding: 15px 13px;
-
     .breadcrumbLink {
       display: block;
       white-space: nowrap;
