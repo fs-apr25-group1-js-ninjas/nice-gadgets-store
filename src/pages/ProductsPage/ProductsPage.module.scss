@@ -115,13 +115,6 @@
     user-select: none;
     scroll-margin-block: 16px;
 
-    // .itemText {
-    //   font-size: 14px;
-    //   line-height: 21px;
-    //   letter-spacing: 0;
-    //   color: var(--secondary);
-    // }
-
     @media (hover: hover) {
       &:hover {
         background-color: var(--surface_2);

@@ -1,8 +1,7 @@
 .pagination {
-  width: 248px;
   height: 32px;
-  margin: 0 auto;
-  // padding: 12px 0;
+  display: flex;
+  justify-content: center;
 
   .paginationList {
     display: flex;

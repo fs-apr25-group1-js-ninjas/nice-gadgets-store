@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import styles from './Pagination.module.scss';
 import ArrowLeft from '/icons/arrow_left_active.svg';
 import ArrowRight from '/icons/arrow_right_active.svg';
+import { useMediaQuery } from 'react-responsive';
 
 interface PaginationProps {
   totalPages: number;
@@ -16,13 +17,19 @@ export const Pagination: FC<PaginationProps> = ({
   currentPage,
   onPageChange,
 }) => {
+  const isLargeScreen = useMediaQuery({ minWidth: 640 });
+  const siblingCount = isLargeScreen ? 1 : 0;
+
   const { items } = usePagination({
     count: totalPages,
     page: currentPage,
     onChange: (_, page) => {
       onPageChange(page);
     },
+    siblingCount: siblingCount,
   });
+
+  console.log('Pagination items:', items);
 
   return (
     <nav
@@ -34,7 +41,7 @@ export const Pagination: FC<PaginationProps> = ({
           let children = null;
 
           if (type === 'start-ellipsis' || type === 'end-ellipsis') {
-            children = '…';
+            children = '...';
           } else if (type === 'page') {
             children = (
               <button
