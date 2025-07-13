@@ -16,16 +16,17 @@
 
 .card {
   height: 440px;
+  max-width: 288px;
 
   @media (min-width: 640px) {
     height: 506px;
   }
 
   @media (min-width: 768px) {
-    // width: 230px;
+    max-width: 230px;
   }
 
   @media (min-width: 1200px) {
-    width: 272px;
+    max-width: 272px;
   }
 }
