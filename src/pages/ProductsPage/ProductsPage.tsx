@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { Select } from '@base-ui-components/react/select';
 import type { Product } from '../../types/product';
@@ -6,52 +6,55 @@ import { getProductsByCategory } from '../../utils/getProductsByCategory';
 import { getProducts } from '../../utils/getProducts';
 import { sortProducts } from '../../utils/sortProducts';
 import { ProductsListSection } from '../../components/Sections/ProductsListSection';
+import { Breadcrumbs } from '../../components/Breadcrumbs';
+import { Pagination } from '../../components/Pagination/Pagination';
 import IconArrowDown from '/icons/arrow_down.svg';
 import styles from './ProductsPage.module.scss';
-import { Breadcrumbs } from '../../components/Breadcrumbs';
-import Pagination from '../../components/Pagination/Pagination';
+import { CATEGORY_TITLES } from '../../constants/categoryTitles';
+import { SORT_BY_OPTIONS } from '../../constants/sortByOptions';
+import { ITEMS_ON_PAGE_OPTIONS } from '../../constants/itemsOnPageOptions';
+import { PRODUCT_PAGES_ALL_CATEGORIES } from '../../constants/productPagesAllCategories';
+import classNames from 'classnames';
 
 const API = './api/products.json';
 
-const allCategories = ['phones', 'tablets', 'accessories'];
-
-const categoryTitles = {
-  phones: 'Mobile Phones',
-  tablets: 'Tablets',
-  accessories: 'Accessories',
-} as const;
-
-const sortByOptions = [
-  { label: 'Newest', value: 'newest' },
-  { label: 'Oldest', value: 'oldest' },
-  { label: 'Lowest Price', value: 'lowestPrice' },
-  { label: 'Highest Price', value: 'highestPrice' },
-];
-
-const itemsOnPageOptions = [
-  { label: '8', value: 8 },
-  { label: '16', value: 16 },
-  { label: '32', value: 32 },
-  { label: '64', value: 64 },
-];
-
-type Category = keyof typeof categoryTitles;
+type Category = keyof typeof CATEGORY_TITLES;
 
 export const ProductsPage: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [sortBy, setSortBy] = useState(sortByOptions[0].value);
-  const [itemsOnPage, setItemsOnPage] = useState(itemsOnPageOptions[0].value);
+  const [sortBy, setSortBy] = useState(SORT_BY_OPTIONS[0].value);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsOnPage, setItemsOnPage] = useState<number | 'all'>(
+    ITEMS_ON_PAGE_OPTIONS[3].value,
+  );
   const { category } = useParams<{ category: string }>();
   const pageTitle =
-    (category && categoryTitles[category as Category]) || 'Products';
+    (category && CATEGORY_TITLES[category as Category]) || 'Products';
 
-  const filteredProducts = getProductsByCategory(
+  const productsFromServer = getProductsByCategory(
     category,
-    allCategories,
+    PRODUCT_PAGES_ALL_CATEGORIES,
     products,
   );
 
-  const sortProductsBy = sortProducts(filteredProducts, sortBy);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const isAll = itemsOnPage === 'all';
+
+  const itemsPerPage =
+    isAll ? productsFromServer.length : (itemsOnPage as number);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+
+  const sortedProducts = sortProducts(productsFromServer, sortBy);
+
+  const visibleItems =
+    isAll ? sortedProducts : (
+      sortedProducts.slice(startIndex, startIndex + itemsPerPage)
+    );
+
+  const pageCount =
+    isAll ? 1 : Math.ceil(productsFromServer.length / itemsPerPage);
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -66,24 +69,31 @@ export const ProductsPage: FC = () => {
     fetchAllProducts();
   }, []);
 
-  // console.log(itemsOnPage);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+
+    listRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className={styles.page}>
       <Breadcrumbs />
       <h1 className={styles.title}>{pageTitle}</h1>
-      <div className={styles.count}>{filteredProducts.length} models</div>
-      <div className={styles.selects}>
-        <div className={styles.selectWrapper}>
+      <div className={styles.count}>{productsFromServer.length} models</div>
+      <div
+        ref={listRef}
+        className={styles.selects}
+      >
+        <div className={classNames(styles.selectWrapper, styles.sortBy)}>
           <Select.Root
-            items={sortByOptions}
+            items={SORT_BY_OPTIONS}
             value={sortBy}
             onValueChange={(event) => setSortBy(event)}
           >
-            <label className={styles.SelectLabel}>Sort By</label>
-            <Select.Trigger className={styles.Select}>
+            <label className={styles.selectLabel}>Sort By</label>
+            <Select.Trigger className={styles.select}>
               <Select.Value />
-              <Select.Icon className={styles.SelectIcon}>
+              <Select.Icon className={styles.selectIcon}>
                 <img
                   src={IconArrowDown}
                   alt="icon arrow down"
@@ -95,14 +105,14 @@ export const ProductsPage: FC = () => {
                 alignItemWithTrigger={false}
                 className={styles.Positioner}
               >
-                <Select.Popup className={styles.Popup}>
-                  {sortByOptions.map(({ label, value }) => (
+                <Select.Popup className={styles.popup}>
+                  {SORT_BY_OPTIONS.map(({ label, value }) => (
                     <Select.Item
                       key={label}
                       value={value}
-                      className={styles.Item}
+                      className={styles.item}
                     >
-                      <Select.ItemText className={styles.ItemText}>
+                      <Select.ItemText className={styles.itemText}>
                         {label}
                       </Select.ItemText>
                     </Select.Item>
@@ -115,14 +125,14 @@ export const ProductsPage: FC = () => {
 
         <div className={styles.selectWrapper}>
           <Select.Root
-            items={itemsOnPageOptions}
+            items={ITEMS_ON_PAGE_OPTIONS}
             value={itemsOnPage}
-            onValueChange={(event) => setItemsOnPage(event)}
+            onValueChange={(items) => setItemsOnPage(+items)}
           >
-            <label className={styles.SelectLabel}>Items on page</label>
-            <Select.Trigger className={styles.Select}>
+            <label className={styles.selectLabel}>Items on page</label>
+            <Select.Trigger className={styles.select}>
               <Select.Value />
-              <Select.Icon className={styles.SelectIcon}>
+              <Select.Icon className={styles.selectIcon}>
                 <img
                   src={IconArrowDown}
                   alt="icon arrow down"
@@ -130,18 +140,15 @@ export const ProductsPage: FC = () => {
               </Select.Icon>
             </Select.Trigger>
             <Select.Portal>
-              <Select.Positioner
-                alignItemWithTrigger={false}
-                className={styles.Positioner}
-              >
-                <Select.Popup className={styles.Popup}>
-                  {itemsOnPageOptions.map(({ label, value }) => (
+              <Select.Positioner alignItemWithTrigger={false}>
+                <Select.Popup className={styles.popup}>
+                  {ITEMS_ON_PAGE_OPTIONS.map(({ label, value }) => (
                     <Select.Item
                       key={label}
                       value={value}
-                      className={styles.Item}
+                      className={styles.item}
                     >
-                      <Select.ItemText className={styles.ItemText}>
+                      <Select.ItemText className={styles.itemText}>
                         {label}
                       </Select.ItemText>
                     </Select.Item>
@@ -152,9 +159,16 @@ export const ProductsPage: FC = () => {
           </Select.Root>
         </div>
       </div>
-      <ProductsListSection filteredProducts={sortProductsBy} />
-      {/* <div className={styles.pagination}></div> */}
-      <Pagination />
+      {visibleItems.length > 0 ?
+        <ProductsListSection productsFromServer={visibleItems} />
+      : <h3>Loading...</h3>}
+      {!isAll && (
+        <Pagination
+          totalPages={pageCount}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };

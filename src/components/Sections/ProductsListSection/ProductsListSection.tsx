@@ -4,15 +4,15 @@ import { ProductCard } from '../../Product/ProductCard';
 import styles from './ProductsListSection.module.scss';
 
 interface ProductsListSectionProps {
-  filteredProducts: Product[];
+  productsFromServer: Product[];
 }
 
 export const ProductsListSection: FC<ProductsListSectionProps> = ({
-  filteredProducts,
+  productsFromServer,
 }) => {
   return (
     <div className={styles.productsList}>
-      {filteredProducts.map((product) => (
+      {productsFromServer.map((product) => (
         <div
           key={product.id}
           className={styles.card}

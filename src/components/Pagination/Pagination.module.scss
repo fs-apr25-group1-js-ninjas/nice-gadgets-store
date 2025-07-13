@@ -1,13 +1,50 @@
 .pagination {
-  wid
+  width: 248px;
+  height: 32px;
+  margin: 0 auto;
   // padding: 12px 0;
 
   .paginationList {
     display: flex;
     list-style: none;
 
-    li {
+    .paginationItem {
       margin: 0 4px;
+
+      .selected {
+        background-color: var(--primary);
+        color: var(--white);
+      }
+      .unselected {
+        background-color: var(--surface_1);
+        color: var(--white);
+      }
+      .pageButton {
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+
+        &:hover {
+          background: var(--primary);
+        }
+      }
+      .navButton {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--surface_2);
+        cursor: pointer;
+
+        &:hover {
+          background: var(--primary);
+        }
+
+        &.disabled {
+          cursor: not-allowed;
+        }
+      }
     }
   }
 }

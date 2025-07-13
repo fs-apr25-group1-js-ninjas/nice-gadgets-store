@@ -1,14 +1,32 @@
 import usePagination from '@mui/material/usePagination';
+import classNames from 'classnames';
+import type { FC } from 'react';
 import styles from './Pagination.module.scss';
+import ArrowLeft from '/icons/arrow_left_active.svg';
+import ArrowRight from '/icons/arrow_right_active.svg';
 
-export default function Pagination() {
+interface PaginationProps {
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+}
+
+export const Pagination: FC<PaginationProps> = ({
+  totalPages,
+  currentPage,
+  onPageChange,
+}) => {
   const { items } = usePagination({
-    count: 10,
+    count: totalPages,
+    page: currentPage,
+    onChange: (_, page) => {
+      onPageChange(page);
+    },
   });
 
   return (
     <nav
-      className="pagination"
+      className={styles.pagination}
       aria-label="Pagination"
     >
       <ul className={styles.paginationList}>
@@ -21,28 +39,53 @@ export default function Pagination() {
             children = (
               <button
                 type="button"
-                style={{
-                  fontWeight: selected ? 'bold' : undefined,
-                }}
+                className={classNames(styles.pageButton, {
+                  [styles.selected]: selected,
+                  [styles.unselected]: !selected,
+                })}
                 {...item}
               >
                 {page}
               </button>
             );
-          } else {
+          } else if (type === 'previous') {
             children = (
               <button
                 type="button"
+                className={styles.navButton}
                 {...item}
               >
-                {type}
+                <img
+                  src={ArrowLeft}
+                  alt="Previous"
+                />
+              </button>
+            );
+          } else if (type === 'next') {
+            children = (
+              <button
+                type="button"
+                className={styles.navButton}
+                {...item}
+              >
+                <img
+                  src={ArrowRight}
+                  alt="Next"
+                />
               </button>
             );
           }
 
-          return <li key={index}>{children}</li>;
+          return (
+            <li
+              key={index}
+              className={styles.paginationItem}
+            >
+              {children}
+            </li>
+          );
         })}
       </ul>
     </nav>
   );
-}
+};
