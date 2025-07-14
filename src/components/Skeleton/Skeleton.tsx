@@ -2,8 +2,8 @@ import type { FC } from 'react';
 
 export const SkeletonCard: FC = () => {
   return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="container h-274 mb-4 px-6 mx-auto animate-pulse">
+    <section className="bg-transparent">
+      <div className="container h-250 mb-4 px-6 mx-auto animate-pulse">
         <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3">
           <div className="w-full ">
             <div className="w-full h-50 bg-gray-300 rounded-lg dark:bg-gray-600"></div>

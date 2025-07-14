@@ -171,9 +171,7 @@ export const ProductsPage: FC = () => {
       {isLoading ?
         <SkeletonCard />
       : visibleItems.length > 0 ?
-        <>
-          <ProductsListSection productsFromServer={visibleItems} />
-        </>
+        <ProductsListSection productsFromServer={visibleItems} />
       : <h3>No products found</h3>}
       {!isAll && (
         <Pagination
