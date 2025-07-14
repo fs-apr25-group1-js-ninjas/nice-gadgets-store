@@ -66,20 +66,20 @@ export const FavouritesPage: FC = () => {
 
   return (
     <div className={styles.favorites}>
-      <Breadcrumbs lastItemNameOverride="Favourites" />
+      <div className={styles.breadcrumbs}>
+        <Breadcrumbs lastItemNameOverride="Favourites" />
+      </div>
       <h1 className={styles.title}>Favourites</h1>
       <p className={styles.count}>{favourites.length} items</p>
-      <div className={styles.flexToCenter}>
-        <div className={styles.grid}>
-          {favourites.map((product) => (
-            <div
-              key={product.id}
-              className={styles.cardWrapper}
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
+      <div className={styles.grid}>
+        {favourites.map((product) => (
+          <div
+            key={product.id}
+            className={styles.cardWrapper}
+          >
+            <ProductCard product={product} />
+          </div>
+        ))}
       </div>
     </div>
   );
