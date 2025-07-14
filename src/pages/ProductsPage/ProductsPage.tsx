@@ -61,6 +61,12 @@ export const ProductsPage: FC = () => {
   }, [sortBy, currentPage, itemsOnPage, updateParams, isValidCategory]);
 
   useEffect(() => {
+    if (currentPage > pageCount && pageCount > 0) {
+      setCurrentPage(pageCount);
+    }
+  }, [pageCount, currentPage]);
+
+  useEffect(() => {
     if (!isValidCategory && searchParams.size > 0) {
       setSearchParams({});
     }

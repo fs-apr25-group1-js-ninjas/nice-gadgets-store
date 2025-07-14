@@ -1,5 +1,4 @@
 .favorites {
-  width: 100%;
   padding-inline: 16px;
   padding-top: 24px;
   padding-bottom: 56px;
@@ -24,8 +23,9 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 288px);
+    grid-template-columns: repeat(auto-fit, 288px);
     gap: 40px;
+    justify-content: center;
   }
 
   .cardWrapper {
@@ -36,8 +36,7 @@
 @media (min-width: 640px) {
   .favorites {
     padding-bottom: 64px;
-    padding-top: 24px;
-    padding-inline: 24px;
+    padding-inline: 32px;
 
     .breadcrumbs {
       margin-bottom: 40px;
@@ -55,7 +54,7 @@
     }
 
     .grid {
-      grid-template-columns: repeat(auto-fill, 272px);
+      grid-template-columns: repeat(auto-fit, 272px);
       gap: 40px 16px;
     }
   }
@@ -64,6 +63,5 @@
 @media (min-width: 1200px) {
   .favorites {
     padding-bottom: 80px;
-    padding-inline: 32;
   }
 }
