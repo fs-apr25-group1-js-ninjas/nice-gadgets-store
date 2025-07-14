@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const NICE_GADGETS_STORE = {
   CART: 'NICE_GADGETS_STORE_CART',
@@ -21,7 +21,7 @@ export function useCartAndFavorites() {
   const addToCart = (value: number) => {
     const cart = getCart();
 
-    if (!Object.prototype.hasOwnProperty.call(cart, value)) {
+    if (!cart[value]) {
       cart[value] = 1;
       localStorage.setItem(NICE_GADGETS_STORE.CART, JSON.stringify(cart));
     }
@@ -60,8 +60,10 @@ export function useCartAndFavorites() {
     setFavoritesValues(getFavorites());
   };
 
-  setCartValues(getCart());
-  setFavoritesValues(getFavorites());
+  useEffect(() => {
+    setCartValues(getCart());
+    setFavoritesValues(getFavorites());
+  }, []);
 
   return {
     cartValues,

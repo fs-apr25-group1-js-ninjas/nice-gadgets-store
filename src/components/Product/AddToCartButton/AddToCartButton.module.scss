@@ -9,3 +9,9 @@
   height: 40px;
   padding: 0 9.5px;
 }
+
+.added {
+  @extend .button;
+  background-color: var(--surface_2);
+  color: var(--white);
+}

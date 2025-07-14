@@ -64,11 +64,10 @@ export const ProductCard: FC<Props> = ({ product, discount }) => {
         </Link>
 
         <div className={styles.actions}>
-          {inCart ?
-            <div className={styles.inCart}>
-              <span>Added</span>
-            </div>
-          : <AddToCartButton onClick={() => addToCart(product.id)} />}
+          <AddToCartButton
+            onClick={() => addToCart(product.id)}
+            inCart={inCart}
+          />
 
           <FavoritesButton
             onClick={() => addToFavorites(product.id)}
