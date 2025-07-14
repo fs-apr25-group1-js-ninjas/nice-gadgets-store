@@ -4,6 +4,7 @@ import styles from './FavoritesButton.module.scss';
 
 type Props = {
   onClick: () => void;
+  isActive: boolean;
 };
 
 export const FavoritesButton: FC<Props> = () => {
