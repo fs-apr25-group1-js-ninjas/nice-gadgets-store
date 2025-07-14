@@ -6,16 +6,14 @@ import type { Product } from '../../../types/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 //@ts-expect-error: Swiper CSS has no TS types
 import 'swiper/scss';
-//@ts-expect-error: Swiper SCSS has no TS types
-import 'swiper/scss/navigation';
 import { Navigation } from 'swiper/modules';
 
 interface Props {
   title: string;
   products: Product[];
-  showFullPrice?: boolean;
   navigationNext?: string;
   navigationPrev?: string;
+  discount?: boolean;
 }
 
 export const ProductsSlider: FC<Props> = ({
@@ -23,7 +21,7 @@ export const ProductsSlider: FC<Props> = ({
   title,
   navigationNext,
   navigationPrev,
-  showFullPrice,
+  discount,
 }) => {
   // Provide default class names if navigationNext or navigationPrev are not passed
   const nextClass = navigationNext || 'products-slider-next';
@@ -58,14 +56,14 @@ export const ProductsSlider: FC<Props> = ({
         spaceBetween={16}
         slidesPerView={4}
       >
-        {products?.length ?
+        {products.length ?
           products.map((product) => (
             <SwiperSlide
               key={product.id}
               className={styles.slide}
             >
               <ProductCard
-                showFullPrice={showFullPrice}
+                discount={discount}
                 product={product}
               />
             </SwiperSlide>
