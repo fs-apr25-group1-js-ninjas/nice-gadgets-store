@@ -5,6 +5,7 @@
   padding: 32px 16px;
   width: 100%;
   gap: 32px;
+  border-top: 1px solid var(--elements);
 
   .footerLogo {
     width: 100%;
@@ -118,7 +119,7 @@
 
 @media (min-width: 1200px) {
   .footerContent {
-    padding: 32px;
+    padding: 32px 152px;
 
     .logoImage {
       height: 32px;

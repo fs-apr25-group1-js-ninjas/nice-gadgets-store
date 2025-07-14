@@ -1,10 +1,9 @@
 .page {
   padding: 24px 16px 60px;
 
-  .breadcrumbs {
-    @media (min-width: 1200px) {
-      margin-top: 24px;
-    }
+  @media (min-width: 1200px) {
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
   .title {
@@ -41,7 +40,7 @@
       display: flex;
       flex-direction: column;
 
-      .SelectLabel {
+      .selectLabel {
         margin-bottom: 4px;
 
         font-size: 12px;
@@ -51,7 +50,7 @@
         color: var(--secondary);
       }
 
-      .Select {
+      .select {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -62,7 +61,7 @@
         line-height: 21px;
         letter-spacing: 0;
         color: var(--white);
-        min-width: 139px;
+        min-width: 136px;
         background-color: var(--surface_2);
         user-select: none;
 
@@ -81,41 +80,40 @@
           outline-offset: -1px;
         }
 
-        .SelectIcon {
+        .selectIcon {
           display: flex;
           width: 18px;
           height: 18px;
         }
       }
     }
-  }
 
-  .pagination {
-    width: 248px;
-    height: 32px;
-
-    margin: 0 auto;
-
-    background-color: var(--surface_2);
+    .sortBy {
+      @media (min-width: 640px) {
+        width: 187px;
+      }
+      @media (min-width: 1200px) {
+        width: 176px;
+      }
+    }
   }
 }
 
-.Popup {
+.popup {
   background-color: var(--black);
   color: var(--secondary);
   border: 1px solid var(--elements);
 
-  .Item {
+  .item {
     font-size: 14px;
     line-height: 21px;
     letter-spacing: 0;
     color: var(--secondary);
-    padding-block: 8px;
-    padding-left: 12px;
+    padding: 8px 12px;
     min-width: var(--anchor-width);
     align-items: center;
     user-select: none;
-    scroll-margin-block: 1rem;
+    scroll-margin-block: 16px;
 
     @media (hover: hover) {
       &:hover {

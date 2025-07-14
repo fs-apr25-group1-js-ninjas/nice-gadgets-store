@@ -3,11 +3,18 @@ import styles from './CartPage.module.scss';
 import { CartListSection } from '../../components/Sections/CartListSection';
 import { CheckoutSection } from '../../components/Sections/CheckoutSection';
 import arrow_left from '/icons/arrow_left.svg';
+import { useNavigate } from 'react-router-dom';
+
 export const CartPage: FC = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.cart}>
       <div className={styles.backContainer}>
-        <button className={styles.buttonToBack}>
+        <button
+          onClick={() => navigate(-1)}
+          className={styles.buttonToBack}
+        >
           <img
             src={arrow_left}
             alt="BACK ARROW ICON"
