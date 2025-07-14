@@ -2,9 +2,11 @@ import { useEffect, useState, type FC } from 'react';
 import { ProductsSlider } from '../../Sliders/ProductsSlider';
 import type { Product } from '../../../types/product';
 import { getProducts } from '../../../utils/getProducts';
+import { getHotPricedProducts } from '../../../utils/getHotPricedProducts';
 
 export const HotPricesSection: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const productsWithDiscount = getHotPricedProducts(products);
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -26,7 +28,8 @@ export const HotPricesSection: FC = () => {
   return (
     <ProductsSlider
       title={'Hot prices'}
-      products={products}
+      discount={true}
+      products={productsWithDiscount}
     />
   );
 };
