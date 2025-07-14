@@ -22,15 +22,10 @@
     margin-bottom: 32px;
   }
 
-  .flexToCenter {
-    display: flex;
-    justify-content: center;
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, 288px);
-      gap: 40px;
-    }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 288px);
+    gap: 40px;
   }
 
   .cardWrapper {
@@ -59,13 +54,9 @@
       margin-bottom: 40px;
     }
 
-    .flexToCenter {
-      display: block;
-
-      .grid {
-        grid-template-columns: repeat(auto-fill, 272px);
-        gap: 40px 16px;
-      }
+    .grid {
+      grid-template-columns: repeat(auto-fill, 272px);
+      gap: 40px 16px;
     }
   }
 }

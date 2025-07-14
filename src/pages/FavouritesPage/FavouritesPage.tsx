@@ -66,9 +66,7 @@ export const FavouritesPage: FC = () => {
 
   return (
     <div className={styles.favorites}>
-      <div className={styles.breadcrumbs}>
-        <Breadcrumbs lastItemNameOverride="Favourites" />
-      </div>
+      <Breadcrumbs lastItemNameOverride="Favourites" />
       <h1 className={styles.title}>Favourites</h1>
       <p className={styles.count}>{favourites.length} items</p>
       <div className={styles.flexToCenter}>
