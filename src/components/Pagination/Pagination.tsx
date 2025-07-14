@@ -56,6 +56,7 @@ export const Pagination: FC<PaginationProps> = ({
         breakLinkClassName={styles.pageButton}
         activeClassName={styles.selected}
         disabledClassName={styles.unselected}
+        disabledLinkClassName={styles.navButtonDisabled}
       />
     </nav>
   );

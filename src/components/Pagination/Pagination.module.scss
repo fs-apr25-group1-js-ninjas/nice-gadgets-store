@@ -55,9 +55,8 @@
     background: var(--primary);
     color: var(--white);
   }
+}
 
-  &.disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
+.navButtonDisabled:hover {
+  background: var(--surface_2);
 }
