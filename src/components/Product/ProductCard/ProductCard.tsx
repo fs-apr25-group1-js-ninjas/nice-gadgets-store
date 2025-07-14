@@ -3,32 +3,22 @@ import styles from './ProductCard.module.scss';
 
 import type { Product } from '../../../types/product';
 import { Link } from 'react-router-dom';
-import { useState, type FC } from 'react';
 import { AddToCartButton } from '../AddToCartButton';
 import { FavoritesButton } from '../FavoritesButton/FavoritesButton';
+import { useCartAndFavorites } from '../../../utils/hooks/useCartAndFavorites';
+import type { FC } from 'react';
 
 interface Props {
   product: Product;
-  showFullPrice?: boolean;
+  discount?: boolean;
 }
 
-export const ProductCard: FC<Props> = ({ product }) => {
-  const [cartIds, setCartIds] = useState<number[]>([]);
+export const ProductCard: FC<Props> = ({ product, discount }) => {
+  const { addToCart, addToFavorites, cartValues, favoritesValues } =
+    useCartAndFavorites();
 
-  const addToCart = () => {
-    setCartIds([...cartIds, product.id]);
-  };
-
-  const [favIds, setFavIds] = useState<number[]>([]);
-
-  const addToFavorites = () => {
-    setFavIds((prev) =>
-      prev.includes(product.id) ?
-        prev.filter((id) => id !== product.id)
-      : [...prev, product.id],
-    );
-    console.log(favIds);
-  };
+  const inCart = Boolean(cartValues[product.id]);
+  const isFavorited = favoritesValues.includes(product.id);
 
   return (
     <div className={styles.card}>
@@ -38,7 +28,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
           className={styles.cardLink}
         >
           <img
-            src={product.image}
+            src={`/${product.image}`}
             alt={product.name}
             className={styles.image}
           />
@@ -50,7 +40,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
           <div className={styles.prices}>
             <p className={styles.price}>${product.price}</p>
 
-            {product.fullPrice > product.price && (
+            {discount && product.fullPrice > product.price && (
               <p className={styles.fullPrice}>${product.fullPrice}</p>
             )}
           </div>
@@ -74,13 +64,17 @@ export const ProductCard: FC<Props> = ({ product }) => {
         </Link>
 
         <div className={styles.actions}>
-          <AddToCartButton onClick={addToCart} />
+          <AddToCartButton
+            onClick={() => addToCart(product.id)}
+            inCart={inCart}
+          />
 
-          <FavoritesButton onClick={addToFavorites} />
+          <FavoritesButton
+            onClick={() => addToFavorites(product.id)}
+            isActive={isFavorited}
+          />
         </div>
       </div>
     </div>
   );
-
-  // return <Card className={styles.ProductCard}>Product Card</Card>;
 };

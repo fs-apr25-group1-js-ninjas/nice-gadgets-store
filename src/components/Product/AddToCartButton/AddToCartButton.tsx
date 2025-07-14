@@ -3,15 +3,16 @@ import styles from './AddToCartButton.module.scss';
 
 type Props = {
   onClick: () => void;
+  inCart: boolean;
 };
 
-export const AddToCartButton: FC<Props> = ({ onClick }) => {
+export const AddToCartButton: FC<Props> = ({ onClick, inCart }) => {
   return (
     <button
-      className={styles.button}
+      className={inCart ? styles.added : styles.button}
       onClick={onClick}
     >
-      Add to cart
+      {inCart ? 'Added' : 'Add to cart'}
     </button>
   );
 };
