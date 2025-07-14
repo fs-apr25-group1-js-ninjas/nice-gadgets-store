@@ -1,11 +1,11 @@
-// .cardsWrapper {
-//   display: flex;
-//   gap: 16px;
-// }
-
 .slider {
-  max-width: 1136px;
+  max-width: calc(100vw - 16px);
   margin: 0 auto;
+  overflow: hidden;
+
+  @media (min-width: 640px) {
+    max-width: 1136px;
+  }
 }
 
 .header {
