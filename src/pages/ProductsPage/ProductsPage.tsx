@@ -61,6 +61,12 @@ export const ProductsPage: FC = () => {
   }, [sortBy, currentPage, itemsOnPage, updateParams, isValidCategory]);
 
   useEffect(() => {
+    if (currentPage > pageCount && pageCount > 0) {
+      setCurrentPage(pageCount);
+    }
+  }, [pageCount, currentPage]);
+
+  useEffect(() => {
     if (!isValidCategory && searchParams.size > 0) {
       setSearchParams({});
     }
@@ -76,103 +82,105 @@ export const ProductsPage: FC = () => {
   };
 
   return (
-    <div className={styles.page}>
-      <Breadcrumbs />
-      <h1 className={styles.title}>{pageTitle}</h1>
-      <div className={styles.count}>{productsFromServer.length} models</div>
-      <div
-        ref={listRef}
-        className={styles.selects}
-      >
-        <div className={classNames(styles.selectWrapper, styles.sortBy)}>
-          <Select.Root
-            items={SORT_BY_OPTIONS}
-            value={sortBy}
-            onValueChange={(event) => setSortBy(event)}
-          >
-            <label className={styles.selectLabel}>Sort By</label>
-            <Select.Trigger className={styles.select}>
-              <Select.Value />
-              <Select.Icon className={styles.selectIcon}>
-                <img
-                  src={IconArrowDown}
-                  alt="icon arrow down"
-                />
-              </Select.Icon>
-            </Select.Trigger>
-            <Select.Portal>
-              <Select.Positioner
-                alignItemWithTrigger={false}
-                className={styles.Positioner}
-              >
-                <Select.Popup className={styles.popup}>
-                  {SORT_BY_OPTIONS.map(({ label, value }) => (
-                    <Select.Item
-                      key={label}
-                      value={value}
-                      className={styles.item}
-                    >
-                      <Select.ItemText className={styles.itemText}>
-                        {label}
-                      </Select.ItemText>
-                    </Select.Item>
-                  ))}
-                </Select.Popup>
-              </Select.Positioner>
-            </Select.Portal>
-          </Select.Root>
-        </div>
+    <div className="container">
+      <div className={styles.page}>
+        <Breadcrumbs />
+        <h1 className={styles.title}>{pageTitle}</h1>
+        <div className={styles.count}>{productsFromServer.length} models</div>
+        <div
+          ref={listRef}
+          className={styles.selects}
+        >
+          <div className={classNames(styles.selectWrapper, styles.sortBy)}>
+            <Select.Root
+              items={SORT_BY_OPTIONS}
+              value={sortBy}
+              onValueChange={(event) => setSortBy(event)}
+            >
+              <label className={styles.selectLabel}>Sort By</label>
+              <Select.Trigger className={styles.select}>
+                <Select.Value />
+                <Select.Icon className={styles.selectIcon}>
+                  <img
+                    src={IconArrowDown}
+                    alt="icon arrow down"
+                  />
+                </Select.Icon>
+              </Select.Trigger>
+              <Select.Portal>
+                <Select.Positioner
+                  alignItemWithTrigger={false}
+                  className={styles.Positioner}
+                >
+                  <Select.Popup className={styles.popup}>
+                    {SORT_BY_OPTIONS.map(({ label, value }) => (
+                      <Select.Item
+                        key={label}
+                        value={value}
+                        className={styles.item}
+                      >
+                        <Select.ItemText className={styles.itemText}>
+                          {label}
+                        </Select.ItemText>
+                      </Select.Item>
+                    ))}
+                  </Select.Popup>
+                </Select.Positioner>
+              </Select.Portal>
+            </Select.Root>
+          </div>
 
-        <div className={styles.selectWrapper}>
-          <Select.Root
-            items={ITEMS_ON_PAGE_OPTIONS}
-            value={itemsOnPage}
-            onValueChange={(items) =>
-              setItemsOnPage(items === 'all' ? 'all' : +items)
-            }
-          >
-            <label className={styles.selectLabel}>Items on page</label>
-            <Select.Trigger className={styles.select}>
-              <Select.Value />
-              <Select.Icon className={styles.selectIcon}>
-                <img
-                  src={IconArrowDown}
-                  alt="icon arrow down"
-                />
-              </Select.Icon>
-            </Select.Trigger>
-            <Select.Portal>
-              <Select.Positioner alignItemWithTrigger={false}>
-                <Select.Popup className={styles.popup}>
-                  {ITEMS_ON_PAGE_OPTIONS.map(({ label, value }) => (
-                    <Select.Item
-                      key={label}
-                      value={value}
-                      className={styles.item}
-                    >
-                      <Select.ItemText className={styles.itemText}>
-                        {label}
-                      </Select.ItemText>
-                    </Select.Item>
-                  ))}
-                </Select.Popup>
-              </Select.Positioner>
-            </Select.Portal>
-          </Select.Root>
+          <div className={styles.selectWrapper}>
+            <Select.Root
+              items={ITEMS_ON_PAGE_OPTIONS}
+              value={itemsOnPage}
+              onValueChange={(items) =>
+                setItemsOnPage(items === 'all' ? 'all' : +items)
+              }
+            >
+              <label className={styles.selectLabel}>Items on page</label>
+              <Select.Trigger className={styles.select}>
+                <Select.Value />
+                <Select.Icon className={styles.selectIcon}>
+                  <img
+                    src={IconArrowDown}
+                    alt="icon arrow down"
+                  />
+                </Select.Icon>
+              </Select.Trigger>
+              <Select.Portal>
+                <Select.Positioner alignItemWithTrigger={false}>
+                  <Select.Popup className={styles.popup}>
+                    {ITEMS_ON_PAGE_OPTIONS.map(({ label, value }) => (
+                      <Select.Item
+                        key={label}
+                        value={value}
+                        className={styles.item}
+                      >
+                        <Select.ItemText className={styles.itemText}>
+                          {label}
+                        </Select.ItemText>
+                      </Select.Item>
+                    ))}
+                  </Select.Popup>
+                </Select.Positioner>
+              </Select.Portal>
+            </Select.Root>
+          </div>
         </div>
+        {isLoading ?
+          <h3>Loading...</h3>
+        : visibleItems.length > 0 ?
+          <ProductsListSection productsFromServer={visibleItems} />
+        : <h3>No products found</h3>}
+        {!isAll && (
+          <Pagination
+            totalPages={pageCount}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
       </div>
-      {isLoading ?
-        <h3>Loading...</h3>
-      : visibleItems.length > 0 ?
-        <ProductsListSection productsFromServer={visibleItems} />
-      : <h3>No products found</h3>}
-      {!isAll && (
-        <Pagination
-          totalPages={pageCount}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
-      )}
     </div>
   );
 };

@@ -1,10 +1,9 @@
-import usePagination from '@mui/material/usePagination';
-import classNames from 'classnames';
 import type { FC } from 'react';
+import ReactPaginate from 'react-paginate';
+import { useMediaQuery } from 'react-responsive';
 import styles from './Pagination.module.scss';
 import ArrowLeft from '/icons/arrow_left_active.svg';
 import ArrowRight from '/icons/arrow_right_active.svg';
-import { useMediaQuery } from 'react-responsive';
 
 interface PaginationProps {
   totalPages: number;
@@ -18,79 +17,46 @@ export const Pagination: FC<PaginationProps> = ({
   onPageChange,
 }) => {
   const isLargeScreen = useMediaQuery({ minWidth: 640 });
-  const siblingCount = isLargeScreen ? 1 : 0;
+  const pageRangeDisplayed = isLargeScreen ? 3 : 1;
 
-  const { items } = usePagination({
-    count: totalPages,
-    page: currentPage,
-    onChange: (_, page) => {
-      onPageChange(page);
-    },
-    siblingCount: siblingCount,
-  });
+  if (totalPages < 1) return null;
 
   return (
     <nav
       className={styles.pagination}
       aria-label="Pagination"
     >
-      <ul className={styles.paginationList}>
-        {items.map(({ page, type, selected, ...item }, index) => {
-          let children = null;
-
-          if (type === 'start-ellipsis' || type === 'end-ellipsis') {
-            children = '...';
-          } else if (type === 'page') {
-            children = (
-              <button
-                type="button"
-                className={classNames(styles.pageButton, {
-                  [styles.selected]: selected,
-                  [styles.unselected]: !selected,
-                })}
-                {...item}
-              >
-                {page}
-              </button>
-            );
-          } else if (type === 'previous') {
-            children = (
-              <button
-                type="button"
-                className={styles.navButton}
-                {...item}
-              >
-                <img
-                  src={ArrowLeft}
-                  alt="Previous"
-                />
-              </button>
-            );
-          } else if (type === 'next') {
-            children = (
-              <button
-                type="button"
-                className={styles.navButton}
-                {...item}
-              >
-                <img
-                  src={ArrowRight}
-                  alt="Next"
-                />
-              </button>
-            );
-          }
-
-          return (
-            <li
-              key={index}
-              className={styles.paginationItem}
-            >
-              {children}
-            </li>
-          );
-        })}
-      </ul>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel={
+          <img
+            src={ArrowRight}
+            alt="Next"
+          />
+        }
+        previousLabel={
+          <img
+            src={ArrowLeft}
+            alt="Previous"
+          />
+        }
+        onPageChange={(selectedItem) => onPageChange(selectedItem.selected + 1)}
+        pageCount={totalPages}
+        forcePage={currentPage - 1}
+        pageRangeDisplayed={pageRangeDisplayed}
+        marginPagesDisplayed={1}
+        containerClassName={styles.paginationList}
+        pageClassName={styles.paginationItem}
+        pageLinkClassName={styles.pageButton}
+        previousClassName={styles.paginationItem}
+        previousLinkClassName={styles.navButton}
+        nextClassName={styles.paginationItem}
+        nextLinkClassName={styles.navButton}
+        breakClassName={styles.paginationItem}
+        breakLinkClassName={styles.pageButton}
+        activeClassName={styles.selected}
+        disabledClassName={styles.unselected}
+      />
     </nav>
   );
 };
