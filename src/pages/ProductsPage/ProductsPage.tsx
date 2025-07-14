@@ -5,6 +5,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { Pagination } from '../../components/Pagination/Pagination';
 import { ProductsListSection } from '../../components/Sections/ProductsListSection';
+import { SkeletonCard } from '../../components/Skeleton';
 import { ITEMS_ON_PAGE_OPTIONS } from '../../constants/itemsOnPageOptions';
 import { SORT_BY_OPTIONS } from '../../constants/sortByOptions';
 import { useCatalogParams } from '../../hooks/useCatalogParams';
@@ -168,7 +169,7 @@ export const ProductsPage: FC = () => {
         </div>
       </div>
       {isLoading ?
-        <h3>Loading...</h3>
+        <SkeletonCard />
       : visibleItems.length > 0 ?
         <ProductsListSection productsFromServer={visibleItems} />
       : <h3>No products found</h3>}
