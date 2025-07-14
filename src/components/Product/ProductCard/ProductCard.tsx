@@ -1,12 +1,11 @@
-// import { Card } from '../../Common/Card';
 import styles from './ProductCard.module.scss';
 
 import type { Product } from '../../../types/product';
 import { Link } from 'react-router-dom';
 import { AddToCartButton } from '../AddToCartButton';
 import { FavoritesButton } from '../FavoritesButton/FavoritesButton';
-import { useCartAndFavorites } from '../../../utils/hooks/useCartAndFavorites';
-import type { FC } from 'react';
+import { useCardActionsStore } from '../../../hooks/useCartAndFavorites';
+import { useEffect, type FC } from 'react';
 
 interface Props {
   product: Product;
@@ -14,11 +13,21 @@ interface Props {
 }
 
 export const ProductCard: FC<Props> = ({ product, discount }) => {
-  const { addToCart, addToFavorites, cartValues, favoritesValues } =
-    useCartAndFavorites();
+  const {
+    addToCart,
+    addToFavorites,
+    cartValues,
+    favoritesValues,
+    loadFromStorage,
+  } = useCardActionsStore();
 
   const inCart = Boolean(cartValues[product.id]);
   const isFavorited = favoritesValues.includes(product.id);
+
+  useEffect(() => {
+    loadFromStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.card}>
