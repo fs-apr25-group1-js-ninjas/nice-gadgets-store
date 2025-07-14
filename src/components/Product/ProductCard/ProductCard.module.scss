@@ -19,7 +19,7 @@
 .cardLink {
   display: flex;
   text-decoration: none;
-  color: var(--white);
+  color: var(--main-second);
   flex: 1;
   flex-direction: column;
 }
@@ -44,7 +44,7 @@
   font-size: 14px;
   line-height: 21px;
   height: 58px;
-  color: var(--white);
+  color: var(--main-second);
   display: flex;
   align-items: flex-end;
   margin-bottom: 8px;
@@ -61,7 +61,7 @@
   font-weight: 800;
   font-size: 22px;
   line-height: 140%;
-  color: var(--white);
+  color: var(--main-second);
 }
 
 .fullPrice {
@@ -101,7 +101,7 @@
 
   .value {
     font-weight: 700;
-    color: var(--white);
+    color: var(--main-second);
   }
 }
 

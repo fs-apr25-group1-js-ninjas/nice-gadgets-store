@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import backIcon from '/icons/arrow_left_active.svg';
 
 import styles from './GoBackButton.module.scss';
+import clsx from 'clsx';
 
 export const GoBackButton: FC = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export const GoBackButton: FC = () => {
       <img
         src={backIcon}
         alt="back button"
-        className={styles.backIcon}
+        className={clsx(styles.backIcon, 'app-icon')}
       />
       Back
     </button>

@@ -1,8 +1,11 @@
 import type { FC } from 'react';
-import styles from './CartCard.module.scss';
+import clsx from 'clsx';
+
 import plus from '/icons/plus.svg';
 import minus from '/icons/minus.svg';
 import close from '/icons/close.svg';
+
+import styles from './CartCard.module.scss';
 
 interface CartItemProps {
   item: {
@@ -31,7 +34,7 @@ export const CartCard: FC<CartItemProps> = ({
           <img
             src={close}
             alt="CLOSE BUTTON IMG"
-            className={styles.closeBotton}
+            className={clsx(styles.closeIcon, 'app-icon')}
           />
         </button>
 

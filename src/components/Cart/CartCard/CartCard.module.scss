@@ -13,6 +13,11 @@
 
     .removeButton {
       cursor: pointer;
+
+      .closeIcon {
+        width: 16px;
+        height: 16px;
+      }
     }
 
     .containerItemImage {
@@ -56,7 +61,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid var(--elements);
+        background-color: var(--icons);
       }
 
       .quantity {
@@ -77,8 +82,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid var(--elements);
-        background-color: var(--elements);
+        background-color: var(--surface_2);
         cursor: pointer;
       }
     }
@@ -88,7 +92,7 @@
     font-size: 22px;
     font-weight: 800;
     line-height: 140%;
-    color: var(--white);
+    color: var(--main-second);
     width: 80px;
   }
 }
