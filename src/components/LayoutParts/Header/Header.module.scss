@@ -102,10 +102,20 @@ $mobile-breakpoint: 639px;
   border-top: 0;
   border-right: 0;
   border-bottom: 0;
+  position: relative;
 
   &.activeActionBlock {
     border-bottom: 2px solid var(--white);
   }
+}
+
+.iconWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 
 .icon {
@@ -118,6 +128,28 @@ $mobile-breakpoint: 639px;
   }
 }
 
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  box-sizing: border-box;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 1;
+  background-color: var(--red);
+  border-radius: 50%;
+  border: 2px solid var(--black);
+}
+
 .mobileMenuToggle {
   background: none;
   width: 64px;
@@ -128,8 +160,6 @@ $mobile-breakpoint: 639px;
   border: 1px solid var(--elements);
   border-top: 0;
   border-right: 0;
-  margin: 0;
-  padding: 0;
 }
 
 .menuIcon {
@@ -156,7 +186,6 @@ $mobile-breakpoint: 639px;
 
 @media (max-width: $tablet-breakpoint) {
   .headerContainer {
-    padding-left: 16px;
     justify-content: space-between;
   }
 
@@ -321,6 +350,15 @@ $mobile-breakpoint: 639px;
         border-color 0.3s ease;
     }
 
+    .mobileIconWrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+    }
+
     .mobileActionIcon {
       width: 24px;
       height: 24px;
@@ -331,6 +369,7 @@ $mobile-breakpoint: 639px;
         opacity: 0.7;
       }
     }
+
     .activeMobileActionIconLink {
       .mobileActionIcon {
         color: var(--primary);
