@@ -17,12 +17,12 @@
 
 .selected {
   background-color: var(--primary);
-  color: var(--white);
+  color: var(--main-second);
 }
 
 .unselected {
   background-color: var(--surface_1);
-  color: var(--white);
+  color: var(--main-second);
 }
 
 .pageButton {
@@ -37,7 +37,7 @@
 
   &:hover {
     background: var(--primary);
-    color: var(--white);
+    color: var(--main-second);
   }
 }
 
@@ -53,7 +53,7 @@
 
   &:hover {
     background: var(--primary);
-    color: var(--white);
+    color: var(--main-second);
   }
 }
 

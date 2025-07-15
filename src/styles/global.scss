@@ -10,17 +10,33 @@
   --elements: #3b3e4a;
   --surface_1: #161827;
   --surface_2: #323542;
-  --black: #0f1121;
-  --white: #f1f2f9;
+  --main-first: #0f1121;
+  --main-second: #f1f2f9;
   --accent: #e8e9ee;
+  --green: #27ae60;
+  --red: #eb5757;
+}
+
+html[data-theme='light'] {
+  // Colors -- Light Theme
+  --primary: #ffa600;
+  --selected: #323542;
+  --hover: #df7700;
+  --secondary: #89939a;
+  --icons: #b4bdc3;
+  --elements: #161827;
+  --surface_1: #fafbfc;
+  --surface_2: #323542;
+  --main-first: #ffffff;
+  --main-second: #0f1121;
   --green: #27ae60;
   --red: #eb5757;
 }
 
 body {
   font-family: 'Mont', sans-serif;
-  background-color: var(--black);
-  color: var(--white);
+  background-color: var(--main-first);
+  color: var(--main-second);
   font-weight: 600;
   font-size: 14px;
   line-height: 150%;
@@ -30,4 +46,21 @@ body {
   max-width: 1200px;
   min-width: 320px;
   margin-inline: auto;
+}
+
+.app-icon {
+  transition: filter 0.3s ease;
+}
+
+.app-logo {
+  transition: filter 0.3s ease;
+}
+
+html[data-theme='light'] {
+  .app-icon {
+    filter: invert(1) hue-rotate(180deg);
+  }
+  .app-logo {
+    filter: invert(1) hue-rotate(180deg);
+  }
 }

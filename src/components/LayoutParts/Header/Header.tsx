@@ -1,12 +1,15 @@
 import type { FC } from 'react';
-import { useState, useEffect } from 'react';
-import styles from './Header.module.scss';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import FavouritesIcon from '/icons/favourites.svg';
-import CartIcon from '/icons/cart.svg';
+import styles from './Header.module.scss';
 import MenuIcon from '/icons/burger_menu.svg';
+import CartIcon from '/icons/cart.svg';
 import CloseIcon from '/icons/close.svg';
+import FavouritesIcon from '/icons/favourites.svg';
 import NiceGadgetsLogo from '/icons/nice_gadgets_logo.svg';
+import { ThemeSwitcher } from '../../UI/ThemeSwitcher';
+import clsx from 'clsx';
+import { useCardActionsStore } from '../../../hooks/useCartAndFavorites';
 
 const MOBILE_BREAKPOINT = 639;
 
@@ -15,6 +18,19 @@ export const Header: FC = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const isMobileView = windowWidth <= MOBILE_BREAKPOINT;
+
+  const { cartValues, favoritesValues, loadFromStorage } =
+    useCardActionsStore();
+
+  useEffect(() => {
+    loadFromStorage();
+  }, [loadFromStorage]);
+
+  const cartTotalQuantity = Object.values(cartValues).reduce(
+    (sum, quantity) => sum + quantity,
+    0,
+  );
+  const favoritesTotalQuantity = favoritesValues.length;
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,7 +74,7 @@ export const Header: FC = () => {
           <img
             src={NiceGadgetsLogo}
             alt="Nice Gadgets Logo"
-            className={styles.logo}
+            className={clsx(styles.logo, 'app-logo')}
           />
         </NavLink>
 
@@ -118,6 +134,7 @@ export const Header: FC = () => {
         )}
         {!isMobileView && (
           <div className={styles.headerActions}>
+            <ThemeSwitcher />
             <NavLink
               to="/favourites"
               className={({ isActive }) =>
@@ -126,11 +143,16 @@ export const Header: FC = () => {
                 : `${styles.actionBlock} ${styles.favouriteBlock}`
               }
             >
-              <img
-                src={FavouritesIcon}
-                alt="Favourites"
-                className={styles.icon}
-              />
+              <div className={styles.iconWrapper}>
+                <img
+                  src={FavouritesIcon}
+                  alt="Favourites"
+                  className={clsx(styles.icon, 'app-icon')}
+                />
+                {favoritesTotalQuantity > 0 && (
+                  <span className={styles.badge}>{favoritesTotalQuantity}</span>
+                )}
+              </div>
             </NavLink>
             <NavLink
               to="/cart"
@@ -140,11 +162,16 @@ export const Header: FC = () => {
                 : `${styles.actionBlock} ${styles.cartBlock}`
               }
             >
-              <img
-                src={CartIcon}
-                alt="Cart"
-                className={styles.icon}
-              />
+              <div className={styles.iconWrapper}>
+                <img
+                  src={CartIcon}
+                  alt="Cart"
+                  className={clsx(styles.icon, 'app-icon')}
+                />
+                {cartTotalQuantity > 0 && (
+                  <span className={styles.badge}>{cartTotalQuantity}</span>
+                )}
+              </div>
             </NavLink>
           </div>
         )}
@@ -157,7 +184,7 @@ export const Header: FC = () => {
             <img
               src={MenuIcon}
               alt="Open Menu"
-              className={styles.menuIcon}
+              className={clsx(styles.menuIcon)}
             />
           </button>
         )}
@@ -174,7 +201,7 @@ export const Header: FC = () => {
               <img
                 src={NiceGadgetsLogo}
                 alt="Nice Gadgets Logo"
-                className={styles.mobileLogo}
+                className={clsx(styles.mobileLogo, 'app-logo')}
               />
             </NavLink>
             <button
@@ -184,7 +211,7 @@ export const Header: FC = () => {
               <img
                 src={CloseIcon}
                 alt="Close Menu"
-                className={styles.mobileMenuCloseIcon}
+                className={clsx(styles.mobileMenuCloseIcon, 'app-icon')}
               />
             </button>
           </div>
@@ -247,6 +274,7 @@ export const Header: FC = () => {
           </nav>
 
           <div className={styles.mobileActions}>
+            <ThemeSwitcher />
             <NavLink
               to="/favourites"
               className={({ isActive }) =>
@@ -260,8 +288,11 @@ export const Header: FC = () => {
                 <img
                   src={FavouritesIcon}
                   alt="Favourites"
-                  className={styles.mobileActionIcon}
+                  className={clsx(styles.mobileActionIcon, 'app-icon')}
                 />
+                {favoritesTotalQuantity > 0 && (
+                  <span className={styles.badge}>{favoritesTotalQuantity}</span>
+                )}
               </div>
             </NavLink>
             <NavLink
@@ -277,8 +308,11 @@ export const Header: FC = () => {
                 <img
                   src={CartIcon}
                   alt="Cart"
-                  className={styles.mobileActionIcon}
+                  className={clsx(styles.mobileActionIcon, 'app-icon')}
                 />
+                {cartTotalQuantity > 0 && (
+                  <span className={styles.badge}>{cartTotalQuantity}</span>
+                )}
               </div>
             </NavLink>
           </div>

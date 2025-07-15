@@ -1,5 +1,5 @@
 .breadcrumbs {
-  background-color: var(--black);
+  background-color: var(--main-first);
   color: var(--secondary);
   font-size: 14px;
   line-height: 1.2;
@@ -18,7 +18,7 @@
 
   .breadcrumbLink {
     text-decoration: none;
-    color: var(--white);
+    color: var(--main-second);
   }
 
   .currentBreadcrumb {
