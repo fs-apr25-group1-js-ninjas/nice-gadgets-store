@@ -76,10 +76,12 @@
     height: 4px;
     background-color: var(--icons);
     transition: all 0.3s;
+    cursor: pointer;
 
     &-active {
       width: 17px;
       background-color: var(--main-second);
+      cursor: default;
     }
   }
 }
