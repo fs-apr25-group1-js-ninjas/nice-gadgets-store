@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import HomeIcon from '/icons/home.svg';
 import ArrowRightIcon from '/icons/arrow_right.svg';
 import styles from './Breadcrumbs.module.scss';
+import clsx from 'clsx';
 
 interface PathMapping {
   [key: string]: string;
@@ -84,7 +85,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
                     <img
                       src={HomeIcon}
                       alt="Home"
-                      className={styles.homeIcon}
+                      className={clsx(styles.homeIcon, 'app-icon')}
                     />
                   : item.name}
                 </NavLink>

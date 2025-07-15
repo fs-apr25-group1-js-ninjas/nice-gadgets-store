@@ -19,7 +19,10 @@ import { parseProductUrl } from '../../utils/productUrlParser';
 import { fetchDetailedProductVariants } from '../../api/productApi';
 import { findProductVariant } from '../../utils/productHelpers';
 
+import { NotFoundPage } from '../NotFoundPage/NotFoundPage';
+
 import styles from './ProductPage.module.scss';
+import { CustomSpinner } from '../../components/Spinner';
 
 export const ProductPage: FC = () => {
   const { category, itemId } = useParams<{
@@ -37,6 +40,7 @@ export const ProductPage: FC = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [productNotFound, setProductNotFound] = useState(false);
 
   const {
     effectiveNamespaceId: currentEffectiveNamespaceId,
@@ -49,7 +53,7 @@ export const ProductPage: FC = () => {
 
   const updateProductUrl = useCallback(
     (newColor: string, newCapacity: string) => {
-      const namespace = product?.namespaceId || currentEffectiveNamespaceId;
+      const namespace = currentEffectiveNamespaceId;
       let newId = namespace;
 
       if (
@@ -73,7 +77,6 @@ export const ProductPage: FC = () => {
     [
       navigate,
       category,
-      product,
       currentEffectiveNamespaceId,
       location.pathname,
       location.state,
@@ -86,12 +89,15 @@ export const ProductPage: FC = () => {
     const loadData = async () => {
       setLoading(true);
       setError(null);
-      setProduct(null);
       setAllProductVariants([]);
+      setProduct(null);
+      setProductNotFound(false);
 
       if (!category || !currentEffectiveNamespaceId) {
-        setError('Category or Product Namespace ID is missing in the URL.');
-        setLoading(false);
+        if (active) {
+          setProductNotFound(true);
+          setLoading(false);
+        }
         return;
       }
 
@@ -100,20 +106,26 @@ export const ProductPage: FC = () => {
           category,
           currentEffectiveNamespaceId,
         );
+
         if (active) {
-          setAllProductVariants(variants);
+          if (variants === null || variants.length === 0) {
+            setProductNotFound(true);
+          } else {
+            setAllProductVariants(variants);
+          }
           setLoading(false);
         }
-      } catch (err: unknown) {
+      } catch (err) {
         if (active) {
           console.error('Error fetching product data:', err);
           setError(
-            err instanceof Error && err.message ?
-              err.message
+            err instanceof Error ?
+              `Failed to load data: ${err.message}`
             : 'Failed to load product data. Please try again later.',
           );
           setLoading(false);
           setAllProductVariants([]);
+          setProduct(null);
         }
       }
     };
@@ -131,8 +143,9 @@ export const ProductPage: FC = () => {
     }
 
     if (allProductVariants.length === 0) {
-      setProduct(null);
-
+      if (!productNotFound) {
+        setProduct(null);
+      }
       return;
     }
 
@@ -157,33 +170,60 @@ export const ProductPage: FC = () => {
       }
     }
 
-    setProduct(selectedVariant || null);
+    if (!selectedVariant) {
+      setProductNotFound(true);
+      setProduct(null);
+      return;
+    }
+
+    setProduct(selectedVariant);
+    setProductNotFound(false);
   }, [
     allProductVariants,
     currentSelectedCapacityFromUrl,
     currentSelectedColorFromUrl,
     loading,
     error,
+    productNotFound,
   ]);
+
+  if (productNotFound) {
+    return <NotFoundPage />;
+  }
 
   return (
     <div className={styles.productPage}>
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <div className={styles.loadingContainer}>
+          <CustomSpinner
+            size="lg"
+            color="primary"
+            label="Loading..."
+          />
+        </div>
+      )}
 
-      {!loading && error && <div>Error: {error}</div>}
-
-      {!loading && !error && !product && <div>Product not found.</div>}
-
-      {!loading && !error && product && (
+      {!loading && error && (
         <>
-          <div className={styles.breadcrumbs}>
-            <Breadcrumbs lastItemNameOverride={product.name} />
-          </div>
-
           <div className={styles.back}>
             <GoBackButton />
           </div>
+          <div className={styles.breadcrumbs}>
+            <Breadcrumbs lastItemNameOverride="Error" />
+          </div>
+          <h1 className={styles.productErrorTitle}>Error Loading Product</h1>
+          <div className={styles.errorMessage}>{error}</div>
+        </>
+      )}
 
+      {!loading && !error && product && (
+        <>
+          <div className={styles.back}>
+            <GoBackButton />
+          </div>
+          <div className={styles.breadcrumbs}>
+            <Breadcrumbs lastItemNameOverride={product.name} />
+          </div>
           <h1 className={styles.productPageTitle}>{product.name}</h1>
 
           <div className={styles.productPageContent}>

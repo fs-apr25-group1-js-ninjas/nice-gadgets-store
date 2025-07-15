@@ -7,6 +7,8 @@ import CartIcon from '/icons/cart.svg';
 import MenuIcon from '/icons/burger_menu.svg';
 import CloseIcon from '/icons/close.svg';
 import NiceGadgetsLogo from '/icons/nice_gadgets_logo.svg';
+import { ThemeSwitcher } from '../../UI/ThemeSwitcher';
+import clsx from 'clsx';
 
 const MOBILE_BREAKPOINT = 639;
 
@@ -58,7 +60,7 @@ export const Header: FC = () => {
           <img
             src={NiceGadgetsLogo}
             alt="Nice Gadgets Logo"
-            className={styles.logo}
+            className={clsx(styles.logo, 'app-logo')}
           />
         </NavLink>
 
@@ -118,6 +120,7 @@ export const Header: FC = () => {
         )}
         {!isMobileView && (
           <div className={styles.headerActions}>
+            <ThemeSwitcher />
             <NavLink
               to="/favourites"
               className={({ isActive }) =>
@@ -129,7 +132,7 @@ export const Header: FC = () => {
               <img
                 src={FavouritesIcon}
                 alt="Favourites"
-                className={styles.icon}
+                className={clsx(styles.icon, 'app-icon')}
               />
             </NavLink>
             <NavLink
@@ -143,7 +146,7 @@ export const Header: FC = () => {
               <img
                 src={CartIcon}
                 alt="Cart"
-                className={styles.icon}
+                className={clsx(styles.icon, 'app-icon')}
               />
             </NavLink>
           </div>
@@ -157,7 +160,7 @@ export const Header: FC = () => {
             <img
               src={MenuIcon}
               alt="Open Menu"
-              className={styles.menuIcon}
+              className={clsx(styles.menuIcon)}
             />
           </button>
         )}
@@ -174,7 +177,7 @@ export const Header: FC = () => {
               <img
                 src={NiceGadgetsLogo}
                 alt="Nice Gadgets Logo"
-                className={styles.mobileLogo}
+                className={clsx(styles.mobileLogo, 'app-logo')}
               />
             </NavLink>
             <button
@@ -184,7 +187,7 @@ export const Header: FC = () => {
               <img
                 src={CloseIcon}
                 alt="Close Menu"
-                className={styles.mobileMenuCloseIcon}
+                className={clsx(styles.mobileMenuCloseIcon, 'app-icon')}
               />
             </button>
           </div>
@@ -247,6 +250,7 @@ export const Header: FC = () => {
           </nav>
 
           <div className={styles.mobileActions}>
+            <ThemeSwitcher />
             <NavLink
               to="/favourites"
               className={({ isActive }) =>
@@ -260,7 +264,7 @@ export const Header: FC = () => {
                 <img
                   src={FavouritesIcon}
                   alt="Favourites"
-                  className={styles.mobileActionIcon}
+                  className={clsx(styles.mobileActionIcon, 'app-icon')}
                 />
               </div>
             </NavLink>
@@ -277,7 +281,7 @@ export const Header: FC = () => {
                 <img
                   src={CartIcon}
                   alt="Cart"
-                  className={styles.mobileActionIcon}
+                  className={clsx(styles.mobileActionIcon, 'app-icon')}
                 />
               </div>
             </NavLink>
