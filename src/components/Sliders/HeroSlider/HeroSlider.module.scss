@@ -31,7 +31,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        // height: '100%';
         width: 32px;
         background-color: var(--surface_2);
       }
@@ -45,10 +44,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    // height: '100%';
     width: 32px;
     background-color: var(--surface_2);
     cursor: pointer;
+
     img {
       height: 16px;
       width: 16px;
