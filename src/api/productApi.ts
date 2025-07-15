@@ -6,33 +6,50 @@ import type {
 export const fetchDetailedProductVariants = async (
   category: string,
   namespaceId: string,
-): Promise<DetailedProduct[]> => {
+): Promise<DetailedProduct[] | null> => {
   if (!category || !namespaceId) {
-    throw new Error('Category or Product Namespace ID is missing.');
+    return null;
   }
 
   const detailedCategoryFileName = `${category.toLowerCase()}.json`;
-  const response = await fetch(`/api/${detailedCategoryFileName}`);
+  let response;
 
-  if (!response.ok) {
-    if (response.status === 404) {
-      throw new Error(`Category data for "${category}" not found.`);
-    }
+  try {
+    response = await fetch(`/api/${detailedCategoryFileName}`);
+  } catch (error) {
+    console.error('Network error during fetch:', error);
     throw new Error(
-      `Failed to fetch detailed category data: ${response.statusText}`,
+      'Network error: Could not connect to the server for category data.',
     );
   }
 
-  const allProductsInCategory: DetailedProductsApiResponse =
-    await response.json();
+  if (!response.ok) {
+    if (response.status === 404) {
+      return null;
+    }
+    throw new Error(
+      `Server error (${response.status}) while fetching detailed category data for "${category}".`,
+    );
+  }
+
+  let allProductsInCategory: DetailedProductsApiResponse;
+  try {
+    allProductsInCategory = await response.json();
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      console.error('JSON parsing error:', error);
+      return null;
+    }
+    console.error('Unexpected error during JSON processing:', error);
+    throw new Error('An unexpected error occurred during data processing.');
+  }
+
   const variantsForNamespace = allProductsInCategory.filter(
     (p) => p.namespaceId === namespaceId,
   );
 
   if (variantsForNamespace.length === 0) {
-    throw new Error(
-      `Detailed product with namespace ID "${namespaceId}" not found in category "${category}".`,
-    );
+    return null;
   }
 
   return variantsForNamespace;

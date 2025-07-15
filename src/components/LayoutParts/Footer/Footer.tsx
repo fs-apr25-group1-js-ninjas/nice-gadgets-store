@@ -1,6 +1,9 @@
 import type { FC } from 'react';
+import clsx from 'clsx';
+
 import logo from '/icons/nice_gadgets_logo.svg';
 import arrowUpIcon from '/icons/arrow_up.svg';
+
 import styles from './Footer.module.scss';
 
 const scrollToTop = () => {
@@ -15,7 +18,7 @@ export const Footer: FC = () => (
           <img
             src={logo}
             alt="NICE GADGETS LOGO"
-            className={styles.logoImage}
+            className={clsx(styles.logoImage, 'app-logo')}
           />
         </a>
       </div>
@@ -53,7 +56,7 @@ export const Footer: FC = () => (
           <img
             src={arrowUpIcon}
             alt="Up arrow"
-            className={styles.arrowIcon}
+            className={clsx(styles.arrowIcon, 'app-icon')}
           />
         </button>
       </div>

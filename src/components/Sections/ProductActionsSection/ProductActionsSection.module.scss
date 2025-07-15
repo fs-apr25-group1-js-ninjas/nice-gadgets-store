@@ -39,7 +39,7 @@
         background-clip: content-box;
 
         &.activeColor {
-          border-color: var(--white);
+          border-color: var(--main-second);
         }
 
         &:disabled {
@@ -59,8 +59,7 @@
       .capacityButton {
         padding: 8px 16px;
         border: 1px solid var(--icons);
-        background-color: var(--black);
-        color: var(--white);
+        color: var(--main-second);
         border-radius: 4px;
         cursor: pointer;
         font-weight: 700;
@@ -68,13 +67,13 @@
         transition: all 0.3s ease;
 
         &:hover:not(:disabled) {
-          border-color: var(--white);
+          border-color: var(--main-second);
         }
 
         &.activeCapacity {
-          background-color: var(--white);
-          color: var(--black);
-          border-color: var(--white);
+          background-color: var(--main-second);
+          color: var(--main-first);
+          border-color: var(--main-second);
         }
 
         &:disabled {
@@ -118,7 +117,7 @@
     .buttonAdd {
       height: 48px;
       background-color: var(--primary);
-      color: var(--white);
+      color: var(--main-second);
       border: none;
       border-radius: 4px;
       cursor: pointer;
