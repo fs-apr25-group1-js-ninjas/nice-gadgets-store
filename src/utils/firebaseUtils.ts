@@ -1,6 +1,7 @@
 import { ref, get, query, orderByChild, equalTo } from 'firebase/database';
 import { database } from '../config/firebase';
 import type { Product } from '../types/product';
+import type { DetailedProduct } from '../types/detailedProduct';
 
 export const fetchAllProducts = async (): Promise<Product[]> => {
   try {
@@ -109,6 +110,36 @@ export const fetchFromCollection = async (
     }
   } catch (error) {
     console.error(`Error fetching from collection ${collectionName}:`, error);
+    throw error;
+  }
+};
+
+export const fetchDetailedProductVariants = async (
+  category: string,
+  namespaceId: string,
+): Promise<DetailedProduct[]> => {
+  try {
+    const categoryRef = ref(database, category);
+    const variantsQuery = query(
+      categoryRef,
+      orderByChild('namespaceId'),
+      equalTo(namespaceId),
+    );
+    const snapshot = await get(variantsQuery);
+
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      return Object.values(data).filter(
+        (item) => item && typeof item === 'object',
+      ) as DetailedProduct[];
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(
+      `Error fetching product variants for ${namespaceId} in ${category}:`,
+      error,
+    );
     throw error;
   }
 };

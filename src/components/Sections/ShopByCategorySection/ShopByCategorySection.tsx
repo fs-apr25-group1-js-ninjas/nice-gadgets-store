@@ -1,13 +1,13 @@
 import { useEffect, useState, type FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import accessoriesBanner from '/img/category-accessories.png';
 import phonesBanner from '/img/category-phones.png';
 import tabletsBanner from '/img/category-tablets.png';
+import accessoriesBanner from '/img/category-accessories.png';
 
-import type { DetailedProductsApiResponse } from '../../../types/detailedProduct';
-import { getProducts } from '../../../utils/getProducts';
 import styles from './ShopByCategorySection.module.scss';
+import { firebaseApi } from '../../../utils/fetchProducts';
+import type { DetailedProductsApiResponse } from '../../../types/detailedProduct';
 
 type CategoryType = 'phones' | 'tablets' | 'accessories';
 
@@ -41,19 +41,21 @@ export const ShopByCategorySection: FC = () => {
   );
 
   useEffect(() => {
-    const fetchAllProducts = async () => {
-      const phones =
-        await getProducts<DetailedProductsApiResponse>(`./api/phones.json`);
-      const tablets =
-        await getProducts<DetailedProductsApiResponse>(`./api/tablets.json`);
-      const accessories = await getProducts<DetailedProductsApiResponse>(
-        `./api/accessories.json`,
-      );
+    const loadAllProducts = async () => {
+      const phones = (await firebaseApi.getFromCollection(
+        'phones',
+      )) as DetailedProductsApiResponse;
+      const tablets = (await firebaseApi.getFromCollection(
+        'tablets',
+      )) as DetailedProductsApiResponse;
+      const accessories = (await firebaseApi.getFromCollection(
+        'accessories',
+      )) as DetailedProductsApiResponse;
 
       setAllProducts([...phones, ...tablets, ...accessories]);
     };
 
-    fetchAllProducts();
+    loadAllProducts();
   }, []);
 
   const getCategoryCount = (categoryName: CategoryType): number => {
