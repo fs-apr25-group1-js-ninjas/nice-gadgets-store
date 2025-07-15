@@ -1,13 +1,13 @@
 import { useEffect, useState, type FC } from 'react';
 import { Link } from 'react-router-dom';
 
+import accessoriesBanner from '/img/category-accessories.png';
 import phonesBanner from '/img/category-phones.png';
 import tabletsBanner from '/img/category-tablets.png';
-import accessoriesBanner from '/img/category-accessories.png';
 
-import styles from './ShopByCategorySection.module.scss';
-import { getProducts } from '../../../utils/getProducts';
 import type { DetailedProductsApiResponse } from '../../../types/detailedProduct';
+import { getProducts } from '../../../utils/getProducts';
+import styles from './ShopByCategorySection.module.scss';
 
 type CategoryType = 'phones' | 'tablets' | 'accessories';
 
