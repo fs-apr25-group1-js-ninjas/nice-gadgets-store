@@ -1,3 +1,33 @@
+.card {
+  height: 440px;
+  max-width: 288px;
+  background-color: var(--surface_1);
+
+  @media (min-width: 640px) {
+    height: 506px;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 230px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 272px;
+  }
+
+  .image {
+    height: 129px;
+
+    @media (min-width: 640px) {
+      height: 181px;
+    }
+
+    @media (min-width: 1200px) {
+      height: 196px;
+    }
+  }
+}
+
 .skeleton {
   background-color: var(--secondary);
 }

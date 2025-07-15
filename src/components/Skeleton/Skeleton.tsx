@@ -3,306 +3,38 @@ import styles from './Skeleton.module.scss';
 
 export const SkeletonCard: FC = () => {
   return (
-    <section className="bg-transparent">
-      <div className="container h-250 mb-4 px-6 mx-auto animate-pulse">
-        <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3">
-          <div className="w-full ">
-            <div className={`w-full h-50 ${styles.skeleton} rounded-lg`}></div>
+    <div className={`animate-pulse ${styles.card}`}>
+      <div className="p-8">
+        <div
+          className={`w-full ${styles.image} ${styles.skeleton} rounded-lg`}
+        ></div>
 
-            <h1
-              className={`w-51 h-4 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></h1>
-            <p
-              className={`w-20 h-8 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></p>
+        <h2 className={`w-full h-3.5 mt-4 ${styles.skeleton} rounded-lg`}></h2>
+        <h2 className={`w-20 h-3.5 mt-1.5 ${styles.skeleton} rounded-lg`}></h2>
+        <p className={`w-20 h-8 mt-4 ${styles.skeleton} rounded-lg`}></p>
 
-            <div
-              className={`w-51 h-0.5 mt-5 ml-4 ${styles.skeleton} rounded-lg`}
-            ></div>
+        <div
+          className={`w-full h-0.5 mt-5 ${styles.skeleton} rounded-lg`}
+        ></div>
 
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-            </div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div
-                className={`h-10 w-36 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-              <div
-                className={`h-10 w-11 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-            </div>
+        <div className="w-full flex justify-between mt-1">
+          <div className="w-18">
+            <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
+            <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
+            <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
           </div>
-
-          <div className="w-full ">
-            <div className={`w-full h-50 ${styles.skeleton} rounded-lg`}></div>
-
-            <h1
-              className={`w-51 h-4 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></h1>
-            <p
-              className={`w-20 h-8 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></p>
-
-            <div
-              className={`w-51 h-0.5 mt-5 ml-4 ${styles.skeleton} rounded-lg`}
-            ></div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-            </div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div
-                className={`h-10 w-36 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-              <div
-                className={`h-10 w-11 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-            </div>
-          </div>
-
-          <div className="w-full ">
-            <div className={`w-full h-50 ${styles.skeleton} rounded-lg`}></div>
-
-            <h1
-              className={`w-51 h-4 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></h1>
-            <p
-              className={`w-20 h-8 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></p>
-
-            <div
-              className={`w-51 h-0.5 mt-5 ml-4 ${styles.skeleton} rounded-lg`}
-            ></div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-            </div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div
-                className={`h-10 w-36 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-              <div
-                className={`h-10 w-11 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-            </div>
-          </div>
-
-          <div className="w-full ">
-            <div className={`w-full h-50 ${styles.skeleton} rounded-lg`}></div>
-
-            <h1
-              className={`w-51 h-4 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></h1>
-            <p
-              className={`w-20 h-8 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></p>
-
-            <div
-              className={`w-51 h-0.5 mt-5 ml-4 ${styles.skeleton} rounded-lg`}
-            ></div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-            </div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div
-                className={`h-10 w-36 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-              <div
-                className={`h-10 w-11 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-            </div>
-          </div>
-
-          <div className="w-full ">
-            <div className={`w-full h-50 ${styles.skeleton} rounded-lg`}></div>
-
-            <h1
-              className={`w-51 h-4 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></h1>
-            <p
-              className={`w-20 h-8 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></p>
-
-            <div
-              className={`w-51 h-0.5 mt-5 ml-4 ${styles.skeleton} rounded-lg`}
-            ></div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-            </div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div
-                className={`h-10 w-36 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-              <div
-                className={`h-10 w-11 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-            </div>
-          </div>
-
-          <div className="w-full ">
-            <div className={`w-full h-50 ${styles.skeleton} rounded-lg`}></div>
-
-            <h1
-              className={`w-51 h-4 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></h1>
-            <p
-              className={`w-20 h-8 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></p>
-
-            <div
-              className={`w-51 h-0.5 mt-5 ml-4 ${styles.skeleton} rounded-lg`}
-            ></div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-            </div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div
-                className={`h-10 w-36 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-              <div
-                className={`h-10 w-11 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-            </div>
-          </div>
-
-          <div className="w-full ">
-            <div className={`w-full h-50 ${styles.skeleton} rounded-lg`}></div>
-
-            <h1
-              className={`w-51 h-4 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></h1>
-            <p
-              className={`w-20 h-8 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></p>
-
-            <div
-              className={`w-51 h-0.5 mt-5 ml-4 ${styles.skeleton} rounded-lg`}
-            ></div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-            </div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div
-                className={`h-10 w-36 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-              <div
-                className={`h-10 w-11 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-            </div>
-          </div>
-
-          <div className="w-full ">
-            <div className={`w-full h-50 ${styles.skeleton} rounded-lg`}></div>
-
-            <h1
-              className={`w-51 h-4 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></h1>
-            <p
-              className={`w-20 h-8 mt-4 ml-4 ${styles.skeleton} rounded-lg`}
-            ></p>
-
-            <div
-              className={`w-51 h-0.5 mt-5 ml-4 ${styles.skeleton} rounded-lg`}
-            ></div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-              <div className="w-18">
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-                <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
-              </div>
-            </div>
-
-            <div className="w-51 flex justify-between mt-3 ml-4">
-              <div
-                className={`h-10 w-36 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-              <div
-                className={`h-10 w-11 mt-4 ${styles.skeleton} rounded-lg`}
-              ></div>
-            </div>
+          <div className="w-18">
+            <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
+            <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
+            <p className={`h-2 mt-4 ${styles.skeleton} rounded-lg`}></p>
           </div>
         </div>
+
+        <div className="w-full flex justify-between mt-2">
+          <div className={`h-10 w-28 mt-4 ${styles.skeleton} rounded-lg`}></div>
+          <div className={`h-10 w-11 mt-4 ${styles.skeleton} rounded-lg`}></div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
