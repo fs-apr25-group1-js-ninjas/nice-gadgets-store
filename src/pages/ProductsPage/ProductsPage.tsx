@@ -9,41 +9,22 @@ import { ITEMS_ON_PAGE_OPTIONS } from '../../constants/itemsOnPageOptions';
 import { SORT_BY_OPTIONS } from '../../constants/sortByOptions';
 import { useCatalogParams } from '../../hooks/useCatalogParams';
 import { useCatalogProducts } from '../../hooks/useCatalogProducts';
-import type { Product } from '../../types/product';
-import { getProducts } from '../../utils/getProducts';
+import { useFetchProducts } from '../../hooks/useFetchProducts';
 import { NotFoundPage } from '../NotFoundPage';
 import styles from './ProductsPage.module.scss';
 import IconArrowDown from '/icons/arrow_down.svg';
 
-const API = './api/products.json';
-
 export const ProductsPage: FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { urlSort, urlPage, urlPerPage, updateParams } = useCatalogParams();
+  const { products, isLoading } = useFetchProducts();
 
   const [sortBy, setSortBy] = useState(urlSort);
   const [currentPage, setCurrentPage] = useState(urlPage);
   const [itemsOnPage, setItemsOnPage] = useState<string | number>(urlPerPage);
   const { category } = useParams<{ category: string }>();
   const listRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const fetchAllProducts = async () => {
-      try {
-        const data = await getProducts<Product[]>(API);
-        setProducts(data);
-      } catch (error) {
-        console.error('Cannot load products', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchAllProducts();
-  }, []);
 
   const {
     isValidCategory,
