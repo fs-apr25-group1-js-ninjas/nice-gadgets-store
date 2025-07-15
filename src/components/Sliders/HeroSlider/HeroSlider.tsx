@@ -58,6 +58,7 @@ export const HeroSlider: FC = () => {
             <img
               src={ArrowLeft}
               alt="Arrow Left"
+              className="app-icon"
             />
           </button>
         )}
@@ -109,6 +110,7 @@ export const HeroSlider: FC = () => {
             <img
               src={ArrowRight}
               alt="Arrow Right"
+              className="app-icon"
             />
           </button>
         )}

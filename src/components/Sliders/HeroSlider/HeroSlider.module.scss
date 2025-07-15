@@ -74,12 +74,14 @@
   .swiper-pagination-bullet {
     width: 14px;
     height: 4px;
-    background-color: var(--elements);
+    background-color: var(--icons);
     transition: all 0.3s;
+    cursor: pointer;
 
     &-active {
       width: 17px;
       background-color: var(--main-second);
+      cursor: default;
     }
   }
 }
