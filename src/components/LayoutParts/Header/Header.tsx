@@ -7,15 +7,18 @@ import CartIcon from '/icons/cart.svg';
 import CloseIcon from '/icons/close.svg';
 import FavouritesIcon from '/icons/favourites.svg';
 import NiceGadgetsLogo from '/icons/nice_gadgets_logo.svg';
+import NiceGadgetsLogoLight from '/icons/nice_gadgets_logo_light.svg';
 import { ThemeSwitcher } from '../../UI/ThemeSwitcher';
 import clsx from 'clsx';
 import { useCardActionsStore } from '../../../hooks/useCartAndFavorites';
+import { useThemeStore } from '../../../store/themeStore';
 
 const MOBILE_BREAKPOINT = 639;
 
 export const Header: FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { theme } = useThemeStore();
 
   const isMobileView = windowWidth <= MOBILE_BREAKPOINT;
 
@@ -64,6 +67,9 @@ export const Header: FC = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const currentLogoPath =
+    theme === 'dark' ? NiceGadgetsLogo : NiceGadgetsLogoLight;
+
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
@@ -72,9 +78,9 @@ export const Header: FC = () => {
           className={styles.logoLink}
         >
           <img
-            src={NiceGadgetsLogo}
+            src={currentLogoPath}
             alt="Nice Gadgets Logo"
-            className={clsx(styles.logo, 'app-logo')}
+            className={styles.logo}
           />
         </NavLink>
 
@@ -184,7 +190,7 @@ export const Header: FC = () => {
             <img
               src={MenuIcon}
               alt="Open Menu"
-              className={clsx(styles.menuIcon)}
+              className={clsx(styles.menuIcon, 'app-icon')}
             />
           </button>
         )}
@@ -199,9 +205,9 @@ export const Header: FC = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <img
-                src={NiceGadgetsLogo}
+                src={currentLogoPath}
                 alt="Nice Gadgets Logo"
-                className={clsx(styles.mobileLogo, 'app-logo')}
+                className={styles.mobileLogo}
               />
             </NavLink>
             <button
