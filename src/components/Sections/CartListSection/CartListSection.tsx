@@ -23,8 +23,6 @@ export const CartListSection: FC<CartListSectionProps> = ({
           <CartCard
             key={product.id}
             item={product}
-            // quantity={() => {}}
-            // onQuantityChange={() => {}}
             onRemove={() => onRemove(product.id)}
           />
         ))

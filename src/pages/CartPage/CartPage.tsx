@@ -19,7 +19,9 @@ export const CartPage: FC = () => {
 
   type CartProduct = Product & {
     quantity: number;
+    price: number;
   };
+
   const productsInCart: CartProduct[] = Object.entries(cartValues)
     .map(([id, quantity]) => {
       const product = products.find((product) => product.id === Number(id));
@@ -39,7 +41,7 @@ export const CartPage: FC = () => {
           onRemove={removeFromCart}
         />
 
-        <CheckoutSection />
+        <CheckoutSection productsInCart={productsInCart} />
       </div>
     </div>
   );

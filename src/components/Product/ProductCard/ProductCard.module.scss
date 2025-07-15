@@ -9,11 +9,9 @@
   max-width: 272px;
   transition: transform 0.3s ease;
   border: 1px solid transparent;
-  cursor: pointer;
 
   &:hover {
-    border-color: var(--selected);
-    transform: scale(1.03);
+    transform: translateY(-5px);
   }
 }
 
