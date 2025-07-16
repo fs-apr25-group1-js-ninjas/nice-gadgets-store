@@ -13,6 +13,7 @@ type Store = {
   addToCart: (id: number) => void;
   addToFavorites: (id: number) => void;
   loadFromStorage: () => void;
+  clearCart: () => void;
 };
 
 export const useCardActionsStore = create<Store>((set, get) => ({
@@ -54,5 +55,10 @@ export const useCardActionsStore = create<Store>((set, get) => ({
     }
     localStorage.setItem(NICE_GADGETS_STORE.FAVORITES, JSON.stringify(updated));
     set({ favoritesValues: updated });
+  },
+
+  clearCart: () => {
+    localStorage.removeItem(NICE_GADGETS_STORE.CART);
+    set({ cartValues: {} });
   },
 }));
