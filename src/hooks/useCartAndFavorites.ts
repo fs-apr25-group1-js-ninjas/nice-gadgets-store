@@ -13,10 +13,12 @@ type Store = {
   addToCart: (id: number) => void;
   addToFavorites: (id: number) => void;
   loadFromStorage: () => void;
-  clearCart: () => void;
+  removeFromCart: (id: number) => void;
+  increaseQuantity: (id: number) => void;
+  decreaseQuantity: (id: number) => void;
 };
 
-export const useCardActionsStore = create<Store>((set, get) => ({
+export const useCartActionsStore = create<Store>((set, get) => ({
   cartValues: {},
   favoritesValues: [],
 
@@ -54,11 +56,46 @@ export const useCardActionsStore = create<Store>((set, get) => ({
       updated = [...favs, id];
     }
     localStorage.setItem(NICE_GADGETS_STORE.FAVORITES, JSON.stringify(updated));
+
     set({ favoritesValues: updated });
   },
 
-  clearCart: () => {
-    localStorage.removeItem(NICE_GADGETS_STORE.CART);
-    set({ cartValues: {} });
+  removeFromCart: (id: number) => {
+    const cart = get().cartValues;
+    if (cart[id]) {
+      const updatedCart = { ...cart };
+      delete updatedCart[id];
+      localStorage.setItem(
+        NICE_GADGETS_STORE.CART,
+        JSON.stringify(updatedCart),
+      );
+      set({ cartValues: updatedCart });
+    }
+  },
+
+  increaseQuantity: (id: number) => {
+    const cart = get().cartValues;
+    if (cart[id]) {
+      const updatedCart = { ...cart, [id]: cart[id] + 1 };
+      localStorage.setItem(
+        NICE_GADGETS_STORE.CART,
+        JSON.stringify(updatedCart),
+      );
+      set({ cartValues: updatedCart });
+    }
+  },
+
+  decreaseQuantity: (id: number) => {
+    const cart = get().cartValues;
+    if (cart[id] > 1) {
+      const updatedCart = { ...cart, [id]: cart[id] - 1 };
+      localStorage.setItem(
+        NICE_GADGETS_STORE.CART,
+        JSON.stringify(updatedCart),
+      );
+      set({ cartValues: updatedCart });
+    } else if (cart[id] === 1) {
+      get().removeFromCart(id);
+    }
   },
 }));
