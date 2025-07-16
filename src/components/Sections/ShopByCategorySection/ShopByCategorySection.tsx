@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from 'react';
+import { type FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import phonesBanner from '/img/category-phones.png';
@@ -6,8 +6,7 @@ import tabletsBanner from '/img/category-tablets.png';
 import accessoriesBanner from '/img/category-accessories.png';
 
 import styles from './ShopByCategorySection.module.scss';
-import { firebaseApi } from '../../../utils/fetchProducts';
-import type { DetailedProductsApiResponse } from '../../../types/detailedProduct';
+import { useFetchProducts } from '../../../hooks/useFetchProducts';
 
 type CategoryType = 'phones' | 'tablets' | 'accessories';
 
@@ -36,30 +35,10 @@ const CategoryButtons: categoryButtonItem[] = [
 ];
 
 export const ShopByCategorySection: FC = () => {
-  const [allProducts, setAllProducts] = useState<DetailedProductsApiResponse>(
-    [],
-  );
-
-  useEffect(() => {
-    const loadAllProducts = async () => {
-      const phones = (await firebaseApi.getFromCollection(
-        'phones',
-      )) as DetailedProductsApiResponse;
-      const tablets = (await firebaseApi.getFromCollection(
-        'tablets',
-      )) as DetailedProductsApiResponse;
-      const accessories = (await firebaseApi.getFromCollection(
-        'accessories',
-      )) as DetailedProductsApiResponse;
-
-      setAllProducts([...phones, ...tablets, ...accessories]);
-    };
-
-    loadAllProducts();
-  }, []);
+  const { products } = useFetchProducts();
 
   const getCategoryCount = (categoryName: CategoryType): number => {
-    return allProducts.filter((product) => product.category === categoryName)
+    return products.filter((product) => product.category === categoryName)
       .length;
   };
 

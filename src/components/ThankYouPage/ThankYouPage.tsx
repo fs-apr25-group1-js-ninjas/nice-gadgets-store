@@ -1,5 +1,4 @@
 import type { FC } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './ThankYouPage.module.scss';
 
 interface ThankYouPageProps {
@@ -30,13 +29,6 @@ export const ThankYouPage: FC<ThankYouPageProps> = ({
         <p className={styles.orderId}>
           Your order ID is: <strong>#{orderId}</strong>
         </p>
-        <Link
-          to="/"
-          className={styles.continueShopingButton}
-          onClick={onClose}
-        >
-          Continue shoping
-        </Link>
       </div>
     </div>
   );
