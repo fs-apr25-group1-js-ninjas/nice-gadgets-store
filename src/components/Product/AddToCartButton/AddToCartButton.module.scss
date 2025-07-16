@@ -8,6 +8,11 @@
   width: 81px;
   height: 40px;
   padding: 0 9.5px;
+
+  :hover {
+    cursor: pointer;
+    background-color: var(--hover);
+  }
 }
 
 .added {

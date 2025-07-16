@@ -4,7 +4,7 @@ import type { UnifiedProduct } from '../../../types/unifiedProduct';
 import { Link } from 'react-router-dom';
 import { AddToCartButton } from '../AddToCartButton';
 import { FavoritesButton } from '../FavoritesButton/FavoritesButton';
-import { useCardActionsStore } from '../../../hooks/useCartAndFavorites';
+import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
 import { useEffect, type FC } from 'react';
 
 interface Props {
@@ -19,7 +19,7 @@ export const ProductCard: FC<Props> = ({ product, discount }) => {
     cartValues,
     favoritesValues,
     loadFromStorage,
-  } = useCardActionsStore();
+  } = useCartActionsStore();
 
   const inCart = Boolean(cartValues[product.id]);
   const isFavorited = favoritesValues.includes(product.id);
