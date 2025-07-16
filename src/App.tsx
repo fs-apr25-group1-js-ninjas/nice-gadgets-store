@@ -7,6 +7,7 @@ import { Main } from './components/Main';
 import { Footer } from './components/LayoutParts/Footer';
 
 import './styles/global.scss';
+import { HelloModalBlock } from './components/HelloModalBlock';
 
 export const App: FC = () => {
   const { theme } = useThemeStore();
@@ -17,6 +18,7 @@ export const App: FC = () => {
 
   return (
     <div className="app-wrapper">
+      <HelloModalBlock />
       <Header />
       <Main />
       <Footer />
