@@ -1,14 +1,13 @@
-import { useState, type FC, useCallback, useMemo } from 'react';
-
+import { type FC, useCallback, useMemo } from 'react';
 import type { DetailedProduct } from '../../../types/detailedProduct';
-
-import fav from '/icons/favourites.svg';
-import favActive from '/icons/favourites_active.svg';
 
 import { generateDisplayId } from '../../../utils/generateDisplayId';
 import { COLOR_MAP } from '../../../constants/colorMap';
 
 import styles from './ProductActionsSection.module.scss';
+import { AddToCartButton } from '../../Product/AddToCartButton';
+import { FavoritesButton } from '../../Product/FavoritesButton/FavoritesButton';
+import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
 
 interface ProductActionsSectionProps {
   product: DetailedProduct;
@@ -23,11 +22,10 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
   selectedCapacity,
   onOptionChange,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { addToCart, addToFavorites, cartValues, favoritesValues } =
+    useCartActionsStore();
 
-  const displayId = useMemo(() => {
-    return generateDisplayId(product);
-  }, [product]);
+  const displayId = useMemo(() => generateDisplayId(product), [product]);
 
   const handleOptionChange = useCallback(
     (optionType: 'color' | 'capacity', value: string) => {
@@ -51,17 +49,6 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
     [onOptionChange, selectedColor, selectedCapacity],
   );
 
-  const handleAddToCart = () => {
-    console.log(`Adding ${product.id} to Cart`);
-  };
-
-  const handleAddToFavourites = () => {
-    setIsFavorite((prev) => !prev);
-    console.log(
-      `Toggling favorite for product ID: ${product.id}. New state: ${!isFavorite}`,
-    );
-  };
-
   const {
     priceRegular,
     priceDiscount,
@@ -72,6 +59,9 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
     processor,
     ram,
   } = product;
+
+  const inCart = !!cartValues[product.id];
+  const isFavorited = favoritesValues.includes(product.id);
 
   return (
     <section className={styles.productActions}>
@@ -146,21 +136,14 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
       </div>
 
       <div className={styles.buttons}>
-        <button
-          className={styles.buttonAdd}
-          onClick={handleAddToCart}
-        >
-          Add to cart
-        </button>
-        <button
-          className={styles.buttonFav}
-          onClick={handleAddToFavourites}
-        >
-          <img
-            src={isFavorite ? favActive : fav}
-            alt={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-          />
-        </button>
+        <AddToCartButton
+          onClick={() => addToCart(product.id)}
+          inCart={inCart}
+        />
+        <FavoritesButton
+          onClick={() => addToFavorites(product.id)}
+          isActive={isFavorited}
+        />
       </div>
 
       <div className={styles.shortInfo}>
