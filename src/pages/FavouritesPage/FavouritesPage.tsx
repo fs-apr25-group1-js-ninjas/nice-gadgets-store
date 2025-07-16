@@ -2,12 +2,12 @@ import { useEffect, useState, type FC } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { ProductCard } from '../../components/Product/ProductCard';
 import styles from './FavouritesPage.module.scss';
-import { useCardActionsStore } from '../../hooks/useCartAndFavorites';
+import { useCartActionsStore } from '../../hooks/useCartAndFavorites';
 import type { UnifiedProduct } from '../../types/unifiedProduct';
 import { firebaseApi } from '../../utils/fetchProducts';
 
 export const FavouritesPage: FC = () => {
-  const { favoritesValues, loadFromStorage } = useCardActionsStore();
+  const { favoritesValues, loadFromStorage } = useCartActionsStore();
   const [allProducts, setAllProducts] = useState<UnifiedProduct[]>([]);
 
   useEffect(() => {

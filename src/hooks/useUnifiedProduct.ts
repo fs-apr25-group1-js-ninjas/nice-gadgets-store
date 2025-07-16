@@ -84,6 +84,7 @@ export const useUnifiedProduct = ({
         const products = await firebaseApi.getAllProducts();
         if (active) {
           setAllProducts(products);
+          setLoading(false);
         }
       } catch (err) {
         if (active) {
@@ -101,10 +102,15 @@ export const useUnifiedProduct = ({
   }, []);
 
   useEffect(() => {
-    if (loading || !allProducts.length || !itemId) return;
+    if (!allProducts.length || !itemId) return;
+
+    console.log('Searching for product with itemId:', itemId);
+    console.log('Current namespace ID:', currentEffectiveNamespaceId);
+    console.log('All products count:', allProducts.length);
 
     // Попытка найти товар по точному itemId
     let foundProduct = findUnifiedProductByItemId(allProducts, itemId);
+    console.log('Found product by itemId:', foundProduct);
 
     if (!foundProduct && currentEffectiveNamespaceId) {
       // Если не найден по itemId, ищем по namespaceId и опциям
@@ -112,6 +118,7 @@ export const useUnifiedProduct = ({
         allProducts,
         currentEffectiveNamespaceId,
       );
+      console.log('Found variants by namespace:', variants);
 
       if (variants.length > 0) {
         // Ищем вариант по цвету и объему
@@ -134,6 +141,8 @@ export const useUnifiedProduct = ({
       }
     }
 
+    console.log('Final found product:', foundProduct);
+
     if (foundProduct) {
       setProduct(foundProduct);
       setProductNotFound(false);
@@ -141,15 +150,12 @@ export const useUnifiedProduct = ({
       setProductNotFound(true);
       setProduct(null);
     }
-
-    setLoading(false);
   }, [
     allProducts,
     itemId,
     currentEffectiveNamespaceId,
     currentSelectedColorFromUrl,
     currentSelectedCapacityFromUrl,
-    loading,
   ]);
 
   return {

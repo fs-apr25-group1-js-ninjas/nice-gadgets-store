@@ -1,6 +1,7 @@
-import { useState, type FC, useCallback, useMemo } from 'react';
+import { type FC, useCallback, useMemo, useEffect } from 'react';
 
 import type { UnifiedProduct } from '../../../types/unifiedProduct';
+import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
 
 import fav from '/icons/favourites.svg';
 import favActive from '/icons/favourites_active.svg';
@@ -23,7 +24,20 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
   selectedCapacity,
   onOptionChange,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const {
+    addToCart,
+    addToFavorites,
+    cartValues,
+    favoritesValues,
+    loadFromStorage,
+  } = useCartActionsStore();
+
+  const inCart = Boolean(cartValues[product.id]);
+  const isFavorited = favoritesValues.includes(product.id);
+
+  useEffect(() => {
+    loadFromStorage();
+  }, [loadFromStorage]);
 
   const displayId = useMemo(() => {
     return generateDisplayId(product);
@@ -52,14 +66,11 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
   );
 
   const handleAddToCart = () => {
-    console.log(`Adding ${product.id} to Cart`);
+    addToCart(product.id);
   };
 
   const handleAddToFavourites = () => {
-    setIsFavorite((prev) => !prev);
-    console.log(
-      `Toggling favorite for product ID: ${product.id}. New state: ${!isFavorite}`,
-    );
+    addToFavorites(product.id);
   };
 
   const {
@@ -155,16 +166,17 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
         <button
           className={styles.buttonAdd}
           onClick={handleAddToCart}
+          disabled={inCart}
         >
-          Add to cart
+          {inCart ? 'Added to cart' : 'Add to cart'}
         </button>
         <button
           className={styles.buttonFav}
           onClick={handleAddToFavourites}
         >
           <img
-            src={isFavorite ? favActive : fav}
-            alt={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+            src={isFavorited ? favActive : fav}
+            alt={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
           />
         </button>
       </div>
