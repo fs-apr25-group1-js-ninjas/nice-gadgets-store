@@ -34,8 +34,9 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 288px);
+    grid-template-columns: repeat(auto-fill, 288px);
     gap: 40px;
+    justify-content: center;
   }
 
   .cardWrapper {
@@ -64,7 +65,7 @@
     }
 
     .grid {
-      grid-template-columns: repeat(auto-fit, 272px);
+      grid-template-columns: repeat(auto-fill, 272px);
       gap: 40px 16px;
     }
   }

@@ -24,7 +24,7 @@ export const CartPage: FC = () => {
 
   const productsInCart: CartProduct[] = Object.entries(cartValues)
     .map(([id, quantity]) => {
-      const product = products.find((product) => product.id === Number(id));
+      const product = products.find((product) => product.id === id);
       return product ? { ...product, quantity } : null;
     })
     .filter((item): item is CartProduct => item !== null);

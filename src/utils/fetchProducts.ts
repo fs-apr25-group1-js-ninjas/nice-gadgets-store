@@ -1,8 +1,8 @@
+import type { Product } from '../types/product';
 import {
   fetchAllProducts,
   fetchProductsByCategory,
   fetchDetailedProduct,
-  fetchFromCollection,
   fetchDetailedProductVariants,
 } from './firebaseUtils';
 
@@ -12,25 +12,29 @@ function wait(delay: number) {
   });
 }
 
+function normalizeProducts(products: Product[]): Product[] {
+  return products.map((product) => ({
+    ...product,
+    id: product.itemId,
+  }));
+}
+
 export const firebaseApi = {
   getAllProducts: async () => {
     await wait(300);
-    return fetchAllProducts();
+    const productsFromApi = await fetchAllProducts();
+    return normalizeProducts(productsFromApi);
   },
 
   getProductsByCategory: async (category: string) => {
     await wait(300);
-    return fetchProductsByCategory(category);
+    const productsFromApi = await fetchProductsByCategory(category);
+    return normalizeProducts(productsFromApi);
   },
 
   getDetailedProduct: async (category: string, itemId: string) => {
     await wait(300);
     return fetchDetailedProduct(category, itemId);
-  },
-
-  getFromCollection: async (collectionName: string) => {
-    await wait(300);
-    return fetchFromCollection(collectionName);
   },
 
   getDetailedProductVariants: async (category: string, namespaceId: string) => {

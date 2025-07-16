@@ -5,6 +5,11 @@
   align-items: center;
   justify-content: center;
   background-color: var(--selected);
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--secondary);
+  }
 }
 
 img {

@@ -5,17 +5,17 @@ export const NICE_GADGETS_STORE = {
   FAVORITES: 'NICE_GADGETS_STORE_FAVORITES',
 };
 
-type Cart = Record<number, number>;
-type Favorites = number[];
+type Cart = Record<string, number>;
+type Favorites = string[];
 type Store = {
   cartValues: Cart;
   favoritesValues: Favorites;
-  addToCart: (id: number) => void;
-  addToFavorites: (id: number) => void;
+  addToCart: (id: string) => void;
+  addToFavorites: (id: string) => void;
   loadFromStorage: () => void;
-  removeFromCart: (id: number) => void;
-  increaseQuantity: (id: number) => void;
-  decreaseQuantity: (id: number) => void;
+  removeFromCart: (id: string) => void;
+  increaseQuantity: (id: string) => void;
+  decreaseQuantity: (id: string) => void;
   clearCart: () => void;
 };
 
@@ -33,7 +33,7 @@ export const useCartActionsStore = create<Store>((set, get) => ({
     set({ cartValues: cart, favoritesValues: favs });
   },
 
-  addToCart: (id: number) => {
+  addToCart: (id: string) => {
     const cart = get().cartValues;
 
     if (!cart[id]) {
@@ -48,7 +48,7 @@ export const useCartActionsStore = create<Store>((set, get) => ({
     }
   },
 
-  addToFavorites: (id: number) => {
+  addToFavorites: (id: string) => {
     const favs = get().favoritesValues;
     let updated;
     if (favs.includes(id)) {
@@ -61,7 +61,7 @@ export const useCartActionsStore = create<Store>((set, get) => ({
     set({ favoritesValues: updated });
   },
 
-  removeFromCart: (id: number) => {
+  removeFromCart: (id: string) => {
     const cart = get().cartValues;
     if (cart[id]) {
       const updatedCart = { ...cart };
@@ -74,7 +74,7 @@ export const useCartActionsStore = create<Store>((set, get) => ({
     }
   },
 
-  increaseQuantity: (id: number) => {
+  increaseQuantity: (id: string) => {
     const cart = get().cartValues;
     if (cart[id]) {
       const updatedCart = { ...cart, [id]: cart[id] + 1 };
@@ -86,7 +86,7 @@ export const useCartActionsStore = create<Store>((set, get) => ({
     }
   },
 
-  decreaseQuantity: (id: number) => {
+  decreaseQuantity: (id: string) => {
     const cart = get().cartValues;
     if (cart[id] > 1) {
       const updatedCart = { ...cart, [id]: cart[id] - 1 };

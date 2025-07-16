@@ -15,8 +15,9 @@
       cursor: pointer;
 
       .closeIcon {
-        width: 16px;
-        height: 16px;
+        display: block;
+        width: 24px;
+        height: 24px;
       }
     }
 
@@ -30,6 +31,7 @@
       .itemImage {
         height: 66px;
         width: 66px;
+        object-fit: cover;
       }
     }
 
@@ -62,6 +64,15 @@
         justify-content: center;
         align-items: center;
         background-color: var(--icons);
+
+        &:hover {
+          border: 1px solid var(--secondary);
+        }
+
+        &:disabled {
+          opacity: 0.3;
+          pointer-events: none;
+        }
       }
 
       .quantity {
@@ -82,8 +93,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: var(--secondary);
+        background-color: var(--icons);
         cursor: pointer;
+
+        &:hover {
+          border: 1px solid var(--secondary);
+        }
       }
     }
   }
