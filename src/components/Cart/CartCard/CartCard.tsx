@@ -8,6 +8,7 @@ import type { Product } from '../../../types/product';
 import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
 
 import styles from './CartCard.module.scss';
+import { Link } from 'react-router-dom';
 
 interface CartItemProps {
   item: Product;
@@ -33,11 +34,16 @@ export const CartCard: FC<CartItemProps> = ({ item, onRemove }) => {
         </button>
 
         <div className={styles.containerItemImage}>
-          <img
-            src={item.image}
-            alt={item.name}
-            className={styles.itemImage}
-          />
+          <Link
+            to={`/${item.category}/${item.itemId}`}
+            className={styles.link}
+          >
+            <img
+              src={item.image}
+              alt={item.name}
+              className={styles.itemImage}
+            />
+          </Link>
         </div>
 
         <div className={styles.itemName}>
@@ -55,7 +61,7 @@ export const CartCard: FC<CartItemProps> = ({ item, onRemove }) => {
             <img
               src={minus}
               alt="MINUS BUTTON IMG"
-              className={styles.minusImg}
+              className={clsx(styles.minusImg, 'app-icon')}
             />
           </button>
 
@@ -68,7 +74,7 @@ export const CartCard: FC<CartItemProps> = ({ item, onRemove }) => {
             <img
               src={plus}
               alt="PLUSE BUTTON IMG"
-              className={styles.plusImg}
+              className={clsx(styles.plusImg, 'app-icon')}
             />
           </button>
         </div>

@@ -40,7 +40,7 @@ export const ProductsSlider: FC<Props> = ({
           </button>
           <button className={`${styles.arrow} ${nextClass}`}>
             <img
-              src={`/icons/arrow_right.svg`}
+              src={`/icons/arrow_right_active.svg`}
               alt="Next"
             />
           </button>
