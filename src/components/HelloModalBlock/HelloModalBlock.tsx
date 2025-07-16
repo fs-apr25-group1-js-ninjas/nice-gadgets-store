@@ -10,6 +10,16 @@ export const HelloModalBlock: FC = () => {
     setIsModalOpen(true);
   }, []);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isModalOpen]);
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
