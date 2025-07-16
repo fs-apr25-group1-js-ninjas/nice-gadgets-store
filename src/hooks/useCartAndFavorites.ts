@@ -16,6 +16,7 @@ type Store = {
   removeFromCart: (id: string) => void;
   increaseQuantity: (id: string) => void;
   decreaseQuantity: (id: string) => void;
+  clearCart: () => void;
 };
 
 export const useCartActionsStore = create<Store>((set, get) => ({
@@ -97,5 +98,10 @@ export const useCartActionsStore = create<Store>((set, get) => ({
     } else if (cart[id] === 1) {
       get().removeFromCart(id);
     }
+  },
+
+  clearCart: () => {
+    localStorage.removeItem(NICE_GADGETS_STORE.CART);
+    set({ cartValues: {} });
   },
 }));
