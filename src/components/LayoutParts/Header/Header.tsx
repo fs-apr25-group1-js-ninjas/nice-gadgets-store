@@ -10,7 +10,7 @@ import NiceGadgetsLogo from '/icons/nice_gadgets_logo.svg';
 import NiceGadgetsLogoLight from '/icons/nice_gadgets_logo_light.svg';
 import { ThemeSwitcher } from '../../UI/ThemeSwitcher';
 import clsx from 'clsx';
-import { useCardActionsStore } from '../../../hooks/useCartAndFavorites';
+import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
 import { useThemeStore } from '../../../store/themeStore';
 
 const MOBILE_BREAKPOINT = 639;
@@ -23,7 +23,7 @@ export const Header: FC = () => {
   const isMobileView = windowWidth <= MOBILE_BREAKPOINT;
 
   const { cartValues, favoritesValues, loadFromStorage } =
-    useCardActionsStore();
+    useCartActionsStore();
 
   useEffect(() => {
     loadFromStorage();
