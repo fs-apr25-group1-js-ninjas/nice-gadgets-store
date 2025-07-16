@@ -8,7 +8,6 @@ import CloseIcon from '/icons/close.svg';
 import FavouritesIcon from '/icons/favourites.svg';
 import NiceGadgetsLogo from '/icons/nice_gadgets_logo.svg';
 import NiceGadgetsLogoLight from '/icons/nice_gadgets_logo_light.svg';
-import { ThemeSwitcher } from '../../UI/ThemeSwitcher';
 import clsx from 'clsx';
 import { useCardActionsStore } from '../../../hooks/useCartAndFavorites';
 import { useThemeStore } from '../../../store/themeStore';
@@ -140,7 +139,6 @@ export const Header: FC = () => {
         )}
         {!isMobileView && (
           <div className={styles.headerActions}>
-            <ThemeSwitcher />
             <NavLink
               to="/favourites"
               className={({ isActive }) =>
@@ -280,7 +278,6 @@ export const Header: FC = () => {
           </nav>
 
           <div className={styles.mobileActions}>
-            <ThemeSwitcher />
             <NavLink
               to="/favourites"
               className={({ isActive }) =>
