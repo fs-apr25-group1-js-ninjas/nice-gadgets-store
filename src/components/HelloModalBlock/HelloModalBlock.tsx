@@ -7,18 +7,13 @@ export const HelloModalBlock: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setIsModalOpen(true);
-  }, []);
+    const isFirstVisit = !sessionStorage.getItem('hasVisitedSite');
 
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
+    if (isFirstVisit) {
+      setIsModalOpen(true);
+      sessionStorage.setItem('hasVisitedSite', 'true');
     }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isModalOpen]);
+  }, []);
 
   const closeModal = () => {
     setIsModalOpen(false);
