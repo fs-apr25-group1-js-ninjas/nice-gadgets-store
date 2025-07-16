@@ -20,7 +20,11 @@ export const FavouritesPage: FC = () => {
       try {
         const response = await fetch(API_URL);
         const data = await response.json();
-        setAllProducts(data);
+        const normalized = data.map((product: Product) => ({
+          ...product,
+          id: product.itemId,
+        }));
+        setAllProducts(normalized);
       } catch (error) {
         console.error('Error fetch:', error);
       }

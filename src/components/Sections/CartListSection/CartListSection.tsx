@@ -9,7 +9,7 @@ export interface CartProduct extends Product {
 
 interface CartListSectionProps {
   productsInCart: CartProduct[];
-  onRemove: (id: number) => void;
+  onRemove: (id: string) => void;
 }
 
 export const CartListSection: FC<CartListSectionProps> = ({
