@@ -4,26 +4,20 @@ import clsx from 'clsx';
 import plus from '/icons/plus.svg';
 import minus from '/icons/minus.svg';
 import close from '/icons/close.svg';
+import type { Product } from '../../../types/product';
+import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
 
 import styles from './CartCard.module.scss';
 
 interface CartItemProps {
-  item: {
-    id: number;
-    name: string;
-    price: number;
-    quantity: number;
-    imageUrl: string;
-  };
-  onQuantityChange: (itemId: number, newQuantity: number) => void;
+  item: Product;
   onRemove: (itemId: number) => void;
 }
 
-export const CartCard: FC<CartItemProps> = ({
-  item,
-  onQuantityChange,
-  onRemove,
-}) => {
+export const CartCard: FC<CartItemProps> = ({ item, onRemove }) => {
+  const { cartValues, increaseQuantity, decreaseQuantity } =
+    useCartActionsStore();
+
   return (
     <article className={styles.cartCard}>
       <div className={styles.itemHeader}>
@@ -40,7 +34,7 @@ export const CartCard: FC<CartItemProps> = ({
 
         <div className={styles.containerItemImage}>
           <img
-            src={item.imageUrl}
+            src={item.image}
             alt={item.name}
             className={styles.itemImage}
           />
@@ -54,8 +48,8 @@ export const CartCard: FC<CartItemProps> = ({
       <div className={styles.quantityControl}>
         <div className={styles.addAndSubtructButtons}>
           <button
-            onClick={() => onQuantityChange(item.id, item.quantity - 1)}
-            disabled={item.quantity <= 1}
+            onClick={() => decreaseQuantity(item.id)}
+            disabled={cartValues[item.id] === 1}
             className={styles.minusBotton}
           >
             <img
@@ -65,10 +59,10 @@ export const CartCard: FC<CartItemProps> = ({
             />
           </button>
 
-          <div className={styles.quantity}>{item.quantity}</div>
+          <div className={styles.quantity}>{cartValues[item.id]}</div>
 
           <button
-            onClick={() => onQuantityChange(item.id, item.quantity + 1)}
+            onClick={() => increaseQuantity(item.id)}
             className={styles.plusBotton}
           >
             <img
@@ -79,7 +73,9 @@ export const CartCard: FC<CartItemProps> = ({
           </button>
         </div>
 
-        <div className={styles.fullPrice}>${item.price * item.quantity}</div>
+        <div className={styles.fullPrice}>
+          ${item.price * cartValues[item.id]}
+        </div>
       </div>
     </article>
   );
