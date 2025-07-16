@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import { ProductsSlider } from '../../Sliders/ProductsSlider';
 import type { Product } from '../../../types/product';
-import { getProducts } from '../../../utils/getProducts';
+import { firebaseApi } from '../../../utils/fetchProducts';
 import { getHotPricedProducts } from '../../../utils/getHotPricedProducts';
 
 export const HotPricesSection: FC = () => {
@@ -9,16 +9,16 @@ export const HotPricesSection: FC = () => {
   const productsWithDiscount = getHotPricedProducts(products);
 
   useEffect(() => {
-    const fetchAllProducts = async () => {
+    const loadProducts = async () => {
       try {
-        const data = await getProducts<Product[]>(`./api/products.json`);
+        const data = await firebaseApi.getAllProducts();
         setProducts(data);
       } catch (error) {
-        console.error('Cannot load products', error);
+        console.error('Cannot load products from Firebase:', error);
       }
     };
 
-    fetchAllProducts();
+    loadProducts();
   }, []);
 
   if (!products.length) {

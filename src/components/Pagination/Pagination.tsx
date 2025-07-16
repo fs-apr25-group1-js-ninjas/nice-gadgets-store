@@ -32,12 +32,14 @@ export const Pagination: FC<PaginationProps> = ({
           <img
             src={ArrowRight}
             alt="Next"
+            className="app-icon"
           />
         }
         previousLabel={
           <img
             src={ArrowLeft}
             alt="Previous"
+            className="app-icon"
           />
         }
         onPageChange={(selectedItem) => onPageChange(selectedItem.selected + 1)}
