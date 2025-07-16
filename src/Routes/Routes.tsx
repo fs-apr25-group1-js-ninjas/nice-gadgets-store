@@ -1,12 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { App } from '../App';
-import { CartPage } from '../pages/CartPage/CartPage';
-import { FavouritesPage } from '../pages/FavouritesPage/FavouritesPage';
-import { HomePage } from '../pages/HomePage/HomePage';
-import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
-import { ProductsPage } from '../pages/ProductsPage/ProductsPage';
-import { ProductPageWrapper } from '../components/ProductPageWrapper/ProductPageWrapper';
+import { CartPage } from '../pages/CartPage';
+import { FavouritesPage } from '../pages/FavouritesPage';
+import { HomePage } from '../pages/HomePage';
+import { NotFoundPage } from '../pages/NotFoundPage';
+import { ProductsPage } from '../pages/ProductsPage';
+import { ProductPageWrapper } from '../components/ProductPageWrapper';
+import { AuthPage } from '../pages/AuthPage';
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: 'favourites',
         element: <FavouritesPage />,
+      },
+      {
+        path: 'login',
+        element: <AuthPage />,
       },
     ],
   },

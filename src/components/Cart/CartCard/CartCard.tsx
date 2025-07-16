@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 interface CartItemProps {
   item: Product;
-  onRemove: (itemId: number) => void;
+  onRemove: (itemId: string) => void;
 }
 
 export const CartCard: FC<CartItemProps> = ({ item, onRemove }) => {
