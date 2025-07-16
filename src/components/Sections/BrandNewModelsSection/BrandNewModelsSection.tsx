@@ -1,11 +1,11 @@
 import { useEffect, useState, type FC } from 'react';
 import { ProductsSlider } from '../../Sliders/ProductsSlider';
-import type { Product } from '../../../types/product';
+import type { UnifiedProduct } from '../../../types/unifiedProduct';
 import { firebaseApi } from '../../../utils/fetchProducts';
 import { getNewestProducts } from '../../../utils/getNewestProducts';
 
 export const BrandNewModelsSection: FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<UnifiedProduct[]>([]);
   const newestProducts = getNewestProducts(products);
 
   useEffect(() => {

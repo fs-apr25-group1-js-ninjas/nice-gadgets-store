@@ -2,6 +2,8 @@ import { ref, get, query, orderByChild, equalTo } from 'firebase/database';
 import { database } from '../config/firebase';
 import type { Product } from '../types/product';
 import type { DetailedProduct } from '../types/detailedProduct';
+import type { UnifiedProduct } from '../types/unifiedProduct';
+import { mergeProductData } from './mergeProductData';
 
 export const fetchAllProducts = async (): Promise<Product[]> => {
   try {
@@ -95,7 +97,7 @@ export const fetchDetailedProduct = async (
 
 export const fetchFromCollection = async (
   collectionName: string,
-): Promise<unknown[]> => {
+): Promise<DetailedProduct[]> => {
   try {
     const collectionRef = ref(database, collectionName);
     const snapshot = await get(collectionRef);
@@ -104,7 +106,7 @@ export const fetchFromCollection = async (
       const data = snapshot.val();
       return Object.values(data).filter(
         (item) => item && typeof item === 'object',
-      );
+      ) as DetailedProduct[];
     } else {
       return [];
     }
@@ -138,6 +140,44 @@ export const fetchDetailedProductVariants = async (
   } catch (error) {
     console.error(
       `Error fetching product variants for ${namespaceId} in ${category}:`,
+      error,
+    );
+    throw error;
+  }
+};
+
+export const fetchUnifiedProducts = async (): Promise<UnifiedProduct[]> => {
+  try {
+    // Получаем базовые данные продуктов
+    const products = await fetchAllProducts();
+
+    // Получаем детальные данные из всех категорий
+    const [phones, tablets, accessories] = await Promise.all([
+      fetchFromCollection('phones') as Promise<DetailedProduct[]>,
+      fetchFromCollection('tablets') as Promise<DetailedProduct[]>,
+      fetchFromCollection('accessories') as Promise<DetailedProduct[]>,
+    ]);
+
+    // Объединяем все детальные данные
+    const allDetailedProducts = [...phones, ...tablets, ...accessories];
+
+    // Сливаем данные
+    return mergeProductData(products, allDetailedProducts);
+  } catch (error) {
+    console.error('Error fetching unified products:', error);
+    throw error;
+  }
+};
+
+export const fetchUnifiedProductsByCategory = async (
+  category: string,
+): Promise<UnifiedProduct[]> => {
+  try {
+    const unifiedProducts = await fetchUnifiedProducts();
+    return unifiedProducts.filter((product) => product.category === category);
+  } catch (error) {
+    console.error(
+      `Error fetching unified products for category ${category}:`,
       error,
     );
     throw error;

@@ -1,9 +1,9 @@
-import type { Product } from '../types/product';
+import type { UnifiedProduct } from '../types/unifiedProduct';
 
 export function getProductsByCategory(
   category: string | undefined,
   allCategories: string[],
-  products: Product[],
+  products: UnifiedProduct[],
 ) {
   if (!category || !allCategories.includes(category)) {
     return [];

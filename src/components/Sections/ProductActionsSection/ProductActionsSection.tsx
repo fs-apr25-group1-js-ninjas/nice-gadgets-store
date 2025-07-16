@@ -1,6 +1,6 @@
 import { useState, type FC, useCallback, useMemo } from 'react';
 
-import type { DetailedProduct } from '../../../types/detailedProduct';
+import type { UnifiedProduct } from '../../../types/unifiedProduct';
 
 import fav from '/icons/favourites.svg';
 import favActive from '/icons/favourites_active.svg';
@@ -11,7 +11,7 @@ import { COLOR_MAP } from '../../../constants/colorMap';
 import styles from './ProductActionsSection.module.scss';
 
 interface ProductActionsSectionProps {
-  product: DetailedProduct;
+  product: UnifiedProduct;
   selectedColor: string | null;
   selectedCapacity: string | null;
   onOptionChange: (newColor: string, newCapacity: string) => void;
@@ -73,6 +73,12 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
     ram,
   } = product;
 
+  // Используем данные из объединенного типа, с фоллбэком на старые поля
+  const actualCapacityAvailable = capacityAvailable || [];
+  const actualColorsAvailable = colorsAvailable || [];
+  const actualPriceRegular = priceRegular || product.fullPrice;
+  const actualPriceDiscount = priceDiscount || product.price;
+
   return (
     <section className={styles.productActions}>
       <div className={styles.availableColors}>
@@ -81,7 +87,7 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
           <p className={styles.secondaryText}>ID: {displayId}</p>
         </div>
         <div className={styles.colorOptions}>
-          {colorsAvailable.map((availableColor) => {
+          {actualColorsAvailable.map((availableColor) => {
             const colorValue =
               COLOR_MAP[availableColor.toLowerCase()] || availableColor;
 
@@ -108,7 +114,7 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
       <div className={styles.selectCapacity}>
         <p className={styles.secondaryText}>Select capacity</p>
         <div className={styles.capacityOptions}>
-          {capacityAvailable.map((availableCapacity) => {
+          {actualCapacityAvailable.map((availableCapacity) => {
             const isActive =
               availableCapacity.toLowerCase() ===
               (selectedCapacity || '').toLowerCase();
@@ -131,17 +137,17 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
       <div className={styles.line}></div>
 
       <div className={styles.prices}>
-        {priceDiscount < priceRegular && (
-          <p className={styles.priceDiscount}>${priceDiscount}</p>
+        {actualPriceDiscount < actualPriceRegular && (
+          <p className={styles.priceDiscount}>${actualPriceDiscount}</p>
         )}
         <p
           className={
-            priceDiscount < priceRegular ?
+            actualPriceDiscount < actualPriceRegular ?
               styles.priceRegular
             : styles.priceCurrent
           }
         >
-          ${priceRegular}
+          ${actualPriceRegular}
         </p>
       </div>
 

@@ -1,12 +1,12 @@
 import { useEffect, useState, type FC } from 'react';
 
-import type { Product } from '../../../types/product';
+import type { UnifiedProduct } from '../../../types/unifiedProduct';
 import { firebaseApi } from '../../../utils/fetchProducts';
 
 import { ProductsSlider } from '../../Sliders/ProductsSlider';
 
 export const RecommendedProductsSection: FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<UnifiedProduct[]>([]);
 
   useEffect(() => {
     const loadProducts = async () => {

@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import { CATEGORY_TITLES } from '../constants/categoryTitles';
 import { PRODUCT_PAGES_ALL_CATEGORIES } from '../constants/productPagesAllCategories';
-import type { Product } from '../types/product';
+import type { UnifiedProduct } from '../types/unifiedProduct';
 import { getProductsByCategory } from '../utils/getProductsByCategory';
 import { sortProducts } from '../utils/sortProducts';
 
 export function useCatalogProducts(
-  products: Product[],
+  products: UnifiedProduct[],
   category: string | undefined,
   sortBy: string,
   currentPage: number,

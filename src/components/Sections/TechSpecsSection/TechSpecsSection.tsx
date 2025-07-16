@@ -3,13 +3,13 @@ import styles from './TechSpecsSection.module.scss';
 
 interface TechSpecsSectionProps {
   screen: string;
-  resolution: string;
-  processor: string;
+  resolution?: string;
+  processor?: string;
   ram: string;
   capacity: string;
-  camera: string;
-  zoom: string;
-  cell: string[];
+  camera?: string;
+  zoom?: string;
+  cell?: string[];
 }
 
 export const TechSpecsSection: FC<TechSpecsSectionProps> = ({
@@ -30,8 +30,8 @@ export const TechSpecsSection: FC<TechSpecsSectionProps> = ({
     { label: 'Built in memory', value: capacity },
     { label: 'Camera', value: camera },
     { label: 'Zoom', value: zoom },
-    { label: 'Cell', value: cell.join(', ') },
-  ];
+    { label: 'Cell', value: cell?.join(', ') || 'N/A' },
+  ].filter((spec) => spec.value); // Убираем поля с undefined значениями
 
   return (
     <section className={styles.techSpecsSection}>

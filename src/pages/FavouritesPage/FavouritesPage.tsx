@@ -3,13 +3,12 @@ import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { ProductCard } from '../../components/Product/ProductCard';
 import styles from './FavouritesPage.module.scss';
 import { useCardActionsStore } from '../../hooks/useCartAndFavorites';
-import type { Product } from '../../types/product';
-
-const API_URL = '/api/products.json';
+import type { UnifiedProduct } from '../../types/unifiedProduct';
+import { firebaseApi } from '../../utils/fetchProducts';
 
 export const FavouritesPage: FC = () => {
   const { favoritesValues, loadFromStorage } = useCardActionsStore();
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<UnifiedProduct[]>([]);
 
   useEffect(() => {
     loadFromStorage();
@@ -18,8 +17,7 @@ export const FavouritesPage: FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
+        const data = await firebaseApi.getAllProducts();
         setAllProducts(data);
       } catch (error) {
         console.error('Error fetch:', error);

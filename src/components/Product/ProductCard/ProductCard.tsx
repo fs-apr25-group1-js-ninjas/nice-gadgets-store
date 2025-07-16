@@ -1,6 +1,6 @@
 import styles from './ProductCard.module.scss';
 
-import type { Product } from '../../../types/product';
+import type { UnifiedProduct } from '../../../types/unifiedProduct';
 import { Link } from 'react-router-dom';
 import { AddToCartButton } from '../AddToCartButton';
 import { FavoritesButton } from '../FavoritesButton/FavoritesButton';
@@ -8,7 +8,7 @@ import { useCardActionsStore } from '../../../hooks/useCartAndFavorites';
 import { useEffect, type FC } from 'react';
 
 interface Props {
-  product: Product;
+  product: UnifiedProduct;
   discount?: boolean;
 }
 

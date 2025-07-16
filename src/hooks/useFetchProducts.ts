@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import type { Product } from '../types/product';
+import type { UnifiedProduct } from '../types/unifiedProduct';
 import { firebaseApi } from '../utils/fetchProducts';
 
 export const useFetchProducts = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<UnifiedProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

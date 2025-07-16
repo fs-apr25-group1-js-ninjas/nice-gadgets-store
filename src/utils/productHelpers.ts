@@ -1,10 +1,10 @@
-import type { DetailedProduct } from '../types/detailedProduct';
+import type { UnifiedProduct } from '../types/unifiedProduct';
 
 export const findProductVariant = (
-  variants: DetailedProduct[],
+  variants: UnifiedProduct[],
   color: string | null,
   capacity: string | null,
-): DetailedProduct | undefined => {
+): UnifiedProduct | undefined => {
   const selectedColorLower = (color || '').toLowerCase();
   const selectedCapacityLower = (capacity || '').toLowerCase();
 

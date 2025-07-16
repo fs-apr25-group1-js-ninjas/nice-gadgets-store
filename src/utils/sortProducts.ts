@@ -1,6 +1,6 @@
-import type { Product } from '../types/product';
+import type { UnifiedProduct } from '../types/unifiedProduct';
 
-export const sortProducts = (products: Product[], sortBy: string) => {
+export const sortProducts = (products: UnifiedProduct[], sortBy: string) => {
   switch (sortBy) {
     case 'newest':
       return [...products].sort((a, b) => b.year - a.year);

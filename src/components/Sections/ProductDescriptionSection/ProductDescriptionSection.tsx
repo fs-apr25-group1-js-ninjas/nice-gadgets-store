@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import type { DetailedProduct } from '../../../types/detailedProduct';
+import type { UnifiedProduct } from '../../../types/unifiedProduct';
 
 import { TechSpecsSection } from '../TechSpecsSection';
 import { AboutSection } from '../AboutSection';
@@ -8,7 +8,7 @@ import { AboutSection } from '../AboutSection';
 import styles from './ProductDescriptionSection.module.scss';
 
 interface ProductDescriptionSectionProps {
-  product: DetailedProduct;
+  product: UnifiedProduct;
 }
 
 export const ProductDescriptionSection: FC<ProductDescriptionSectionProps> = ({
@@ -16,7 +16,7 @@ export const ProductDescriptionSection: FC<ProductDescriptionSectionProps> = ({
 }) => {
   return (
     <section className={styles.productDescriptionSection}>
-      <AboutSection description={product.description} />
+      <AboutSection description={product.description || []} />
       <TechSpecsSection
         screen={product.screen}
         resolution={product.resolution}

@@ -1,7 +1,7 @@
 import { type FC } from 'react';
 import styles from './ProductsSlider.module.scss';
 import { ProductCard } from '../../Product/ProductCard';
-import type { Product } from '../../../types/product';
+import type { UnifiedProduct } from '../../../types/unifiedProduct';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 //@ts-expect-error: Swiper CSS has no TS types
@@ -10,7 +10,7 @@ import { Navigation } from 'swiper/modules';
 
 interface Props {
   title: string;
-  products: Product[];
+  products: UnifiedProduct[];
   navigationNext?: string;
   navigationPrev?: string;
   discount?: boolean;

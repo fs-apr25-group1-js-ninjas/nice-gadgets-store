@@ -1,6 +1,6 @@
-import type { DetailedProduct } from '../types/detailedProduct';
+import type { UnifiedProduct } from '../types/unifiedProduct';
 
-export const generateDisplayId = (product: DetailedProduct): string => {
+export const generateDisplayId = (product: UnifiedProduct): string => {
   const relevantParams: (string | number)[] = [
     product.category,
     product.name,

@@ -1,9 +1,9 @@
 import {
-  fetchAllProducts,
-  fetchProductsByCategory,
   fetchDetailedProduct,
   fetchFromCollection,
   fetchDetailedProductVariants,
+  fetchUnifiedProducts,
+  fetchUnifiedProductsByCategory,
 } from './firebaseUtils';
 
 function wait(delay: number) {
@@ -15,12 +15,12 @@ function wait(delay: number) {
 export const firebaseApi = {
   getAllProducts: async () => {
     await wait(300);
-    return fetchAllProducts();
+    return fetchUnifiedProducts();
   },
 
   getProductsByCategory: async (category: string) => {
     await wait(300);
-    return fetchProductsByCategory(category);
+    return fetchUnifiedProductsByCategory(category);
   },
 
   getDetailedProduct: async (category: string, itemId: string) => {

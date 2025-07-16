@@ -1,11 +1,11 @@
 import { useEffect, useState, type FC } from 'react';
 import { ProductsSlider } from '../../Sliders/ProductsSlider';
-import type { Product } from '../../../types/product';
+import type { UnifiedProduct } from '../../../types/unifiedProduct';
 import { firebaseApi } from '../../../utils/fetchProducts';
 import { getHotPricedProducts } from '../../../utils/getHotPricedProducts';
 
 export const HotPricesSection: FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<UnifiedProduct[]>([]);
   const productsWithDiscount = getHotPricedProducts(products);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import type { ProductDescription } from '../../../types/detailedProduct';
+import type { ProductDescription } from '../../../types/unifiedProduct';
 
 import styles from './AboutSection.module.scss';
 

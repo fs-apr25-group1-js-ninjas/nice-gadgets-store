@@ -13,7 +13,7 @@ import { ProductOverviewSection } from '../../components/Sections/ProductOvervie
 import { RecommendedProductsSection } from '../../components/Sections/RecommendedProductsSection';
 
 import { CustomSpinner } from '../../components/Spinner';
-import { useDetailedProduct } from '../../hooks/useDetailedProduct';
+import { useUnifiedProduct } from '../../hooks/useUnifiedProduct';
 import { NotFoundPage } from '../NotFoundPage/NotFoundPage';
 import styles from './ProductPage.module.scss';
 
@@ -34,7 +34,7 @@ export const ProductPage: FC = () => {
     updateProductUrl,
     currentSelectedColorFromUrl,
     currentSelectedCapacityFromUrl,
-  } = useDetailedProduct({
+  } = useUnifiedProduct({
     category,
     itemId,
     searchParams,

@@ -1,5 +1,7 @@
-import type { Product } from '../types/product';
+import type { UnifiedProduct } from '../types/unifiedProduct';
 
-export const getNewestProducts = (products: Product[]): Product[] => {
+export const getNewestProducts = (
+  products: UnifiedProduct[],
+): UnifiedProduct[] => {
   return [...products].sort((a, b) => b.year - a.year).slice(0, 20);
 };

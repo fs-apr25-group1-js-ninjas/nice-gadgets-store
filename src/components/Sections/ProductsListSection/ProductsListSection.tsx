@@ -1,12 +1,12 @@
 import type { FC } from 'react';
-import type { Product } from '../../../types/product';
+import type { UnifiedProduct } from '../../../types/unifiedProduct';
 import { ProductCard } from '../../Product/ProductCard';
 import { SkeletonCard } from '../../Skeleton';
 import styles from './ProductsListSection.module.scss';
 
 interface ProductsListSectionProps {
   isLoading: boolean;
-  productsFromServer: Product[];
+  productsFromServer: UnifiedProduct[];
   itemsOnPage: string | number;
 }
 
