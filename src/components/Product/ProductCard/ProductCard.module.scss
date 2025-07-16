@@ -11,8 +11,7 @@
   border: 1px solid transparent;
 
   &:hover {
-    border-color: var(--selected);
-    transform: scale(1.03);
+    transform: translateY(-5px);
   }
 }
 
@@ -110,4 +109,5 @@
   justify-content: space-between;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
