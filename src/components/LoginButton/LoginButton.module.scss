@@ -1,4 +1,4 @@
-.themeSwitcher {
+.loginButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,11 +16,11 @@
     background-color: var(--hover);
   }
 
-  &:hover .themeIcon {
+  &:hover .loginIcon {
     opacity: 0.7;
   }
 
-  .themeIcon {
+  .loginIcon {
     width: 24px;
     height: 24px;
   }
