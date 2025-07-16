@@ -11,7 +11,7 @@ import styles from './CartCard.module.scss';
 
 interface CartItemProps {
   item: Product;
-  onRemove: (itemId: number) => void;
+  onRemove: (itemId: string) => void;
 }
 
 export const CartCard: FC<CartItemProps> = ({ item, onRemove }) => {

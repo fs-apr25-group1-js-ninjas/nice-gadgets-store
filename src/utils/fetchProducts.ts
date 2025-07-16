@@ -3,7 +3,6 @@ import {
   fetchAllProducts,
   fetchProductsByCategory,
   fetchDetailedProduct,
-  fetchFromCollection,
   fetchDetailedProductVariants,
 } from './firebaseUtils';
 
@@ -36,12 +35,6 @@ export const firebaseApi = {
   getDetailedProduct: async (category: string, itemId: string) => {
     await wait(300);
     return fetchDetailedProduct(category, itemId);
-  },
-
-  getFromCollection: async (collectionName: string) => {
-    await wait(300);
-    const productsFromApi = await fetchFromCollection(collectionName);
-    return normalizeProducts(productsFromApi as Product[]);
   },
 
   getDetailedProductVariants: async (category: string, namespaceId: string) => {
