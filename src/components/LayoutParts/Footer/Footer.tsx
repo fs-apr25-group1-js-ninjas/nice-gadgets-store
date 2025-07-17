@@ -1,9 +1,8 @@
 import type { FC } from 'react';
-import clsx from 'clsx';
 
 import logo from '/icons/nice_gadgets_logo.svg';
 import logoLight from '/icons/nice_gadgets_logo_light.svg';
-import arrowUpIcon from '/icons/arrow_up.svg';
+import arrowUpIcon from '/icons/arrow_up_active.svg';
 
 import styles from './Footer.module.scss';
 import { useThemeStore } from '../../../store/themeStore';
@@ -64,7 +63,7 @@ export const Footer: FC = () => {
             <img
               src={arrowUpIcon}
               alt="Up arrow"
-              className={clsx(styles.arrowIcon, 'app-icon')}
+              className={styles.arrowIcon}
             />
           </button>
         </div>
