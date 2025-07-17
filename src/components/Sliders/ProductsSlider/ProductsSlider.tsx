@@ -1,12 +1,12 @@
 import { type FC } from 'react';
-import styles from './ProductsSlider.module.scss';
-import { ProductCard } from '../../Product/ProductCard';
-import type { Product } from '../../../types/product';
-
+import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Product } from '../../../types/product';
+import { ProductCard } from '../../Product/ProductCard';
+import { SkeletonCard } from '../../Skeleton';
 //@ts-expect-error: Swiper CSS has no TS types
 import 'swiper/scss';
-import { Navigation } from 'swiper/modules';
+import styles from './ProductsSlider.module.scss';
 
 interface Props {
   title: string;
@@ -14,6 +14,7 @@ interface Props {
   navigationNext?: string;
   navigationPrev?: string;
   discount?: boolean;
+  isLoading: boolean;
 }
 
 export const ProductsSlider: FC<Props> = ({
@@ -22,10 +23,27 @@ export const ProductsSlider: FC<Props> = ({
   navigationNext,
   navigationPrev,
   discount,
+  isLoading,
 }) => {
-  // Provide default class names if navigationNext or navigationPrev are not passed
   const nextClass = navigationNext || 'products-slider-next';
   const prevClass = navigationPrev || 'products-slider-prev';
+
+  if (isLoading) {
+    const skeletonCount = 4;
+
+    return (
+      <div className={styles.skeletonWrapper}>
+        {Array.from({ length: skeletonCount }, (_, index) => (
+          <div
+            key={index}
+            className={styles.card}
+          >
+            <SkeletonCard width={styles.width} />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <section className={styles.slider}>

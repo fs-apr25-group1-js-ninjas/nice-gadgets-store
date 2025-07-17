@@ -1,9 +1,15 @@
 import type { FC } from 'react';
 import styles from './Skeleton.module.scss';
 
-export const SkeletonCard: FC = () => {
+interface SkeletonCardProps {
+  width?: string;
+}
+
+export const SkeletonCard: FC<SkeletonCardProps> = ({ width }) => {
+  const cardWidth = width ? width : styles.cardWidth;
+
   return (
-    <div className={`animate-pulse ${styles.card}`}>
+    <div className={`animate-pulse ${cardWidth} ${styles.card}`}>
       <div className="p-8">
         <div
           className={`w-full ${styles.image} ${styles.skeleton} rounded-lg`}

@@ -80,3 +80,12 @@
   flex-shrink: 0;
   overflow: visible;
 }
+
+.skeletonWrapper {
+  display: flex;
+  gap: 16px;
+}
+
+.width {
+  width: 272px;
+}
