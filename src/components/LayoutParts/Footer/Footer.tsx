@@ -7,6 +7,7 @@ import arrowUpIcon from '/icons/arrow_up.svg';
 
 import styles from './Footer.module.scss';
 import { useThemeStore } from '../../../store/themeStore';
+import { Link } from 'react-router-dom';
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -32,7 +33,7 @@ export const Footer: FC = () => {
 
         <nav className={styles.footerNavigation}>
           <a
-            href="#"
+            href="https://github.com/fs-apr25-group1-js-ninjas/nice-gadgets-store"
             className={styles.navLink}
           >
             Github
@@ -43,12 +44,12 @@ export const Footer: FC = () => {
           >
             Contacts
           </a>
-          <a
-            href="#"
+          <Link
+            to="/rights"
             className={styles.navLink}
           >
             Rights
-          </a>
+          </Link>
         </nav>
 
         <div
