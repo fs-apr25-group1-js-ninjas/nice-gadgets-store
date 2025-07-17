@@ -41,7 +41,6 @@ export const SignIn: FC = () => {
       );
       console.log('Вход успешен!');
 
-      // Загружаем данные пользователя из Firebase в локальное хранилище
       await loadUserDataToStore(userCredential.user.uid);
 
       reset();
@@ -153,10 +152,9 @@ export const SignIn: FC = () => {
           <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
             or sign in with
           </p>
-
-          <GoogleSSOAuth />
         </div>
       </form>
+      <GoogleSSOAuth />
       <ToastContainer
         position="top-right"
         autoClose={5000}

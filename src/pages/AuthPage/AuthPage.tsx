@@ -1,10 +1,10 @@
-import { useEffect, useState, type FC } from 'react';
-// import styles from './AuthPage.module.scss';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState, type FC } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SignIn } from '../../components/SignIn';
 import { SignUp } from '../../components/SignUp';
 import { auth } from '../../config/firebase';
+import styles from './AuthPage.module.scss';
 
 export const AuthPage: FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -24,7 +24,7 @@ export const AuthPage: FC = () => {
   }, [location.pathname, navigate]);
 
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className={`bg-white ${styles.authPage}`}>
       <div className="container flex flex-col items-center justify-center min-h-screen px-8 mx-auto">
         {!isSignUp ?
           <SignIn />
