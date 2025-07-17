@@ -1,14 +1,15 @@
 import { useEffect, useState, type FC } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { ProductCard } from '../../components/Product/ProductCard';
-import styles from './FavouritesPage.module.scss';
 import { useCartActionsStore } from '../../hooks/useCartAndFavorites';
+import { useFetchProducts } from '../../hooks/useFetchProducts';
 import type { Product } from '../../types/product';
-
-const API_URL = '/api/products.json';
+import styles from './FavouritesPage.module.scss';
+import { SkeletonCard } from '../../components/Skeleton';
 
 export const FavouritesPage: FC = () => {
   const { favoritesValues, loadFromStorage } = useCartActionsStore();
+  const { products, isLoading } = useFetchProducts();
   const [allProducts, setAllProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -16,26 +17,19 @@ export const FavouritesPage: FC = () => {
   }, [loadFromStorage]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        const normalized = data.map((product: Product) => ({
-          ...product,
-          id: product.itemId,
-        }));
-        setAllProducts(normalized);
-      } catch (error) {
-        console.error('Error fetch:', error);
-      }
-    };
+    const normalized = products.map((product: Product) => ({
+      ...product,
+      id: product.itemId,
+    }));
 
-    fetchProducts();
-  }, []);
+    setAllProducts(normalized);
+  }, [products]);
 
   const favouriteProducts = allProducts.filter((product) =>
     favoritesValues.includes(product.id),
   );
+
+  const skeletonCount = 4;
 
   return (
     <div className={styles.favorites}>
@@ -45,13 +39,19 @@ export const FavouritesPage: FC = () => {
 
       <h1 className={styles.title}>Favourites</h1>
 
-      {favouriteProducts.length === 0 ?
-        <div className={styles.empty}>
-          <p>The favorite is empty!</p>
-        </div>
-      : <>
-          <p className={styles.count}>{favouriteProducts.length} items</p>
-          <div className={styles.grid}>
+      <p className={styles.count}>{favouriteProducts.length} items</p>
+
+      <div className={styles.grid}>
+        {isLoading ?
+          Array.from({ length: skeletonCount }, (_, index) => (
+            <div
+              key={index}
+              className={styles.card}
+            >
+              <SkeletonCard width={styles.width} />
+            </div>
+          ))
+        : <>
             {favouriteProducts.map((product) => (
               <div
                 key={product.id}
@@ -60,9 +60,9 @@ export const FavouritesPage: FC = () => {
                 <ProductCard product={product} />
               </div>
             ))}
-          </div>
-        </>
-      }
+          </>
+        }
+      </div>
     </div>
   );
 };
