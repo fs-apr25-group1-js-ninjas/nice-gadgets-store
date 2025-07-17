@@ -7,7 +7,6 @@ import { auth } from '../../config/firebase';
 import { useCartActionsStore } from '../../hooks/useCartAndFavorites';
 import { handleError } from '../../utils/errorHandler';
 import { loadUserDataToStore, syncUserData } from '../../utils/userDataSync';
-import { GoogleSSOAuth } from '../SSO-Auth/GoogleSSOAuth';
 import styles from './SignUp.module.scss';
 
 interface FormValues {
@@ -246,12 +245,6 @@ export const SignUp: FC = () => {
               <span className={styles.loader}></span>
             : 'Sign up'}
           </button>
-
-          <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
-            or sign up with
-          </p>
-
-          <GoogleSSOAuth />
         </div>
       </form>
 
