@@ -1,0 +1,69 @@
+.card {
+  padding: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  border-bottom: 1px solid var(--primary);
+
+  .personContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  .name {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: var(--accent);
+  }
+
+  .role {
+    font-size: 18px;
+    color: var(--icons);
+    margin-bottom: 15px;
+  }
+
+  .descriptionList {
+    padding: 0 20px;
+    margin: 0 0 20px 0;
+    text-align: left;
+    font-size: 14px;
+    color: var(--main-second);
+    width: 100%;
+
+    .descriptionItem {
+      margin-bottom: 4px;
+      position: relative;
+    }
+  }
+
+  .socialLinks {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 20px;
+    width: 100%;
+    gap: 24px;
+
+    .socialLink {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: bold;
+      &:hover {
+        color: var(--elements);
+      }
+    }
+  }
+}

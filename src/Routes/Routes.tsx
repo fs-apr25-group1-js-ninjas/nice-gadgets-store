@@ -7,6 +7,7 @@ import { HomePage } from '../pages/HomePage/HomePage';
 import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
 import { ProductsPage } from '../pages/ProductsPage/ProductsPage';
 import { ProductPageWrapper } from '../components/ProductPageWrapper/ProductPageWrapper';
+import { ContactsPage } from '../pages/ContactsPage';
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: 'favourites',
         element: <FavouritesPage />,
+      },
+      {
+        path: 'contacts',
+        element: <ContactsPage />,
       },
     ],
   },
