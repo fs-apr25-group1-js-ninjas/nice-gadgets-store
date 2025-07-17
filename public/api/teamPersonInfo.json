@@ -64,10 +64,12 @@
     "name": "Stanislav Snizhkovyi",
     "role": "Guru Libraries",
     "description": [
-      "- Implemented user authentication using Firebase.",
-      "- Developed custom React hooks to encapsulate reusable logic and manage component state.",
-      "- Created custom React Hooks for product handling",
-      "- Developed Product Details, Contacts, and Rights pages"
+      "- Implemented authentication with Firebase and React Hook Form.",
+      "- Performed CRUD with Firebase Realtime Database.",
+      "- Created custom React hooks for state and logic reuse.",
+      "- Used UI libraries: Tailwind, Base UI, Swiper, React-Toastify, React-Paginate, Skeleton.",
+      "- Built a catalog with sorting, pagination, and item count via URL query params.",
+      "- Deployed the project to Vercel"
     ],
     "linkedin": "https://www.linkedin.com/in/stanislav-snizhkovyi/",
     "github": "https://github.com/stanislav-sn",
