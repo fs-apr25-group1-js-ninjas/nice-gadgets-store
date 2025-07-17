@@ -21,14 +21,13 @@ export const HelloModalBlock: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    }
+    const isFirstVisit = !sessionStorage.getItem('hasVisitedSite');
 
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isModalOpen]);
+    if (isFirstVisit) {
+      setIsModalOpen(true);
+      sessionStorage.setItem('hasVisitedSite', 'true');
+    }
+  }, []);
 
   const closeModal = () => {
     setIsModalOpen(false);
