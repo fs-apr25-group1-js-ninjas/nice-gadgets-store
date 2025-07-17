@@ -7,11 +7,15 @@
   }
 
   .back {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
+
+    @media (min-width: 640px) {
+      margin-bottom: 40px;
+    }
   }
 
   .title {
-    margin: 24px 0 8px;
+    margin-bottom: 24px;
 
     font-size: 32px;
     font-weight: 800;
@@ -19,7 +23,7 @@
     letter-spacing: -0.01em;
 
     @media (min-width: 640px) {
-      margin-top: 40px;
+      margin-bottom: 40px;
 
       font-size: 48px;
       line-height: 56px;
@@ -27,7 +31,7 @@
   }
 
   .subtitle {
-    margin: 24px 0 8px;
+    margin-block: 24px;
 
     font-size: 24px;
     font-weight: 800;
@@ -37,7 +41,7 @@
     color: var(--primary);
 
     @media (min-width: 640px) {
-      margin-top: 40px;
+      margin-bottom: 18px;
 
       font-size: 32px;
       line-height: 56px;
@@ -47,10 +51,12 @@
   .description {
     font-size: 16px;
     line-height: 20px;
+    margin-bottom: 40px;
 
     @media (min-width: 640px) {
       font-size: 16px;
       line-height: 28px;
+      margin-bottom: 24px;
     }
   }
 
