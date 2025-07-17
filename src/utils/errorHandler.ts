@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
-import { ERRORS_LIST } from '../data/errors-data';
 import 'react-toastify/dist/ReactToastify.css';
+import { ERRORS_LIST } from '../data/errors-data';
 
 interface ErrorItem {
   code: string;

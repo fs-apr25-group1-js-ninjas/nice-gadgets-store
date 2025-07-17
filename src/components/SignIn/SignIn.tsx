@@ -1,13 +1,13 @@
-import { useState, type FC } from 'react';
-import { useForm } from 'react-hook-form';
-import type { SubmitHandler } from 'react-hook-form';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../config/firebase';
-import styles from './SignIn.module.scss';
-import { handleError } from '../../utils/handleError';
+import { useState, type FC } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Bounce, ToastContainer } from 'react-toastify';
-import { GoogleSSOAuth } from '../SSO-Auth/GoogleSSOAuth';
+import { auth } from '../../config/firebase';
+import { handleError } from '../../utils/errorHandler';
 import { loadUserDataToStore } from '../../utils/userDataSync';
+import { GoogleSSOAuth } from '../SSO-Auth/GoogleSSOAuth';
+import styles from './SignIn.module.scss';
 
 interface FormInputs {
   email: string;

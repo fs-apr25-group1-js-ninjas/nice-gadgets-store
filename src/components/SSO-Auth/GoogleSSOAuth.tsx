@@ -1,8 +1,8 @@
 import { getAdditionalUserInfo, signInWithPopup } from 'firebase/auth';
 import { auth, googleAuthProvider } from '../../config/firebase';
-import { handleError } from '../../utils/handleError';
-import { syncUserData, loadUserDataToStore } from '../../utils/userDataSync';
 import { useCartActionsStore } from '../../hooks/useCartAndFavorites';
+import { handleError } from '../../utils/errorHandler';
+import { loadUserDataToStore, syncUserData } from '../../utils/userDataSync';
 
 interface AppError {
   code: string;

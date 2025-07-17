@@ -10,14 +10,22 @@ interface UserData {
 }
 
 export const getLocalStorageData = () => {
-  const cart = JSON.parse(
-    localStorage.getItem(NICE_GADGETS_STORE.CART) || '{}',
-  );
-  const favorites = JSON.parse(
-    localStorage.getItem(NICE_GADGETS_STORE.FAVORITES) || '[]',
-  );
+  try {
+    const cartData = localStorage.getItem(NICE_GADGETS_STORE.CART);
+    const favoritesData = localStorage.getItem(NICE_GADGETS_STORE.FAVORITES);
 
-  return { cart, favorites };
+    const cart =
+      cartData && cartData !== 'undefined' ? JSON.parse(cartData) : {};
+    const favorites =
+      favoritesData && favoritesData !== 'undefined' ?
+        JSON.parse(favoritesData)
+      : [];
+
+    return { cart, favorites };
+  } catch (error) {
+    console.error('Error parsing localStorage data:', error);
+    return { cart: {}, favorites: [] };
+  }
 };
 
 export const saveUserToFirebase = async (
@@ -98,11 +106,11 @@ export const loadUserDataToStore = async (uid: string) => {
   if (userData) {
     localStorage.setItem(
       NICE_GADGETS_STORE.CART,
-      JSON.stringify(userData.inCart),
+      JSON.stringify(userData.inCart || {}),
     );
     localStorage.setItem(
       NICE_GADGETS_STORE.FAVORITES,
-      JSON.stringify(userData.inFav),
+      JSON.stringify(userData.inFav || []),
     );
 
     return userData;
@@ -148,5 +156,25 @@ export const syncUserFavoritesToFirebase = async (uid: string) => {
     console.log('Favorites synced to Firebase for user:', uid);
   } catch (error) {
     console.error('Error syncing favorites to Firebase:', error);
+  }
+};
+
+// Функция для очистки поврежденных данных в localStorage
+export const clearCorruptedLocalStorage = () => {
+  try {
+    const cartData = localStorage.getItem(NICE_GADGETS_STORE.CART);
+    const favoritesData = localStorage.getItem(NICE_GADGETS_STORE.FAVORITES);
+
+    if (cartData === 'undefined' || cartData === null) {
+      localStorage.removeItem(NICE_GADGETS_STORE.CART);
+    }
+
+    if (favoritesData === 'undefined' || favoritesData === null) {
+      localStorage.removeItem(NICE_GADGETS_STORE.FAVORITES);
+    }
+  } catch (error) {
+    console.error('Error clearing corrupted localStorage:', error);
+    localStorage.removeItem(NICE_GADGETS_STORE.CART);
+    localStorage.removeItem(NICE_GADGETS_STORE.FAVORITES);
   }
 };

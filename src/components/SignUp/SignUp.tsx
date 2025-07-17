@@ -1,12 +1,12 @@
-import { useState, type FC } from 'react';
-import { useForm } from 'react-hook-form';
-import type { SubmitHandler } from 'react-hook-form';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '../../config/firebase';
-import { syncUserData, loadUserDataToStore } from '../../utils/userDataSync';
-import { useCartActionsStore } from '../../hooks/useCartAndFavorites';
-import { handleError } from '../../utils/handleError';
+import { useState, type FC } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { auth } from '../../config/firebase';
+import { useCartActionsStore } from '../../hooks/useCartAndFavorites';
+import { handleError } from '../../utils/errorHandler';
+import { loadUserDataToStore, syncUserData } from '../../utils/userDataSync';
 import { GoogleSSOAuth } from '../SSO-Auth/GoogleSSOAuth';
 import styles from './SignUp.module.scss';
 
