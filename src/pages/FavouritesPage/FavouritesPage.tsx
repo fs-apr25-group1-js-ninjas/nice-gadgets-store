@@ -2,13 +2,13 @@ import { useEffect, useState, type FC } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs/Breadcrumbs';
 import { ProductCard } from '../../components/Product/ProductCard';
 import styles from './FavouritesPage.module.scss';
-import { useCardActionsStore } from '../../hooks/useCartAndFavorites';
+import { useCartActionsStore } from '../../hooks/useCartAndFavorites';
 import type { Product } from '../../types/product';
 
 const API_URL = '/api/products.json';
 
 export const FavouritesPage: FC = () => {
-  const { favoritesValues, loadFromStorage } = useCardActionsStore();
+  const { favoritesValues, loadFromStorage } = useCartActionsStore();
   const [allProducts, setAllProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -20,7 +20,11 @@ export const FavouritesPage: FC = () => {
       try {
         const response = await fetch(API_URL);
         const data = await response.json();
-        setAllProducts(data);
+        const normalized = data.map((product: Product) => ({
+          ...product,
+          id: product.itemId,
+        }));
+        setAllProducts(normalized);
       } catch (error) {
         console.error('Error fetch:', error);
       }

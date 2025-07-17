@@ -7,7 +7,8 @@ import { HomePage } from '../pages/HomePage/HomePage';
 import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
 import { ProductsPage } from '../pages/ProductsPage/ProductsPage';
 import { ProductPageWrapper } from '../components/ProductPageWrapper/ProductPageWrapper';
-import { ContactsPage } from '../pages/ContactsPage';
+import { AuthPage } from '../pages/AuthPage';
+import { RightsPage } from '../pages/RightsPage';
 
 export const router = createBrowserRouter([
   {
@@ -36,11 +37,16 @@ export const router = createBrowserRouter([
         element: <FavouritesPage />,
       },
       {
-        path: 'contacts',
-        element: <ContactsPage />,
+        path: 'login',
+        element: <AuthPage />,
+      },
+      {
+        path: 'rights',
+        element: <RightsPage />,
       },
     ],
   },
+
   {
     path: '*',
     element: <NotFoundPage />,

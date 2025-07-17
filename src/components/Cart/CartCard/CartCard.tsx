@@ -4,26 +4,21 @@ import clsx from 'clsx';
 import plus from '/icons/plus.svg';
 import minus from '/icons/minus.svg';
 import close from '/icons/close.svg';
+import type { Product } from '../../../types/product';
+import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
 
 import styles from './CartCard.module.scss';
+import { Link } from 'react-router-dom';
 
 interface CartItemProps {
-  item: {
-    id: number;
-    name: string;
-    price: number;
-    quantity: number;
-    imageUrl: string;
-  };
-  onQuantityChange: (itemId: number, newQuantity: number) => void;
-  onRemove: (itemId: number) => void;
+  item: Product;
+  onRemove: (itemId: string) => void;
 }
 
-export const CartCard: FC<CartItemProps> = ({
-  item,
-  onQuantityChange,
-  onRemove,
-}) => {
+export const CartCard: FC<CartItemProps> = ({ item, onRemove }) => {
+  const { cartValues, increaseQuantity, decreaseQuantity } =
+    useCartActionsStore();
+
   return (
     <article className={styles.cartCard}>
       <div className={styles.itemHeader}>
@@ -39,11 +34,16 @@ export const CartCard: FC<CartItemProps> = ({
         </button>
 
         <div className={styles.containerItemImage}>
-          <img
-            src={item.imageUrl}
-            alt={item.name}
-            className={styles.itemImage}
-          />
+          <Link
+            to={`/${item.category}/${item.itemId}`}
+            className={styles.link}
+          >
+            <img
+              src={item.image}
+              alt={item.name}
+              className={styles.itemImage}
+            />
+          </Link>
         </div>
 
         <div className={styles.itemName}>
@@ -54,32 +54,34 @@ export const CartCard: FC<CartItemProps> = ({
       <div className={styles.quantityControl}>
         <div className={styles.addAndSubtructButtons}>
           <button
-            onClick={() => onQuantityChange(item.id, item.quantity - 1)}
-            disabled={item.quantity <= 1}
+            onClick={() => decreaseQuantity(item.id)}
+            disabled={cartValues[item.id] === 1}
             className={styles.minusBotton}
           >
             <img
               src={minus}
               alt="MINUS BUTTON IMG"
-              className={styles.minusImg}
+              className={clsx(styles.minusImg, 'app-icon')}
             />
           </button>
 
-          <div className={styles.quantity}>{item.quantity}</div>
+          <div className={styles.quantity}>{cartValues[item.id]}</div>
 
           <button
-            onClick={() => onQuantityChange(item.id, item.quantity + 1)}
+            onClick={() => increaseQuantity(item.id)}
             className={styles.plusBotton}
           >
             <img
               src={plus}
               alt="PLUSE BUTTON IMG"
-              className={styles.plusImg}
+              className={clsx(styles.plusImg, 'app-icon')}
             />
           </button>
         </div>
 
-        <div className={styles.fullPrice}>${item.price * item.quantity}</div>
+        <div className={styles.fullPrice}>
+          ${item.price * cartValues[item.id]}
+        </div>
       </div>
     </article>
   );

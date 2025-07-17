@@ -23,7 +23,7 @@ html[data-theme='light'] {
   --selected: #323542;
   --hover: #df7700;
   --secondary: #75767f;
-  --icons: #b4bdc3;
+  --icons: #c7c7c7;
   --elements: #161827;
   --surface_1: #eeeeee;
   --surface_2: #e7e7e7;
@@ -63,4 +63,8 @@ html[data-theme='light'] {
   .app-logo {
     filter: invert(1) hue-rotate(180deg);
   }
+}
+
+button {
+  cursor: pointer;
 }

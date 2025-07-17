@@ -33,7 +33,7 @@ export const Footer: FC = () => {
 
         <nav className={styles.footerNavigation}>
           <a
-            href="#"
+            href="https://github.com/fs-apr25-group1-js-ninjas/nice-gadgets-store"
             className={styles.navLink}
           >
             Github
@@ -44,12 +44,12 @@ export const Footer: FC = () => {
           >
             Contacts
           </Link>
-          <a
-            href="#"
+          <Link
+            to="/rights"
             className={styles.navLink}
           >
             Rights
-          </a>
+          </Link>
         </nav>
 
         <div
