@@ -1,8 +1,19 @@
 .checkOut {
+  position: relative;
   display: block;
   border: 1px solid var(--elements);
   padding: 24px;
   width: 100%;
+
+  .discount {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: var(--red);
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 24px;
+  }
 
   .totalTitlePrice {
     display: flex;

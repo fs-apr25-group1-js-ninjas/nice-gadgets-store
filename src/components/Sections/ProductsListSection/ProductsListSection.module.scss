@@ -1,17 +1,17 @@
 .productsList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 288px);
+  grid-template-columns: repeat(auto-fill, 288px);
   justify-content: center;
 
   padding-bottom: 24px;
   gap: 40px 16px;
 
   @media (min-width: 768px) {
-    grid-template-columns: repeat(auto-fit, 230px);
+    grid-template-columns: repeat(auto-fill, 230px);
   }
 
   @media (min-width: 1200px) {
-    grid-template-columns: repeat(auto-fit, 272px);
+    grid-template-columns: repeat(auto-fill, 272px);
   }
 }
 

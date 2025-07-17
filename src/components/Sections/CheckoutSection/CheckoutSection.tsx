@@ -1,16 +1,17 @@
+import { onAuthStateChanged, type User } from 'firebase/auth';
 import type { FC } from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ThankYouPage } from '../../ThankYouPage/ThankYouPage';
 import { ConfirmationModal } from '../../ConfirmationModal/ConfirmationModal';
+import { ThankYouPage } from '../../ThankYouPage/ThankYouPage';
 
+import { auth } from '../../../config/firebase';
 import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
 import { clearUserCartInFirebase } from '../../../utils/userDataSync';
-import { auth } from '../../../config/firebase';
 
-import styles from './CheckoutSection.module.scss';
 import type { Product } from '../../../types/product';
+import styles from './CheckoutSection.module.scss';
 
 type CheckoutSectionProps = {
   productsInCart: (Product & { quantity: number; price: number })[];
@@ -22,18 +23,31 @@ export const CheckoutSection: FC<CheckoutSectionProps> = ({
   const [showThankYouModal, setShowThankYouModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(0);
+  const [user, setUser] = useState<User | null>(null);
 
   const navigate = useNavigate();
   const clearCart = useCartActionsStore((state) => state.clearCart);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const totalItems = productsInCart.reduce(
     (acc, item) => acc + item.quantity,
     0,
   );
-  const totalPrice = productsInCart.reduce(
+
+  const totalPriceBeforeDiscount = productsInCart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
+
+  const discount = user ? 0.05 : 0;
+  const totalPrice = totalPriceBeforeDiscount * (1 - discount);
 
   useEffect(() => {
     if (showThankYouModal || showConfirmationModal) {
@@ -83,10 +97,14 @@ export const CheckoutSection: FC<CheckoutSectionProps> = ({
   return (
     <section className={styles.checkOut}>
       <div className={styles.totalTitlePrice}>
-        <h2>${totalPrice}</h2>
+        <h2>${totalPrice.toFixed(2)}</h2>
+        {user && discount > 0 && <p className={styles.discount}>-5%</p>}
       </div>
       <div className={styles.totalTitleItems}>
-        <p>Total for {totalItems} items </p>
+        <p>
+          Total for {totalItems} items
+          {user ? ' (logged in discount applied)' : ''}
+        </p>
       </div>
       <hr className={styles.line} />
       <button

@@ -12,8 +12,6 @@ export const HelloModalBlock: FC = () => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsModalOpen(false);
-      } else {
-        setIsModalOpen(true);
       }
     });
 
