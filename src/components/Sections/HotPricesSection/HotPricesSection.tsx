@@ -1,35 +1,18 @@
-import { useEffect, useState, type FC } from 'react';
-import { ProductsSlider } from '../../Sliders/ProductsSlider';
-import type { Product } from '../../../types/product';
-import { firebaseApi } from '../../../utils/fetchProducts';
+import { type FC } from 'react';
+import { useFetchProducts } from '../../../hooks/useFetchProducts';
 import { getHotPricedProducts } from '../../../utils/getHotPricedProducts';
+import { ProductsSlider } from '../../Sliders/ProductsSlider';
 
 export const HotPricesSection: FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const { products, isLoading } = useFetchProducts();
   const productsWithDiscount = getHotPricedProducts(products);
-
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const data = await firebaseApi.getAllProducts();
-        setProducts(data);
-      } catch (error) {
-        console.error('Cannot load products from Firebase:', error);
-      }
-    };
-
-    loadProducts();
-  }, []);
-
-  if (!products.length) {
-    return <p>Loading...</p>;
-  }
 
   return (
     <ProductsSlider
       title={'Hot prices'}
       discount={true}
       products={productsWithDiscount}
+      isLoading={isLoading}
     />
   );
 };

@@ -1,12 +1,10 @@
-import { useEffect, useState, type FC } from 'react';
-
-import type { Product } from '../../../types/product';
-import { firebaseApi } from '../../../utils/fetchProducts';
+import { type FC } from 'react';
 
 import { ProductsSlider } from '../../Sliders/ProductsSlider';
+import { useFetchProducts } from '../../../hooks/useFetchProducts';
 
 export const RecommendedProductsSection: FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const { products, isLoading } = useFetchProducts();
 
   const shuffleArray = <T,>(array: T[]): T[] => {
     const shuffled = [...array];
@@ -17,29 +15,14 @@ export const RecommendedProductsSection: FC = () => {
     return shuffled;
   };
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const data = await firebaseApi.getAllProducts();
-        const shuffledProducts = shuffleArray(data);
-        const randomProducts = shuffledProducts.slice(0, 20);
-        setProducts(randomProducts);
-      } catch (error) {
-        console.error('Cannot load products from Firebase:', error);
-      }
-    };
-
-    loadProducts();
-  }, []);
-
-  if (!products.length) {
-    return <p>Loading...</p>;
-  }
+  const shuffledProducts = shuffleArray(products);
+  const randomProducts = shuffledProducts.slice(0, 20);
 
   return (
     <ProductsSlider
       title={'You may also like'}
-      products={products}
+      products={randomProducts}
+      isLoading={isLoading}
     />
   );
 };
