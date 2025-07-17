@@ -1,10 +1,24 @@
-import { useState, useEffect, type FC } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState, type FC } from 'react';
 import { Link } from 'react-router-dom';
+import { auth } from '../../config/firebase';
 import styles from './HelloModalBlock.module.scss';
 import close from '/icons/close.svg';
 
 export const HelloModalBlock: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const listen = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsModalOpen(false);
+      } else {
+        setIsModalOpen(true);
+      }
+    });
+
+    return () => listen();
+  }, []);
 
   useEffect(() => {
     const isFirstVisit = !sessionStorage.getItem('hasVisitedSite');

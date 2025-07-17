@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { AddToCartButton } from '../AddToCartButton';
 import { FavoritesButton } from '../FavoritesButton/FavoritesButton';
 import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
-import { useEffect, type FC } from 'react';
+import { useServerSync } from '../../../hooks/useServerSync';
+import { useEffect, useCallback, type FC } from 'react';
 
 interface Props {
   product: Product;
@@ -20,6 +21,7 @@ export const ProductCard: FC<Props> = ({ product, discount }) => {
     favoritesValues,
     loadFromStorage,
   } = useCartActionsStore();
+  const { syncCartToServer, syncFavoritesToServer } = useServerSync();
 
   const inCart = Boolean(cartValues[product.id]);
   const isFavorited = favoritesValues.includes(product.id);
@@ -28,6 +30,16 @@ export const ProductCard: FC<Props> = ({ product, discount }) => {
     loadFromStorage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleAddToCart = useCallback(async () => {
+    addToCart(product.id);
+    await syncCartToServer();
+  }, [addToCart, product.id, syncCartToServer]);
+
+  const handleAddToFavorites = useCallback(async () => {
+    addToFavorites(product.id);
+    await syncFavoritesToServer();
+  }, [addToFavorites, product.id, syncFavoritesToServer]);
 
   return (
     <div className={styles.card}>
@@ -74,12 +86,12 @@ export const ProductCard: FC<Props> = ({ product, discount }) => {
 
         <div className={styles.actions}>
           <AddToCartButton
-            onClick={() => addToCart(product.id)}
+            onClick={handleAddToCart}
             inCart={inCart}
           />
 
           <FavoritesButton
-            onClick={() => addToFavorites(product.id)}
+            onClick={handleAddToFavorites}
             isActive={isFavorited}
           />
         </div>

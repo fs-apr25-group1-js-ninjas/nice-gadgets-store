@@ -8,6 +8,7 @@ import styles from './ProductActionsSection.module.scss';
 import { AddToCartButton } from '../../Product/AddToCartButton';
 import { FavoritesButton } from '../../Product/FavoritesButton/FavoritesButton';
 import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
+import { useServerSync } from '../../../hooks/useServerSync';
 
 interface ProductActionsSectionProps {
   product: DetailedProduct;
@@ -24,6 +25,7 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
 }) => {
   const { addToCart, addToFavorites, cartValues, favoritesValues } =
     useCartActionsStore();
+  const { syncCartToServer, syncFavoritesToServer } = useServerSync();
 
   const displayId = useMemo(() => generateDisplayId(product), [product]);
 
@@ -48,6 +50,16 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
     },
     [onOptionChange, selectedColor, selectedCapacity],
   );
+
+  const handleAddToCart = useCallback(async () => {
+    addToCart(product.id);
+    await syncCartToServer();
+  }, [addToCart, product.id, syncCartToServer]);
+
+  const handleAddToFavorites = useCallback(async () => {
+    addToFavorites(product.id);
+    await syncFavoritesToServer();
+  }, [addToFavorites, product.id, syncFavoritesToServer]);
 
   const {
     priceRegular,
@@ -137,11 +149,11 @@ export const ProductActionsSection: FC<ProductActionsSectionProps> = ({
 
       <div className={styles.buttons}>
         <AddToCartButton
-          onClick={() => addToCart(product.id)}
+          onClick={handleAddToCart}
           inCart={inCart}
         />
         <FavoritesButton
-          onClick={() => addToFavorites(product.id)}
+          onClick={handleAddToFavorites}
           isActive={isFavorited}
         />
       </div>
