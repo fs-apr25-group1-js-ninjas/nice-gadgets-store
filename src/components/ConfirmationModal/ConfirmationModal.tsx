@@ -33,7 +33,7 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
             className={styles.confirmButton}
             onClick={onConfirm}
           >
-            Yes, clear Cart
+            Yes, confirm
           </button>
           <button
             className={styles.cancelButton}

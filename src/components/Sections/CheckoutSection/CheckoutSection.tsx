@@ -98,7 +98,7 @@ export const CheckoutSection: FC<CheckoutSectionProps> = ({
 
       <ConfirmationModal
         isOpen={showConfirmationModal}
-        message="Checkout is not implemented yet. Do you want to clear the Cart?"
+        message="Confirm your order and clear your cart?"
         onConfirm={handleConfirmCheckout}
         onCancel={handleCancelCheckout}
       />
