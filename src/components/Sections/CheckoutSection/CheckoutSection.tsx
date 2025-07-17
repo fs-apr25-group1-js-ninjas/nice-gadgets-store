@@ -46,8 +46,10 @@ export const CheckoutSection: FC<CheckoutSectionProps> = ({
     0,
   );
 
-  const discount = user ? 0.05 : 0;
+  const LOGGED_IN_USER_DISCOUNT = 0.05;
+  const discount = user ? LOGGED_IN_USER_DISCOUNT : 0;
   const totalPrice = totalPriceBeforeDiscount * (1 - discount);
+  const userDiscount = (discount * 100).toFixed(0);
 
   useEffect(() => {
     if (showThankYouModal || showConfirmationModal) {
@@ -98,7 +100,9 @@ export const CheckoutSection: FC<CheckoutSectionProps> = ({
     <section className={styles.checkOut}>
       <div className={styles.totalTitlePrice}>
         <h2>${totalPrice.toFixed(2)}</h2>
-        {user && discount > 0 && <p className={styles.discount}>-5%</p>}
+        {user && discount > 0 && (
+          <p className={styles.discount}>-{userDiscount}%</p>
+        )}
       </div>
       <div className={styles.totalTitleItems}>
         <p>
