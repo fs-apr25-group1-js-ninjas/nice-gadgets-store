@@ -38,12 +38,12 @@ export const Footer: FC = () => {
           >
             Github
           </a>
-          <a
-            href="#"
+          <Link
+            to="/contacts"
             className={styles.navLink}
           >
             Contacts
-          </a>
+          </Link>
           <Link
             to="/rights"
             className={styles.navLink}
