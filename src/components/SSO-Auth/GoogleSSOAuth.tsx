@@ -1,23 +1,43 @@
-import { ToastContainer } from 'react-toastify';
-import { signInWithPopup } from 'firebase/auth';
-// import { get, ref, set } from 'firebase/database';
+import { getAdditionalUserInfo, signInWithPopup } from 'firebase/auth';
 import { auth, googleAuthProvider } from '../../config/firebase';
-import { handleError } from '../../utils/HandleError';
+import { handleError } from '../../utils/handleError';
+import { syncUserData, loadUserDataToStore } from '../../utils/userDataSync';
+import { useCartActionsStore } from '../../hooks/useCartAndFavorites';
+
+interface AppError {
+  code: string;
+  [key: string]: unknown;
+}
 
 export const GoogleSSOAuth = () => {
+  const { loadFromStorage } = useCartActionsStore();
+
   const handleGoogleAuth = async () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       const user = result.user;
-      console.log(user);
-      // const isNewUser = getAdditionalUserInfo(result).isNewUser;
+      const additionalUserInfo = getAdditionalUserInfo(result);
+      const isNewUser =
+        additionalUserInfo ? additionalUserInfo.isNewUser : false;
+
+      await syncUserData(
+        user.uid,
+        user.displayName || 'Unknown User',
+        user.email || '',
+        isNewUser,
+      );
+      await loadUserDataToStore(user.uid);
+
+      loadFromStorage();
+
+      console.log('Google authentication successful');
     } catch (error) {
       if (error && typeof error === 'object' && 'code' in error) {
         console.log('Error: ', (error as { code: string }).code);
       } else {
         console.log('Unknown error:', error);
       }
-      handleError(error);
+      handleError(error as AppError);
     }
   };
 
@@ -25,7 +45,7 @@ export const GoogleSSOAuth = () => {
     <>
       <button
         onClick={handleGoogleAuth}
-        className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+        className="flex w-full items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
       >
         <svg
           className="w-6 h-6 mx-2"
@@ -51,20 +71,6 @@ export const GoogleSSOAuth = () => {
 
         <span className="mx-2">Sign in with Google</span>
       </button>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        limit={5}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
     </>
   );
 };

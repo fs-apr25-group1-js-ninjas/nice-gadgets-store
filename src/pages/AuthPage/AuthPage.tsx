@@ -1,16 +1,31 @@
-import { useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 // import styles from './AuthPage.module.scss';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SignIn } from '../../components/SignIn';
 import { SignUp } from '../../components/SignUp';
+import { auth } from '../../config/firebase';
 
 export const AuthPage: FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleToggle = () => setIsSignUp((prevIsSignUp) => !prevIsSignUp);
 
+  useEffect(() => {
+    const listen = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate('/');
+      }
+    });
+
+    return () => listen();
+  }, [location.pathname, navigate]);
+
   return (
     <section className="bg-white dark:bg-gray-900">
-      <div className="container flex flex-col items-center justify-center min-h-screen px-6 mx-auto">
+      <div className="container flex flex-col items-center justify-center min-h-screen px-8 mx-auto">
         {!isSignUp ?
           <SignIn />
         : <SignUp />}
@@ -20,7 +35,9 @@ export const AuthPage: FC = () => {
             onClick={handleToggle}
             className="text-sm text-blue-500 hover:underline dark:text-blue-400"
           >
-            Don’t have an account yet? Sign up
+            {!isSignUp ?
+              'Don’t have an account yet? Sign up'
+            : 'Already have an account? Sign in'}
           </button>
         </div>
       </div>

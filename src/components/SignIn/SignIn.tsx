@@ -4,9 +4,10 @@ import type { SubmitHandler } from 'react-hook-form';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import styles from './SignIn.module.scss';
-import { handleError } from '../../utils/HandleError';
+import { handleError } from '../../utils/handleError';
 import { Bounce, ToastContainer } from 'react-toastify';
 import { GoogleSSOAuth } from '../SSO-Auth/GoogleSSOAuth';
+import { loadUserDataToStore } from '../../utils/userDataSync';
 
 interface FormInputs {
   email: string;
@@ -33,8 +34,16 @@ export const SignIn: FC = () => {
     setIsLoading(true);
 
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password,
+      );
       console.log('Вход успешен!');
+
+      // Загружаем данные пользователя из Firebase в локальное хранилище
+      await loadUserDataToStore(userCredential.user.uid);
+
       reset();
     } catch (error: unknown) {
       console.error('Error Firebase:', error);
@@ -133,11 +142,8 @@ export const SignIn: FC = () => {
         <div className="mt-7">
           <button
             type="submit"
-            onClick={() => {
-              reset();
-            }}
             disabled={isLoading}
-            className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+            className="flex items-center justify-center w-full px-6 h-12 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
           >
             {isLoading ?
               <span className={styles.loader}></span>
@@ -155,9 +161,6 @@ export const SignIn: FC = () => {
         position="top-right"
         autoClose={5000}
         limit={5}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
         rtl={false}
         pauseOnFocusLoss
         draggable

@@ -20,7 +20,6 @@ export const handleError = (err: AppError): void => {
   if (!error) {
     console.error(err);
   } else {
-    console.log('test');
     toast.warn(error.message, {
       closeOnClick: true,
       theme: 'dark',
