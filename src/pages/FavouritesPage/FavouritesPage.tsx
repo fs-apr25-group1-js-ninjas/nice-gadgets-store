@@ -41,28 +41,32 @@ export const FavouritesPage: FC = () => {
 
       <p className={styles.count}>{favouriteProducts.length} items</p>
 
-      <div className={styles.grid}>
-        {isLoading ?
-          Array.from({ length: skeletonCount }, (_, index) => (
+      {isLoading ?
+        <div className={styles.grid}>
+          {Array.from({ length: skeletonCount }, (_, index) => (
             <div
-              key={index}
               className={styles.card}
+              key={index}
             >
               <SkeletonCard width={styles.width} />
             </div>
-          ))
-        : <>
-            {favouriteProducts.map((product) => (
-              <div
-                key={product.id}
-                className={styles.cardWrapper}
-              >
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </>
-        }
-      </div>
+          ))}
+        </div>
+      : favouriteProducts.length === 0 ?
+        <div className={styles.empty}>
+          <p>The favorite is empty!</p>
+        </div>
+      : <div className={styles.grid}>
+          {favouriteProducts.map((product) => (
+            <div
+              className={styles.cardWrapper}
+              key={product.id}
+            >
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+      }
     </div>
   );
 };
