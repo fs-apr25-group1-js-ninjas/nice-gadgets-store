@@ -6,6 +6,8 @@ import { ThankYouPage } from '../../ThankYouPage/ThankYouPage';
 import { ConfirmationModal } from '../../ConfirmationModal/ConfirmationModal';
 
 import { useCartActionsStore } from '../../../hooks/useCartAndFavorites';
+import { clearUserCartInFirebase } from '../../../utils/userDataSync';
+import { auth } from '../../../config/firebase';
 
 import styles from './CheckoutSection.module.scss';
 import type { Product } from '../../../types/product';
@@ -49,13 +51,21 @@ export const CheckoutSection: FC<CheckoutSectionProps> = ({
     setShowConfirmationModal(true);
   };
 
-  const handleConfirmCheckout = () => {
+  const handleConfirmCheckout = async () => {
     setShowConfirmationModal(false);
 
     const randomOrderId = Math.floor(Math.random() * 1000000) + 1;
     setCurrentOrderId(randomOrderId);
 
     clearCart();
+
+    if (auth.currentUser) {
+      try {
+        await clearUserCartInFirebase(auth.currentUser.uid);
+      } catch (error) {
+        console.error('Failed to clear cart on server:', error);
+      }
+    }
 
     setShowThankYouModal(true);
   };

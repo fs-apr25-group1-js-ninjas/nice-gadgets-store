@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { clearCorruptedLocalStorage } from '../utils/userDataSync';
 
 export const NICE_GADGETS_STORE = {
   CART: 'NICE_GADGETS_STORE_CART',
@@ -24,13 +25,26 @@ export const useCartActionsStore = create<Store>((set, get) => ({
   favoritesValues: [],
 
   loadFromStorage: () => {
-    const cart = JSON.parse(
-      localStorage.getItem(NICE_GADGETS_STORE.CART) || '{}',
-    );
-    const favs = JSON.parse(
-      localStorage.getItem(NICE_GADGETS_STORE.FAVORITES) || '[]',
-    );
-    set({ cartValues: cart, favoritesValues: favs });
+    try {
+      initializeLocalStorage();
+
+      clearCorruptedLocalStorage();
+
+      const cartData = localStorage.getItem(NICE_GADGETS_STORE.CART);
+      const favoritesData = localStorage.getItem(NICE_GADGETS_STORE.FAVORITES);
+
+      const cart =
+        cartData && cartData !== 'undefined' ? JSON.parse(cartData) : {};
+      const favs =
+        favoritesData && favoritesData !== 'undefined' ?
+          JSON.parse(favoritesData)
+        : [];
+
+      set({ cartValues: cart, favoritesValues: favs });
+    } catch (error) {
+      console.error('Error loading data from localStorage:', error);
+      set({ cartValues: {}, favoritesValues: [] });
+    }
   },
 
   addToCart: (id: string) => {
@@ -105,3 +119,16 @@ export const useCartActionsStore = create<Store>((set, get) => ({
     set({ cartValues: {} });
   },
 }));
+
+export const initializeLocalStorage = () => {
+  const cart = localStorage.getItem(NICE_GADGETS_STORE.CART);
+  const favorites = localStorage.getItem(NICE_GADGETS_STORE.FAVORITES);
+
+  if (!cart || cart === 'undefined') {
+    localStorage.setItem(NICE_GADGETS_STORE.CART, '{}');
+  }
+
+  if (!favorites || favorites === 'undefined') {
+    localStorage.setItem(NICE_GADGETS_STORE.FAVORITES, '[]');
+  }
+};

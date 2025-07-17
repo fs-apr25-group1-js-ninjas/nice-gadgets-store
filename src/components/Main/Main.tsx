@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 import styles from './Main.module.scss';
 import { ThemeSwitcher } from '../UI/ThemeSwitcher';
-import { LoginButton } from '../LoginButton';
+import { UserMenuButton } from '../UserMenuButton';
 
 export const Main: FC = () => {
   return (
@@ -14,8 +14,8 @@ export const Main: FC = () => {
           <div className={styles.themeSwitcherBox}>
             <ThemeSwitcher />
           </div>
-          <div className={styles.loginButtonBox}>
-            <LoginButton />
+          <div className={styles.UserMenuButtonBox}>
+            <UserMenuButton />
           </div>
         </div>
 
