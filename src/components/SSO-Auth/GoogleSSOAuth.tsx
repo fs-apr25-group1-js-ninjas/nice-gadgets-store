@@ -45,7 +45,8 @@ export const GoogleSSOAuth = () => {
     <div className="w-full max-w-md">
       <button
         onClick={handleGoogleAuth}
-        className="flex w-full items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+        className="flex w-full items-center justify-center px-6 py-3 mt-4 text-gray-500 transition-colors duration-300 transform border rounded-lg bg-gray-300 
+        hover:bg-gray-200"
       >
         <svg
           className="w-6 h-6 mx-2"
@@ -69,7 +70,7 @@ export const GoogleSSOAuth = () => {
           />
         </svg>
 
-        <span className="mx-2">Sign in with Google</span>
+        <span className="mx-2 text-gray-600">Sign in with Google</span>
       </button>
     </div>
   );

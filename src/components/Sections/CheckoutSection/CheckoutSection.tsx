@@ -99,7 +99,7 @@ export const CheckoutSection: FC<CheckoutSectionProps> = ({
   return (
     <section className={styles.checkOut}>
       <div className={styles.totalTitlePrice}>
-        <h2>${totalPrice.toFixed(2)}</h2>
+        <h2>${totalPrice.toFixed(0)}</h2>
         {user && discount > 0 && (
           <p className={styles.discount}>-{userDiscount}%</p>
         )}

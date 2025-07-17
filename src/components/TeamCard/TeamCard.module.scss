@@ -26,21 +26,20 @@
   .name {
     font-size: 24px;
     margin-bottom: 5px;
-    color: var(--accent);
+    color: var(--primary);
   }
 
   .role {
     font-size: 18px;
-    color: var(--icons);
+    color: var(--secondary);
     margin-bottom: 15px;
   }
 
   .descriptionList {
-    padding: 0 20px;
-    margin: 0 0 20px 0;
+    padding-inline: 20px;
+    margin-bottom: 20px;
     text-align: left;
     font-size: 14px;
-    color: var(--main-second);
     width: 100%;
 
     .descriptionItem {
@@ -52,17 +51,17 @@
   .socialLinks {
     margin-top: auto;
     display: flex;
-    flex-wrap: wrap;
-    padding: 0 20px;
-    width: 100%;
+    justify-content: center;
     gap: 24px;
 
     .socialLink {
       display: inline-block;
       text-decoration: none;
       font-weight: bold;
+      transition: color 0.3s ease;
+
       &:hover {
-        color: var(--elements);
+        color: var(--primary);
       }
     }
   }

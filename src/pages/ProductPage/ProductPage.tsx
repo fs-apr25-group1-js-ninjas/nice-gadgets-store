@@ -60,11 +60,11 @@ export const ProductPage: FC = () => {
 
       {!loading && error && (
         <>
-          <div className={styles.back}>
-            <GoBackButton />
-          </div>
           <div className={styles.breadcrumbs}>
             <Breadcrumbs lastItemNameOverride="Error" />
+          </div>
+          <div className={styles.back}>
+            <GoBackButton />
           </div>
           <h1 className={styles.productErrorTitle}>Error Loading Product</h1>
           <div className={styles.errorMessage}>{error}</div>
@@ -73,11 +73,11 @@ export const ProductPage: FC = () => {
 
       {!loading && !error && product && (
         <>
-          <div className={styles.back}>
-            <GoBackButton />
-          </div>
           <div className={styles.breadcrumbs}>
             <Breadcrumbs lastItemNameOverride={product.name} />
+          </div>
+          <div className={styles.back}>
+            <GoBackButton />
           </div>
           <h1 className={styles.productPageTitle}>{product.name}</h1>
 

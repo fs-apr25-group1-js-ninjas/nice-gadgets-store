@@ -8,7 +8,6 @@ import type { Product } from '../../types/product';
 import { GoBackButton } from '../../components/GoBackButton/GoBackButton';
 
 export const CartPage: FC = () => {
-  // const navigate = useNavigate();
   const { products } = useFetchProducts();
   const { cartValues, loadFromStorage, removeFromCart } = useCartActionsStore();
 
