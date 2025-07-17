@@ -8,6 +8,7 @@ import { NotFoundPage } from '../pages/NotFoundPage';
 import { ProductsPage } from '../pages/ProductsPage';
 import { ProductPageWrapper } from '../components/ProductPageWrapper';
 import { AuthPage } from '../pages/AuthPage';
+import { RightsPage } from '../pages/RightsPage';
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: 'login',
         element: <AuthPage />,
+      },
+      {
+        path: 'rights',
+        element: <RightsPage />,
       },
     ],
   },
