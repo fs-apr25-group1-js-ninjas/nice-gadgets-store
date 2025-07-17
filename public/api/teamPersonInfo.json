@@ -30,19 +30,21 @@
     "img": "/img/avatar/Yaroslava.jpg"
   },
   {
-    "id": 3,
-    "name": "Yurii Soroka",
-    "role": "UI stylist | UI/UX Implementer",
+    "id": 5,
+    "name": "Stanislav Snizhkovyi",
+    "role": "Guru Libraries",
     "description": [
-      "- Developed robust logic for the Favorites and Cart pages.",
-      "- Designed and built the Contact page from concept to implementation.",
-      "- Created the foundational Footer layout.",
-      "- Integrated the Cart page based on provided designs."
+      "- Implemented authentication with Firebase and React Hook Form.",
+      "- Performed CRUD with Firebase Realtime Database.",
+      "- Created custom React hooks for state and logic reuse.",
+      "- Used UI libraries: Tailwind, Base UI, Swiper, React-Toastify, React-Paginate, Skeleton.",
+      "- Built a catalog with sorting, pagination, and item count via URL query params.",
+      "- Deployed the project to Vercel"
     ],
-    "linkedin": "https://www.linkedin.com/in/yuriy-soroka-41b1342aa/",
-    "github": "https://github.com/Jimmi212",
-    "telegram": "https://t.me/Morjovani",
-    "img": "/img/avatar/Yurii.jpg"
+    "linkedin": "https://www.linkedin.com/in/stanislav-snizhkovyi/",
+    "github": "https://github.com/stanislav-sn",
+    "telegram": "https://t.me/stan_sni",
+    "img": "/img/avatar/Stas.jpg"
   },
   {
     "id": 4,
@@ -60,20 +62,18 @@
     "img": "/img/avatar/Dania.jpg"
   },
   {
-    "id": 5,
-    "name": "Stanislav Snizhkovyi",
-    "role": "Guru Libraries",
+    "id": 3,
+    "name": "Yurii Soroka",
+    "role": "UI stylist | UI/UX Implementer",
     "description": [
-      "- Implemented authentication with Firebase and React Hook Form.",
-      "- Performed CRUD with Firebase Realtime Database.",
-      "- Created custom React hooks for state and logic reuse.",
-      "- Used UI libraries: Tailwind, Base UI, Swiper, React-Toastify, React-Paginate, Skeleton.",
-      "- Built a catalog with sorting, pagination, and item count via URL query params.",
-      "- Deployed the project to Vercel"
+      "- Developed robust logic for the Favorites and Cart pages.",
+      "- Designed and built the Contact page from concept to implementation.",
+      "- Created the foundational Footer layout.",
+      "- Integrated the Cart page based on provided designs."
     ],
-    "linkedin": "https://www.linkedin.com/in/stanislav-snizhkovyi/",
-    "github": "https://github.com/stanislav-sn",
-    "telegram": "https://t.me/stan_sni",
-    "img": "/img/avatar/Stas.jpg"
+    "linkedin": "https://www.linkedin.com/in/yuriy-soroka-41b1342aa/",
+    "github": "https://github.com/Jimmi212",
+    "telegram": "https://t.me/Morjovani",
+    "img": "/img/avatar/Yurii.jpg"
   }
 ]

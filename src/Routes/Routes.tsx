@@ -9,6 +9,7 @@ import { ProductsPage } from '../pages/ProductsPage/ProductsPage';
 import { ProductPageWrapper } from '../components/ProductPageWrapper/ProductPageWrapper';
 import { AuthPage } from '../pages/AuthPage';
 import { RightsPage } from '../pages/RightsPage';
+import { ContactsPage } from '../pages/ContactsPage';
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: 'rights',
         element: <RightsPage />,
+      },
+      {
+        path: 'contacts',
+        element: <ContactsPage />,
       },
     ],
   },
