@@ -101,6 +101,7 @@ export const SignUp: FC = () => {
           </span>
 
           <input
+            type="text"
             {...register('firstName', {
               required: true,
               minLength: 2,
@@ -109,18 +110,18 @@ export const SignUp: FC = () => {
             className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             placeholder="First Name"
           />
+          {errors.firstName && (
+            <span className={styles.error}>
+              {errors.firstName.type === 'required' && 'First name is required'}
+              {errors.firstName.type === 'minLength' &&
+                'First name must be at least 2 characters'}
+              {errors.firstName.type === 'maxLength' &&
+                'First name must not exceed 20 characters'}
+            </span>
+          )}
         </div>
-        {errors.firstName && (
-          <span className={styles.error}>
-            {errors.firstName.type === 'required' && 'First name is required'}
-            {errors.firstName.type === 'minLength' &&
-              'First name must be at least 2 characters'}
-            {errors.firstName.type === 'maxLength' &&
-              'First name must not exceed 20 characters'}
-          </span>
-        )}
 
-        <div className="relative flex items-center mt-4">
+        <div className="relative flex items-center mt-5">
           <span className="absolute">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -139,6 +140,7 @@ export const SignUp: FC = () => {
           </span>
 
           <input
+            type="text"
             {...register('lastName', {
               required: true,
               minLength: 2,
@@ -147,18 +149,18 @@ export const SignUp: FC = () => {
             className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             placeholder="Last Name"
           />
+          {errors.lastName && (
+            <span className={styles.error}>
+              {errors.lastName.type === 'required' && 'Last name is required'}
+              {errors.lastName.type === 'minLength' &&
+                'Last name must be at least 2 characters'}
+              {errors.lastName.type === 'maxLength' &&
+                'Last name must not exceed 20 characters'}
+            </span>
+          )}
         </div>
-        {errors.lastName && (
-          <span className={styles.error}>
-            {errors.lastName.type === 'required' && 'Last name is required'}
-            {errors.lastName.type === 'minLength' &&
-              'Last name must be at least 2 characters'}
-            {errors.lastName.type === 'maxLength' &&
-              'Last name must not exceed 20 characters'}
-          </span>
-        )}
 
-        <div className="relative flex items-center mt-4">
+        <div className="relative flex items-center mt-5">
           <span className="absolute">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -177,6 +179,7 @@ export const SignUp: FC = () => {
           </span>
 
           <input
+            type="email"
             {...register('email', {
               required: true,
               maxLength: 30,
@@ -185,15 +188,17 @@ export const SignUp: FC = () => {
             className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             placeholder="Email address"
           />
+          {errors.email && (
+            <span className={styles.error}>
+              {errors.email.type === 'required' && 'Email is required'}
+              {errors.email.type === 'maxLength' &&
+                'Email must not exceed 30 characters'}
+              {errors.email.type === 'pattern' && 'Invalid email format'}
+            </span>
+          )}
         </div>
-        {errors.email && (
-          <span className={styles.error}>
-            {errors.email.type === 'required' && 'Email is required'}
-            {errors.email.type === 'pattern' && 'Invalid email format'}
-          </span>
-        )}
 
-        <div className="relative flex items-center mt-4">
+        <div className="relative flex items-center mt-5">
           <span className="absolute">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -222,18 +227,18 @@ export const SignUp: FC = () => {
             className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             placeholder="Password"
           />
+          {errors.password && (
+            <span className={styles.error}>
+              {errors.password.type === 'required' && 'Password is required'}
+              {errors.password.type === 'minLength' &&
+                'Password must be at least 6 characters'}
+              {errors.password.type === 'maxLength' &&
+                'Password must not exceed 20 characters'}
+              {errors.password.type === 'pattern' &&
+                'Password can only contain letters and numbers'}
+            </span>
+          )}
         </div>
-        {errors.password && (
-          <span className={styles.error}>
-            {errors.password.type === 'required' && 'Password is required'}
-            {errors.password.type === 'minLength' &&
-              'Password must be at least 6 characters'}
-            {errors.password.type === 'maxLength' &&
-              'Password must not exceed 20 characters'}
-            {errors.password.type === 'pattern' &&
-              'Password can only contain letters and numbers'}
-          </span>
-        )}
 
         <div className="mt-6">
           <button
