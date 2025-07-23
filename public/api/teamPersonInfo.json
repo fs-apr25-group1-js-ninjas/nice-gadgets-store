@@ -1,8 +1,25 @@
 [
   {
+    "id": 5,
+    "name": "Stanislav Snizhkovyi",
+    "role": "Team Lead | Mentor | Guru Libraries",
+    "description": [
+      "- Led the team as Team Lead: assigned tasks, mentored teammates, reviewed pull requests, and resolved merge conflicts.",
+      "- Implemented authentication with Firebase and React Hook Form.",
+      "- Performed CRUD with Firebase Realtime Database.",
+      "- Used UI libraries: Tailwind, Base UI, Swiper, React-Toastify, React-Paginate, Skeleton.",
+      "- Built a catalog with sorting, pagination, and item count via URL query params.",
+      "- Deployed the project to Vercel"
+    ],
+    "linkedin": "https://www.linkedin.com/in/stanislav-snizhkovyi/",
+    "github": "https://github.com/stanislav-sn",
+    "telegram": "https://t.me/stan_sni",
+    "img": "/img/avatar/Stas.jpg"
+  },
+  {
     "id": 1,
     "name": "Andrii Zakharov",
-    "role": "Team Leader | Project Structure Architect",
+    "role": "Tech Leader | Project Structure Architect",
     "description": [
       "- Coordinated version control: reviewed pull requests, resolved merge conflicts, and managed branch strategies.",
       "- Designed and implemented the Shop by Category section on the Home Page.",
@@ -28,23 +45,6 @@
     "github": "https://github.com/jasialazyrka",
     "telegram": "https://t.me/Jasia_Lazurenko",
     "img": "/img/avatar/Yaroslava.jpg"
-  },
-  {
-    "id": 5,
-    "name": "Stanislav Snizhkovyi",
-    "role": "Guru Libraries",
-    "description": [
-      "- Implemented authentication with Firebase and React Hook Form.",
-      "- Performed CRUD with Firebase Realtime Database.",
-      "- Created custom React hooks for state and logic reuse.",
-      "- Used UI libraries: Tailwind, Base UI, Swiper, React-Toastify, React-Paginate, Skeleton.",
-      "- Built a catalog with sorting, pagination, and item count via URL query params.",
-      "- Deployed the project to Vercel"
-    ],
-    "linkedin": "https://www.linkedin.com/in/stanislav-snizhkovyi/",
-    "github": "https://github.com/stanislav-sn",
-    "telegram": "https://t.me/stan_sni",
-    "img": "/img/avatar/Stas.jpg"
   },
   {
     "id": 4,
